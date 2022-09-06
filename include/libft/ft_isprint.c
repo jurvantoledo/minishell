@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_isprint.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/06 15:17:31 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/03/14 15:40:59 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/03/14 15:41:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	main(void)
+int	ft_isprint(int c)
 {
-	printf("Hello world :)");
+	if (c >= 32 && c < 127)
+	{
+		return (c);
+	}
 	return (0);
 }
