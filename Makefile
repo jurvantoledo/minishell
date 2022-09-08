@@ -1,11 +1,13 @@
 NAME = minishell
 CC = gcc
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -lreadline
 INCLUDE = include
 LIBFT_DIR = $(INCLUDE)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-SRC = src/main.c
+SRC =	src/main.c \
+		src/env/env_parser.c \
+		src/lexer/lexer.c
 
 OBJ = $(SRC:%.c=%.o)
 

@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   lexer.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/08 16:48:04 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/09/08 15:28:13 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/09/08 15:30:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	ft_snorlexer(int argc, char *argv[], char *envp[])
 {
-	char			*input;
+	int		i;
 
-	parse_env(envp);
-	// while (1)
-	// {
-	// 	input = readline("shell: ");
-	// 	if (!input)
-	// 		exit(EXIT_FAILURE);
-	// 	add_history(input);
-	// 	free(input);
-	// 	input = NULL;
-	// }
-	return (0);
+	i = 0;
 }
