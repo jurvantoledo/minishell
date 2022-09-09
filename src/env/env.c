@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/08 17:36:06 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/09 10:27:00 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	parse_env(char *envp[])
 {
-	t_env_parsed	*head;
-	t_env_parsed	*type;
-	int				i;
-	char			**split_envp;
+	t_env	*head;
+	t_env	*type;
+	int		i;
+	char	**split_envp;
 
-	type = ft_calloc(sizeof(t_env_parsed), 1);
+	type = ft_calloc(sizeof(t_env), 1);
 	if (!type)
 		return ;
 	head = type;
@@ -31,7 +31,7 @@ void	parse_env(char *envp[])
 		type->value = split_envp[1];
 		if (type->value && type->key)
 		{
-			type->next = ft_calloc(sizeof(t_env_parsed), 1);
+			type->next = ft_calloc(sizeof(t_env), 1);
 			type = type->next;
 		}
 		i++;
