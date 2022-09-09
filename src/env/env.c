@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   env_parser.c                                       :+:    :+:            */
+/*   env.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/09 10:27:00 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/09 11:09:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	parse_env(char *envp[])
 	while (envp[i])
 	{
 		split_envp = ft_split(envp[i], '=');
-		type->key = i;
+		type->key = split_envp[0];
 		type->value = split_envp[1];
 		if (type->value && type->key)
 		{

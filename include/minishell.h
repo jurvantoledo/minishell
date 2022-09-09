@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/09 10:59:09 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/09 11:08:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ typedef enum e_token_type {
 	OUTFILE_APPEND,
 	HERE_DOC,
 	ARGUMENT,
-	COMMAND,
 	PIPE,
+	COMMAND,
 }	t_token_type;
 
 typedef struct s_env {
-	int				key;
+	char			*key;
 	char			*value;
 	struct s_env	*next;
 }	t_env;
