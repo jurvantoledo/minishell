@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/09 11:08:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/15 15:49:43 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,21 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_token {
-	t_token_type	*type;
-}	t_token;
+typedef struct s_lexer {
+	t_token_type	type;
+	char			*input;
+	int				length;
+	int				index;
+	struct s_lexer	*next;
+}	t_lexer;
 
 // Envp parser for storing the keys and values of envp
 void	parse_env(char *envp[]);
 
 // The lexer
-void	ft_snorlexer(char *input);
+void	init_snorlexer(char *input);
+
+// Util Functions
+int		special_chars(char *input);
 
 #endif

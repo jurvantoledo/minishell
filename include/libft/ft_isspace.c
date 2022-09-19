@@ -1,31 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   ft_isspace.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/16 16:04:59 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/09/16 12:28:29 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/09/16 12:29:06 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
-
-int	main(int argc, char *argv[], char *envp[])
+int	ft_isspace(char c)
 {
-	char			*input;
-
-	parse_env(envp);
-	while (1)
-	{
-		input = readline("Dit is echt leuk: ");
-		if (!input)
-			exit(EXIT_FAILURE);
-		add_history(input);
-		ft_snorlexer(input);
-		free(input);
-		input = NULL;
-	}
-	return (0);
+	return (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || \
+			c == ' ');
 }

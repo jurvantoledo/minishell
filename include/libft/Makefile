@@ -35,7 +35,8 @@ SRC = 	ft_atoi.c \
 		ft_strtrim.c \
 		ft_substr.c \
 		ft_tolower.c \
-		ft_toupper.c
+		ft_toupper.c \
+		ft_isspace.c
 
 OBJ_FILES = ${SRC:%.c=%.o}
 

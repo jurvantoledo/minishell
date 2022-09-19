@@ -6,8 +6,10 @@ LIBFT_DIR = $(INCLUDE)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC =	src/main.c \
+		src/utils/utils.c \
 		src/env/env.c \
-		src/lexer/lexer.c
+		src/lexer/lexer.c \
+		src/lexer/lexer2.c
 
 OBJ = $(SRC:%.c=%.o)
 

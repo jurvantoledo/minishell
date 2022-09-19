@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/14 15:44:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/03/14 15:44:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/16 12:29:29 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -389,5 +389,8 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 	 delete the content of an element if needed.
 */
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+// For spaces
+int		ft_isspace(char c);
 
 #endif /* LIBFT_H */

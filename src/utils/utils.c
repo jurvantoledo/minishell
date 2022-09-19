@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   utils.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/16 16:04:59 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/09/15 17:25:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+int	special_chars(char *input)
 {
-	char			*input;
+	int	i;
+	int	j;
 
-	parse_env(envp);
-	while (1)
+	i = 0;
+	while (input[i])
 	{
-		input = readline("Dit is echt leuk: ");
-		if (!input)
-			exit(EXIT_FAILURE);
-		add_history(input);
-		ft_snorlexer(input);
-		free(input);
-		input = NULL;
+		j = 0;
+		while (SPECIAL_CHAR[j])
+		{
+			if (input[i] == SPECIAL_CHAR[j])
+				return (1);
+			j++;
+		}
+		i++;
 	}
 	return (0);
 }
