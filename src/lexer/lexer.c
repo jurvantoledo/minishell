@@ -6,28 +6,78 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:28:13 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/16 16:16:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/20 16:49:35 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <ctype.h>
 
-// t_token_type	set_type(char *input)
+// 1. bepalen of het een special char is of een woord
+// 2. als het een special char is dan set_type
+// 3. als het een woord is dan opslaan per struct wlength, input, index, tokentype
+// (itereer door de list heen en check wat er allemaal in staat)
+
+// t_token_type	set_type(char *input, int pos)
 // {
 // 	if (ft_strncmp(input, "<<", 3) == 0)
 // 		return (HERE_DOC);
 // 	else if (ft_strncmp(input, ">>", 3) == 0)
 // 		return (OUTFILE_APPEND);
-// 	else if (ft_strncmp(input, "|", 2) == 0)
+// 	else if (input[pos] == '|')
 // 		return (PIPE);
-// 	else if (ft_strncmp(input, "<", 2) == 0)
+// 	else if (input[pos] == '<')
 // 		return (INFILE);
-// 	else if (ft_strncmp(input, ">", 2) == 0)
+// 	else if (input[pos] == '>')
 // 		return (OUTFILE);
 // 	else
 // 		return (COMMAND);
 // }
+
+// int	ft_wrlength(char *input)
+// {
+// 	int		i;
+// 	int		count;
+// 	char	*buf;
+
+// 	i = 0;
+// 	count = 0;
+// 	while (input[i])
+// 	{
+// 		if (!ft_isspace(input[i]))
+// 		{
+// 			buf[count] = input[i];
+// 			count++;
+// 			printf("%d\n", count);
+// 		}
+// 		else
+// 		{
+// 			ft_memset(buf, 0, sizeof(buf));
+// 			count = 0;
+// 		}
+// 		i++;
+// 	}
+// 	return (count);
+// }
+
+void	ft_checkinput(t_lexer *lexer, char *input)
+{
+	t_lexer	*new;
+	int		idx;
+
+	idx = 0;
+	new = lexer;
+	while (input[idx])
+	{
+		if (special_chars(input[idx]) == 1)
+			set_type(input, idx);
+		else
+		{
+			// new->length = ft_wrlength(input);
+			// new->input = ft_wrlength(input);
+			// new->index = ft_wrlength(input);
+		}
+	}
+}
 
 // int	ft_get_word(char *input, int pos, t_lexer *lexer)
 // {
@@ -83,7 +133,7 @@
 // 	i = 0;
 // 	while (lexer->input[i])
 // 	{
-// 		lexer->length = ft_wrlength(lexer->input);
+// 		lexer->length = ft_wrlength(lexer->input, lexer);
 // 		if (lexer->length)
 // 		{
 // 			lexer->next = lexer;
@@ -94,17 +144,17 @@
 // 	printf("length of word: %d\n", head->next->length);
 // }
 
-// void	init_snorlexer(char *input)
-// {
-// 	t_lexer	*lexer;
+// // void	init_snorlexer(char *input)
+// // {
+// // 	t_lexer	*lexer;
 
-// 	lexer = ft_calloc(sizeof(t_lexer), 1);
-// 	lexer->input = input;
-// 	lexer->next = NULL;
-// 	lexer->index = 0;
-// 	lexer->length = 1;
-// 	get_type(lexer);
-// }
+// // 	lexer = ft_calloc(sizeof(t_lexer), 1);
+// // 	lexer->input = input;
+// // 	lexer->next = NULL;
+// // 	lexer->index = 0;
+// // 	lexer->length = 1;
+// // 	get_type(lexer);
+// // }
 
 // // 1. door de input itereren
 // // 2. woordlengte vinden
