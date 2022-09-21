@@ -9,7 +9,8 @@ SRC =	src/main.c \
 		src/utils/utils.c \
 		src/env/env.c \
 		src/lexer/lexer.c \
-		src/lexer/lexer2.c
+		src/lexer/lexer2.c \
+		src/lexer/check.c
 
 OBJ = $(SRC:%.c=%.o)
 

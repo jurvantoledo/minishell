@@ -6,48 +6,27 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/20 17:13:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/21 17:29:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token_type	set_type(char *input)
+t_token_type	set_type(char *input, int pos)
 {
 	if (ft_strncmp(input, "<<", 2) == 0)
 		return (HERE_DOC);
 	else if (ft_strncmp(input, ">>", 2) == 0)
 		return (OUTFILE_APPEND);
-	else if (input[0] == '|')
+	else if (input[pos] == '|')
 		return (PIPE);
-	else if (input[0] == '<')
+	else if (input[pos] == '<')
 		return (INFILE);
-	else if (input[0] == '>')
+	else if (input[pos] == '>')
 		return (OUTFILE);
 	else
 		return (COMMAND);
 }
-
-// static int	ft_wrlength(char *input)
-// {
-// 	int		i;
-// 	int		count;
-
-// 	i = 0;
-// 	count = 0;
-// 	while (input[i])
-// 	{
-// 		if (!ft_isspace(input[i]))
-// 		{
-// 			count++;
-// 			printf("%d\n", count);
-// 		}
-// 		else
-// 			count = 0;
-// 		i++;
-// 	}
-// 	return (count);
-// }
 
 static int	ft_wrlength(char *input)
 {
@@ -63,7 +42,21 @@ static int	ft_wrlength(char *input)
 	return (count);
 }
 
-int	add_to_list(t_lexer **head, int length)
+int	ft_pos(char *input)
+{
+	int	i;
+	int	pos;
+
+	i = 0;
+	pos = 0;
+	while (input[i])
+	{
+		i++;
+	}
+	return (pos);
+}
+
+int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
 {
 	t_lexer	*tmp;
 	t_lexer	*new;
@@ -72,6 +65,8 @@ int	add_to_list(t_lexer **head, int length)
 	if (!new)
 		return (0);
 	new->length = length;
+	new->index = pos;
+	new->type = type;
 	new->next = NULL;
 	if (!*head)
 		*head = new;
@@ -87,46 +82,39 @@ int	add_to_list(t_lexer **head, int length)
 
 void	ft_snorlexer(char *input)
 {
-	t_lexer	*head;
-	int		i;
-	int		len;
+	t_lexer				*head;
+	int					i;
+	int					len;
+	t_token_type		type;
 
 	head = NULL;
 	i = 0;
+	len = 0;
 	while (input[i])
 	{
 		len = ft_wrlength(&input[i]);
-		printf("len %d \n", len);
-		add_to_list(&head, len);
+		printf("char: %c \n", input[i]);
+		if (input[i] == '\"')
+		{
+			len = check_double_quotes(&input[i]);
+			printf("len after double quotes function: %d\n", len);
+			i++;
+		}
 		while (input[i] && ft_isspace(input[i]))
 			i++;
+		type = set_type(input, i);
+		add_to_list(&head, len, i, type);
 		i += len;
 		i++;
 	}
-	printf("the length of lexer: %d\n", head->length);
+	while (head != NULL)
+	{
+		printf("index: %d\t lenght: %d\t type: %d\n", head->index, head->length, head->type);
+		head = head->next;
+	}
 }
 
-// void	ft_snorlexer(char *input)
-// {
-// 	t_lexer	*lexer;
-// 	t_lexer	*head;
-// 	int		i;
 
-// 	head = NULL;
-// 	lexer = ft_calloc(sizeof(t_lexer), 1);
-// 	if (!lexer)
-// 		return ;
-// 	head = lexer;
-// 	lexer->length = ft_wrlength(input);
-// 	i = 0;
-// 	while (input[i])
-// 	{
-// 		if (input[i])
-// 		{
-// 			lexer->next = ft_calloc(sizeof(t_lexer), 1);
-// 			lexer = lexer->next;
-// 		}
-// 		i++;
-// 	}
-// 	printf("the length of lexer: %d\n", head->length);
-// }
+// kut "homo tieten" en andere "dingen :)"
+
+// < infile grep "tieten" | je moer > out
