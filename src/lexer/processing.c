@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   processing.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 15:03:41 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/09/22 14:54:42 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/09/22 17:03:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-int	main(int argc, char *argv[], char *envp[])
+void	process_infile(char *input, t_lexer *lexer)
 {
-	char			*input;
+	char	*arg;
+	int		i;
 
-	parse_env(envp);
-	while (1)
+	i = 0;
+	while (input[i])
 	{
-		input = readline("Dit is echt leuk: ");
-		if (!input)
-			exit(EXIT_FAILURE);
-		add_history(input);
-		ft_snorlexer(input);
-		free(input);
-		input = NULL;
+		while (lexer != NULL)
+		{
+			if (lexer->type == 0 && input[lexer->index] == input[i])
+				update_data(lexer, lexer->next->type, INFILE);
+			lexer = lexer->next;
+		}
+		i++;
 	}
-	return (0);
+}
+
+void	post_processing(char *input, t_lexer *lexer)
+{
+	process_infile(input, lexer);
 }
