@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 13:48:55 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/22 13:59:09 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	parse_env(char *envp[]);
 // The lexer
 void	ft_snorlexer(char *input);
 int		check_quotes(char *input);
-void	check_semi_slash(char *input);
 
 // Util Functions
 int		special_chars(char c);
