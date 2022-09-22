@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/21 17:29:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/22 13:49:46 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,29 +92,26 @@ void	ft_snorlexer(char *input)
 	len = 0;
 	while (input[i])
 	{
+		check_semi_slash(&input[i]);
 		len = ft_wrlength(&input[i]);
 		printf("char: %c \n", input[i]);
-		if (input[i] == '\"')
+		while (input[i] && ft_isspace(input[i]))
+			i++;
+		if (input[i] == '\"' || input[i] == '\'')
 		{
-			len = check_double_quotes(&input[i]);
+			len = check_quotes(&input[i]);
 			printf("len after double quotes function: %d\n", len);
 			i++;
 		}
-		while (input[i] && ft_isspace(input[i]))
-			i++;
 		type = set_type(input, i);
 		add_to_list(&head, len, i, type);
 		i += len;
 		i++;
+		len = 0;
 	}
-	while (head != NULL)
-	{
-		printf("index: %d\t lenght: %d\t type: %d\n", head->index, head->length, head->type);
-		head = head->next;
-	}
+	print_list(head);
 }
 
-
-// kut "homo tieten" en andere "dingen :)"
+// kut "homo tieten" en andere "din gen :)"
 
 // < infile grep "tieten" | je moer > out

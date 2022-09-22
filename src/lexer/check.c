@@ -6,25 +6,36 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/21 17:10:43 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/22 13:48:49 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_double_quotes(char *input)
+int	check_quotes(char *input)
 {
 	int	i;
 
-	i = 1;
-	while (input[i] && input[i] != '\"')
+	if (input[0] == '\"')
 	{
-		printf("%d -> [%c]\n", i, input[i]);
-		i++;
+		i = 1;
+		while (input[i] && input[i] != '\"')
+			i++;
+	}
+	if (input[0] == '\'')
+	{
+		i = 1;
+		while (input[i] && input[i] != '\'')
+			i++;
 	}
 	return (i - 1);
 }
 
-//1. input checken op de 1e dquote.
-//2. itereren totdat je een 2e dquote vindt.
-//3. datgene dat tussen die 2 dquotes staat opslaan in struct
+void	check_semi_slash(char *input)
+{
+	int	i;
+
+	i = 0;
+	while ((input[i] && input[i] == '\\') || (input[i] && input[i] == ';'))
+		i++;
+}
