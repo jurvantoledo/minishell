@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 14:54:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 17:03:10 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/22 17:31:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	process_infile(char *input, t_lexer *lexer)
 		{
 			if (lexer->type == 0 && input[lexer->index] == input[i])
 				update_data(lexer, lexer->next->type, INFILE);
+			if (lexer->type == 1 && input[lexer->index] == input[i])
+				update_data(lexer, lexer->next->type, OUTFILE);
 			lexer = lexer->next;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 16:51:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/22 17:25:43 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	update_data(t_lexer *head, int old, int new)
 {
 	t_lexer	*lexer;
-	int		pos;
 
-	pos = 0;
 	if (head == NULL)
 	{
 		printf("Linked List not initialized");
@@ -30,12 +28,10 @@ void	update_data(t_lexer *head, int old, int new)
 		if (lexer->type == old)
 		{
 			lexer->type = new;
-			printf("\n%d found at position %d, \
-					replaced with %d\n", old, pos, new);
+			// printf("old found: %d changed to new %d\n", old, new);
 			return ;
 		}
 		lexer = lexer->next;
-		pos++;
 	}
 
 	printf("%d does not exist in the list\n", old);
