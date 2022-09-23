@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 11:56:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/23 13:40:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	update_data(t_lexer *head, int old, int new)
+void	update_data(t_lexer *head, t_token_type old, t_token_type new)
 {
 	t_lexer	*lexer;
 

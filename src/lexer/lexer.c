@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 10:37:06 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/23 15:51:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_snorlexer(char *input)
 		i++;
 		len = 0;
 	}
-	post_processing(input, head);
+	parser(input, head);
 	print_list(head);
 }
 

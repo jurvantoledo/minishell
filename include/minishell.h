@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 12:16:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/23 16:53:42 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,28 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
+typedef struct s_file {
+	char			*infile;
+	char			*outfile;
+	char			*heredoc;
+	struct s_file	*next;
+}	t_file;
+
 typedef struct s_lexer {
 	t_token_type	type;
-	char			*arg;
 	int				length;
 	int				index;
+	t_file			*file;
 	struct s_lexer	*next;
 }	t_lexer;
+
+typedef struct s_shell
+{
+	t_env	*env;
+	int		fd_in;
+	int		fd_out;
+	t_lexer	*lexer;
+}	t_shell;
 
 // Envp parser for storing the keys and values of envp
 void	parse_env(char *envp[]);
@@ -54,7 +69,7 @@ void	post_processing(char *input, t_lexer *lexer);
 
 // Util Functions
 int		special_chars(char c);
-void	update_data(t_lexer *head, int old, int new);
+void	update_data(t_lexer *head, t_token_type old, t_token_type new);
 
 // List Functions
 void	print_list(t_lexer *head);
