@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 16:39:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/23 10:37:06 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ void	ft_snorlexer(char *input)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			len = check_quotes(&input[i]);
-			printf("len after double quotes function: %d\n", len);
 			i++;
 		}
 		type = set_type(input, i);

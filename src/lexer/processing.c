@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/22 14:54:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/22 17:31:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/23 12:18:54 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	process_infile(char *input, t_lexer *lexer)
+static void	process_in_out(char *input, t_lexer *lexer)
 {
 	char	*arg;
 	int		i;
@@ -32,7 +32,26 @@ void	process_infile(char *input, t_lexer *lexer)
 	}
 }
 
+static int	check_dollar_sign(char *input, t_lexer *lexer)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '$' && input[i + 1] != ' ')
+		{
+			update_data(lexer, 6, ARGUMENT);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
 void	post_processing(char *input, t_lexer *lexer)
 {
-	process_infile(input, lexer);
+	process_in_out(input, lexer);
+	if (check_dollar_sign(input, lexer) != 1)
+		return ;
 }
