@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 17:52:04 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/26 14:38:54 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,25 +20,7 @@
 // lst_addback fixen
 void	ft_redirections(char *input, t_lexer *lexer)
 {
-	t_lexer	*tmp;
-	char	*str;
 
-	tmp = lexer;
-	while (tmp != NULL)
-	{
-		if (tmp->type == 0)
-		{
-			str = ft_substr(input, tmp->next->index, tmp->next->length);
-			if (!str)
-				return ;
-			tmp->file = (t_file *)ft_lstnew((char *)str);
-			tmp->file->infile = str;
-			ft_lstadd_back(&lexer, tmp->file);
-			// printf("werk: %s\n", tmp->file->infile);
-		}
-		tmp = tmp->next;
-	}
-	printf("werk2: %s\n", lexer->file->next->infile);
 }
 
 void	parser(char *input, t_lexer *lexer)
@@ -48,7 +30,7 @@ void	parser(char *input, t_lexer *lexer)
 
 // PARSEN
 
-// Redirect infield(<):
+// Redirect infile(<):
 // - Zoekt naar de file die achter “<“ staat en gebruikt dat als input
 // - Als we < sla woord achter < op / zelfde voor outfile
 

@@ -6,54 +6,68 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 15:51:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/27 17:17:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-t_token_type	set_type(char *input, int pos)
+int	set_type(t_token_type *type, char *input, int pos, int len)
 {
-	if (ft_strncmp(input, "<<", 2) == 0)
-		return (HERE_DOC);
-	else if (ft_strncmp(input, ">>", 2) == 0)
-		return (OUTFILE_APPEND);
+	char	*str;
+
+	str = ft_substr(input, pos, len);
+	if (!str)
+		return (0);
+	if (ft_strncmp(input, "<<", 3) == 0)
+		*type = HERE_DOC;
+	else if (ft_strncmp(input, ">>", 3) == 0)
+		*type = OUTFILE_APPEND;
 	else if (input[pos] == '|')
-		return (PIPE);
+		*type = PIPE;
 	else if (input[pos] == '<')
-		return (INFILE);
+		*type = INFILE;
 	else if (input[pos] == '>')
-		return (OUTFILE);
+		*type = OUTFILE;
 	else
-		return (COMMAND);
+		*type = COMMAND;
+	free(str);
+	return (1);
 }
 
 static int	ft_wrlength(char *input)
 {
-	int		i;
-	int		count;
-
-	i = 0;
-	count = 0;
-	while (input[i] && ft_isspace(input[i]))
-		i++;
-	while (input[i + count] && !ft_isspace(input[i + count]))
-		count++;
-	return (count);
-}
-
-int	ft_pos(char *input)
-{
 	int	i;
-	int	pos;
+	int	len;
 
 	i = 0;
-	pos = 0;
-	while (input[i])
+	len = 0;
+	while (input[i] && !ft_isspace(input[i]) && !special_chars(input[i]))
 	{
+		// if (input[i] == '\"' || input[i] == '\'')
+		// {
+		// 	return (check_quotes(&input[i]));
+		// }
 		i++;
 	}
-	return (pos);
+	return (len);
+}
+
+static int	ft_symbol_len(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i] && !ft_isspace(input[i]))
+	{
+		if ((input[i] == '<' && input[i + 1] == '<') || \
+		(input[i] == '>' && input[i + 1] == '>'))
+			return (2);
+		else if (special_chars(input[i]))
+			return (1);
+	i++;
+	}
+	return (0);
 }
 
 int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
@@ -80,7 +94,7 @@ int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
 	return (1);
 }
 
-void	ft_snorlexer(char *input)
+t_lexer	*ft_snorlexer(char *input)
 {
 	t_lexer				*head;
 	int					i;
@@ -92,22 +106,21 @@ void	ft_snorlexer(char *input)
 	len = 0;
 	while (input[i])
 	{
-		len = ft_wrlength(&input[i]);
 		while (input[i] && ft_isspace(input[i]))
 			i++;
-		if (input[i] == '\"' || input[i] == '\'')
-		{
-			len = check_quotes(&input[i]);
-			i++;
-		}
-		type = set_type(input, i);
-		add_to_list(&head, len, i, type);
+		if (!special_chars(input[i]))
+			len = ft_wrlength(&input[i]);
+		else
+			len = ft_symbol_len(&input[i]);
+		if (set_type(&type, input, i, len) == 0)
+			return (NULL);
+		if (add_to_list(&head, len, i, type) == 0)
+			return (NULL);
 		i += len;
-		i++;
 		len = 0;
 	}
-	parser(input, head);
 	print_list(head);
+	return (head);
 }
 
 // kut "homo tieten" en andere "din gen :)"
