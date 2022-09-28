@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/26 14:38:54 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/28 18:00:43 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,31 @@
 // lst_addback fixen
 void	ft_redirections(char *input, t_lexer *lexer)
 {
+	t_lexer	*head;
+	int		i;
 
+	lexer->file = ft_calloc(sizeof(t_file), 1);
+	if (!lexer->file)
+		return ;
+	head = lexer;
+	while (lexer != NULL)
+	{
+		i = 0;
+		if (lexer->type == 0)
+		{
+			while (i < lexer->next->length)
+			{
+				lexer->file->infile = &input[lexer->next->index];
+				printf("werkt het? %s\n", lexer->file->infile);
+				i++;
+			}
+		}
+			// lexer->file->infile = input[lexer->next->length];
+		lexer = lexer->next;
+	}
 }
 
-void	parser(char *input, t_lexer *lexer)
+void	ft_parser(char *input, t_lexer *lexer)
 {
 	ft_redirections(input, lexer);
 }
