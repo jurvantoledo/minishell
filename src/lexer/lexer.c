@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/27 17:17:01 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:48:12 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,13 @@ int	set_type(t_token_type *type, char *input, int pos, int len)
 static int	ft_wrlength(char *input)
 {
 	int	i;
-	int	len;
 
 	i = 0;
-	len = 0;
-	while (input[i] && !ft_isspace(input[i]) && !special_chars(input[i]))
+	while (input[i] && (!ft_isspace(input[i]) && special_chars(input[i]) == 0))
 	{
-		// if (input[i] == '\"' || input[i] == '\'')
-		// {
-		// 	return (check_quotes(&input[i]));
-		// }
 		i++;
 	}
-	return (len);
+	return (i);
 }
 
 static int	ft_symbol_len(char *input)
@@ -65,12 +59,12 @@ static int	ft_symbol_len(char *input)
 			return (2);
 		else if (special_chars(input[i]))
 			return (1);
-	i++;
+		i++;
 	}
 	return (0);
 }
 
-int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
+static int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
 {
 	t_lexer	*tmp;
 	t_lexer	*new;
@@ -112,6 +106,11 @@ t_lexer	*ft_snorlexer(char *input)
 			len = ft_wrlength(&input[i]);
 		else
 			len = ft_symbol_len(&input[i]);
+		if (input[i] == '\"' || input[i] == '\'')
+		{
+			len = check_quotes(&input[i]) - 1;
+			i += 2;
+		}
 		if (set_type(&type, input, i, len) == 0)
 			return (NULL);
 		if (add_to_list(&head, len, i, type) == 0)

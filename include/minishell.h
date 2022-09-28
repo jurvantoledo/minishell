@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/27 15:31:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/28 15:48:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "./libft/libft.h"
 
 # define MINISHELL_H
-# define SPECIAL_CHAR "$|<>"
+# define SPECIAL_CHAR "$|<>\"\'"
 
 typedef enum e_token_type {
 	INFILE,
@@ -65,7 +65,6 @@ void	parse_env(char *envp[]);
 // Lexer Functions
 t_lexer	*ft_snorlexer(char *input);
 int		check_quotes(char *input);
-void	post_processing(char *input, t_lexer *lexer);
 
 // Util Functions
 int		special_chars(char c);
