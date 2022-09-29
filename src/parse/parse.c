@@ -6,11 +6,21 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/28 18:02:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/29 15:55:35 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static void	print_file_list(t_file *head)
+{
+	while (head != NULL)
+	{
+		printf("the infile: %s\n", head->infile);
+		head = head->next;
+	}
+}
+
 //1. itereer door linkedlist die de input line heeft getokenized
 //2. zoeken naar alle tokentype = 0
 //3. woord achter de '<' opslaan in een node voor elke tokentype = 0 die je tegenkomt
@@ -18,30 +28,49 @@
 
 // TODO:
 // lst_addback fixen net als bij de lexer
+static int	add_to_list(t_file **head, char *infile)
+{
+	t_file	*tmp;
+	t_file	*new;
+
+	new = ft_calloc(sizeof(t_file), 1);
+	if (!new)
+		return (0);
+	printf("infile in add to list function: %s\n", infile);
+	new->infile = infile;
+	new->next = NULL;
+	if (!*head)
+		*head = new;
+	else
+	{
+		tmp = *head;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	return (1);
+}
+
 void	ft_redirections(char *input, t_lexer *lexer)
 {
-	t_lexer	*head;
+	t_file	*file;
 	int		i;
+	char	*infile;
 
-	lexer->file = ft_calloc(sizeof(t_file), 1);
-	if (!lexer->file)
-		return ;
-	head = lexer;
+	file = NULL;
 	while (lexer != NULL)
 	{
 		i = 0;
 		if (lexer->type == 0)
 		{
-			while (i < lexer->next->length)
-			{
-				lexer->file->infile = &input[lexer->next->index];
-				printf("werkt het? %s\n", lexer->file->infile);
-				i++;
-			}
+			infile = ft_substr(input, lexer->next->index, lexer->next->length);
+			if (add_to_list(&file, infile) == 0)
+				return ;
 		}
-			// lexer->file->infile = input[lexer->next->length];
 		lexer = lexer->next;
 	}
+	free(infile);
+	print_file_list(file);
 }
 
 void	ft_parser(char *input, t_lexer *lexer)
