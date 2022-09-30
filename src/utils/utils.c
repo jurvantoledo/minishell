@@ -6,34 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/23 13:40:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/30 16:57:05 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-void	update_data(t_lexer *head, t_token_type old, t_token_type new)
-{
-	t_lexer	*lexer;
-
-	if (head == NULL)
-	{
-		printf("Linked List not initialized\n");
-		return ;
-	}
-	lexer = head;
-	while (lexer != NULL)
-	{
-		if (lexer->type == old)
-		{
-			lexer->type = new;
-			// printf("old found: %d changed to new %d\n", old, new);
-			return ;
-		}
-		lexer = lexer->next;
-	}
-	printf("%d does not exist in the list\n", old);
-}
 
 void	print_list(t_lexer *head)
 {
@@ -42,6 +19,20 @@ void	print_list(t_lexer *head)
 		printf("index: %d\t lenght: %d\t type: %d\n", head->index, \
 				head->length, head->type);
 		head = head->next;
+	}
+}
+
+void	print_file_list(t_infile *in_head, t_outfile *out_head)
+{
+	while (in_head != NULL)
+	{
+		printf("the infile: %s\n", in_head->infile);
+		in_head = in_head->next;
+	}
+	while (out_head)
+	{
+		printf("the outfile: %s\n", out_head->outfile);
+		out_head = out_head->next;
 	}
 }
 

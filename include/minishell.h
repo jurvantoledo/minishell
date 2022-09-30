@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/28 17:39:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/09/30 16:57:36 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,26 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_file {
+typedef struct s_infile {
 	char			*infile;
-	char			*outfile;
-	char			*heredoc;
-	struct s_file	*next;
-}	t_file;
+	char			*heredick;
+	struct s_infile	*next;
+}	t_infile;
+
+typedef struct s_outfile
+{
+	char				*outfile;
+	char				*out_append;
+	struct s_outfile	*next;
+}	t_outfile;
 
 typedef struct s_lexer {
-	t_token_type	type;
-	int				length;
-	int				index;
-	t_file			*file;
-	struct s_lexer	*next;
+	t_token_type		type;
+	int					length;
+	int					index;
+	struct s_infile		*in;
+	struct s_outfile	*out;
+	struct s_lexer		*next;
 }	t_lexer;
 
 typedef struct s_shell
@@ -68,12 +75,11 @@ int		check_quotes(char *input);
 
 // Parser
 void	ft_parser(char *input, t_lexer *lexer);
+int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
 
 // Util Functions
 int		special_chars(char c);
-void	update_data(t_lexer *head, t_token_type old, t_token_type new);
-
-// List Functions
 void	print_list(t_lexer *head);
+void	print_file_list(t_infile *in_head, t_outfile *out_head);
 
 #endif
