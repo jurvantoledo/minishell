@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/28 15:48:12 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/04 14:58:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	set_type(t_token_type *type, char *input, int pos, int len)
 	str = ft_substr(input, pos, len);
 	if (!str)
 		return (0);
-	if (ft_strncmp(input, "<<", 3) == 0)
+	if (ft_strncmp(str, "<<", 3) == 0)
 		*type = HERE_DOC;
-	else if (ft_strncmp(input, ">>", 3) == 0)
+	else if (ft_strncmp(str, ">>", 3) == 0)
 		*type = OUTFILE_APPEND;
 	else if (input[pos] == '|')
 		*type = PIPE;
