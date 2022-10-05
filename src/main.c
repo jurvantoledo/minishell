@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 11:02:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/05 14:52:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	char			*input;
 
-	parse_env(envp);
+	g_shell.env = parse_env(envp);
+	get_env(g_shell.env, "$USER");
 	while (1)
 	{
 		input = readline("Dit is echt leuk: ");

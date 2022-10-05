@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 11:36:45 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/05 15:05:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ t_env	*parse_env(char *envp[])
 		i++;
 	}
 	return (head);
+}
+
+void	get_env(t_env *head, char *pathname)
+{
+
 }

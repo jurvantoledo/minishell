@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 12:34:30 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/05 14:37:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		check_quotes(char *input);
 // Parser
 void	ft_parser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
-void	check_args(char *input, t_lexer *lexer);
+int		check_args(char *input, t_lexer *lexer);
 
 // Util Functions
 int		special_chars(char c);
