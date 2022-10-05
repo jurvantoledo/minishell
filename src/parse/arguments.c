@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   parse.c                                            :+:    :+:            */
+/*   arguments.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 12:43:29 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/04 15:18:34 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/05 13:59:36 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_redirections(char *input, t_lexer *lexer)
+// Check for arguments $ if $? return last exit_code
+static int	arg_len(char *input)
 {
-	t_infile	*in;
-	t_outfile	*out;
-	char		*infile;
+	int	i;
 
-	in = NULL;
-	out = NULL;
-	while (lexer != NULL)
-	{
-		if (lexer->next == NULL)
-			break ;
-		check_files(input, lexer, in, out);
-		lexer = lexer->next;
-	}
+	i = 1;
+	while ((input[i] && special_chars(input[i]) == 0) && !ft_isspace(input[i]))
+		i++;
+	return (i - 1);
 }
 
-void	ft_parser(char *input, t_lexer *lexer)
+void	check_args(char *input, t_lexer *lexer)
 {
-	ft_redirections(input, lexer);
-	check_args(input, lexer);
-	return ;
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (input[i])
+	{
+		if (input[i] == '$')
+		{
+			len = arg_len(&input[i]);
+			printf("%d\n", len);
+		}
+		i++;
+		len = 0;
+	}
 }

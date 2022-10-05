@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/30 16:57:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/05 12:34:30 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ typedef struct s_lexer {
 typedef struct s_shell
 {
 	t_env	*env;
+	int		exit_code;
 	int		fd_in;
 	int		fd_out;
+	int		pipe[2];
+	pid_t	pid;
 	t_lexer	*lexer;
 }	t_shell;
 
+extern t_shell	g_shell;
+
 // Envp parser for storing the keys and values of envp
-void	parse_env(char *envp[]);
+t_env	*parse_env(char *envp[]);
 
 // Lexer Functions
 t_lexer	*ft_snorlexer(char *input);
@@ -76,6 +81,7 @@ int		check_quotes(char *input);
 // Parser
 void	ft_parser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
+void	check_args(char *input, t_lexer *lexer);
 
 // Util Functions
 int		special_chars(char c);
