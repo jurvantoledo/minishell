@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   main.c                                             :+:    :+:            */
+/*   pwd.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 14:15:30 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/06 12:30:54 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/06 14:08:03 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#include "../../include/minishell.h"
 
-t_shell	g_shell;
-
-int	main(int argc, char *argv[], char *envp[])
+int	pwd(void)
 {
-	char			*input;
+	t_env	*pwd;
 
-	g_shell.env = parse_env(envp);
-	while (1)
+	pwd = get_env(g_shell.env, "PWD");
+	if (ft_strncmp(pwd->key, "PWD", 3) == 0)
 	{
-		input = readline("Dit is echt leuk: ");
-		if (!input)
-			exit(EXIT_FAILURE);
-		add_history(input);
-		g_shell.lexer = ft_snorlexer(input);
-		ft_parser(input, g_shell.lexer);
-		free(input);
-		// if (!run_builtins())
-		// 	return (0);
-		input = NULL;
+		ft_putendl_fd(pwd->value, 1);
+		return (1);
 	}
 	return (0);
 }

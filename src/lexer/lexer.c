@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/04 14:58:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/06 14:02:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	set_type(t_token_type *type, char *input, int pos, int len)
 		*type = INFILE;
 	else if (input[pos] == '>')
 		*type = OUTFILE;
+	else if (input[pos] == '$')
+		*type = ARGUMENT;
 	else
 		*type = COMMAND;
 	free(str);
@@ -41,9 +43,7 @@ static int	ft_wrlength(char *input)
 
 	i = 0;
 	while (input[i] && (!ft_isspace(input[i]) && special_chars(input[i]) == 0))
-	{
 		i++;
-	}
 	return (i);
 }
 

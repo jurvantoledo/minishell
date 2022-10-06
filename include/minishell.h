@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 14:37:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/06 14:18:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,21 +58,27 @@ typedef struct s_lexer {
 	struct s_lexer		*next;
 }	t_lexer;
 
+typedef struct s_command {
+	char	**command;
+}	t_command;
+
 typedef struct s_shell
 {
-	t_env	*env;
-	int		exit_code;
-	int		fd_in;
-	int		fd_out;
-	int		pipe[2];
-	pid_t	pid;
-	t_lexer	*lexer;
+	t_env		*env;
+	int			exit_code;
+	int			fd_in;
+	int			fd_out;
+	int			pipe[2];
+	pid_t		pid;
+	t_lexer		*lexer;
+	t_command	*command;
 }	t_shell;
 
 extern t_shell	g_shell;
 
 // Envp parser for storing the keys and values of envp
 t_env	*parse_env(char *envp[]);
+t_env	*get_env(t_env *head, char *pathname);
 
 // Lexer Functions
 t_lexer	*ft_snorlexer(char *input);
@@ -87,5 +93,9 @@ int		check_args(char *input, t_lexer *lexer);
 int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	print_file_list(t_infile *in_head, t_outfile *out_head);
+
+// Builtins
+int		run_builtins(void);
+int		pwd(void);
 
 #endif

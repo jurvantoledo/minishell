@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_strncmp.c                                       :+:    :+:            */
+/*   commands.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/03/14 15:43:44 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 12:39:29 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/06 14:24:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../include/minishell.h"
 
-int	ft_strncmp(const char *str1, const char *str2, size_t num)
+int	check_commands(char *input, t_lexer *lexer)
 {
-	size_t	idx;
+	t_command	*cmd;
+	char		*new_input;
+	char		**split_input;
 
-	idx = 0;
-	while (idx < num)
+	cmd = NULL;
+	while (lexer != NULL)
 	{
-		if (str1[idx] == '\0' || str2[idx] == '\0')
-			return ((unsigned char)str1[idx] - (unsigned char)str2[idx]);
-		else if (str1[idx] != str2[idx])
+		if (lexer->type == 6)
 		{
-			return ((unsigned char)str1[idx] - (unsigned char)str2[idx]);
+			new_input = ft_substr(input, lexer->index, lexer->length);
+			split_input = ft_split(new_input, '-');
+			printf("the splitted command %s\n", split_input[0]);
 		}
-		idx++;
+		lexer = lexer->next;
 	}
-	return (0);
 }

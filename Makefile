@@ -12,7 +12,11 @@ SRC =	src/main.c \
 		src/lexer/check.c \
 		src/parse/parse.c \
 		src/parse/files.c \
-		src/parse/arguments.c
+		src/parse/arguments.c \
+		src/parse/commands.c \
+		src/builtins/run.c \
+		src/builtins/pwd.c \
+		src/builtins/echo.c
 
 OBJ = $(SRC:%.c=%.o)
 
