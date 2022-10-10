@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 14:02:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/10 15:51:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	set_type(t_token_type *type, char *input, int pos, int len)
 		*type = INFILE;
 	else if (input[pos] == '>')
 		*type = OUTFILE;
-	else if (input[pos] == '$')
-		*type = ARGUMENT;
 	else
 		*type = COMMAND;
 	free(str);
@@ -118,6 +116,7 @@ t_lexer	*ft_snorlexer(char *input)
 		i += len;
 		len = 0;
 	}
+	post_process(input, head);
 	print_list(head);
 	return (head);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   files.c                                            :+:    :+:            */
+/*   parse_files.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/05 12:41:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/07 15:22:12 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static int	add_to_infile_list(t_infile **head, char *infile, t_token_type type)
 	new = ft_calloc(sizeof(t_infile), 1);
 	if (!new)
 		return (0);
-	printf("the type: %d\n", type);
 	if (type == 3)
 		new->heredick = infile;
 	else

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 14:18:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/10 16:54:57 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ typedef struct s_outfile
 	struct s_outfile	*next;
 }	t_outfile;
 
+typedef struct s_command {
+	char				*command;
+	struct s_command	*next;
+}	t_command;
+
 typedef struct s_lexer {
 	t_token_type		type;
 	int					length;
@@ -57,10 +62,6 @@ typedef struct s_lexer {
 	struct s_outfile	*out;
 	struct s_lexer		*next;
 }	t_lexer;
-
-typedef struct s_command {
-	char	**command;
-}	t_command;
 
 typedef struct s_shell
 {
@@ -83,16 +84,18 @@ t_env	*get_env(t_env *head, char *pathname);
 // Lexer Functions
 t_lexer	*ft_snorlexer(char *input);
 int		check_quotes(char *input);
-
+void	post_process(char *input, t_lexer *lexer);
 // Parser
 void	ft_parser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
-int		check_args(char *input, t_lexer *lexer);
+int		get_args(char *input, t_lexer *lexer);
+int		add_to_cmd_list(t_command **head, char *cmd);
 
 // Util Functions
 int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	print_file_list(t_infile *in_head, t_outfile *out_head);
+void	print_cmd_list(t_command *head);
 
 // Builtins
 int		run_builtins(void);

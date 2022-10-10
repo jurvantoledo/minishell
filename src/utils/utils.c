@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/04 15:02:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/07 14:12:00 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,15 @@ void	print_file_list(t_infile *in_head, t_outfile *out_head)
 		printf("the outfile: %s\n", out_head->outfile);
 		printf("the outfile append: %s\n", out_head->out_append);
 		out_head = out_head->next;
+	}
+}
+
+void	print_cmd_list(t_command *head)
+{
+	while (head != NULL)
+	{
+		printf("The command: %s\n", head->command);
+		head = head->next;
 	}
 }
 

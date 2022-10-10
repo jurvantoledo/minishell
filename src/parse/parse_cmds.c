@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   commands.c                                         :+:    :+:            */
+/*   parse_cmds.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 14:24:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/07 14:46:44 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_commands(char *input, t_lexer *lexer)
+int	get_cmds(char *input, t_lexer *lexer)
 {
 	t_command	*cmd;
-	char		*new_input;
-	char		**split_input;
+	char		*str;
 
 	cmd = NULL;
 	while (lexer != NULL)
 	{
 		if (lexer->type == 6)
 		{
-			new_input = ft_substr(input, lexer->index, lexer->length);
-			split_input = ft_split(new_input, '-');
-			printf("the splitted command %s\n", split_input[0]);
+			str = ft_substr(input, lexer->index, lexer->length);
+			if (!str)
+				return (0);
+			add_to_cmd_list(&cmd, str);
 		}
 		lexer = lexer->next;
 	}
+	print_cmd_list(cmd);
+	return (1);
 }

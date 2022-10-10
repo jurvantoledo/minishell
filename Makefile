@@ -10,10 +10,11 @@ SRC =	src/main.c \
 		src/env/env.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
+		src/lexer/post_process.c \
 		src/parse/parse.c \
-		src/parse/files.c \
-		src/parse/arguments.c \
-		src/parse/commands.c \
+		src/parse/parse_files.c \
+		src/parse/parse_args.c \
+		src/parse/parse_cmds.c \
 		src/builtins/run.c \
 		src/builtins/pwd.c \
 		src/builtins/echo.c
