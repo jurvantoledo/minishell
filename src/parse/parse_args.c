@@ -6,34 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/04 15:18:34 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/07 14:38:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/12 11:50:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-int	add_to_cmd_list(t_command **head, char *cmd)
-{
-	t_command	*tmp;
-	t_command	*new;
-
-	new = ft_calloc(sizeof(t_command), 1);
-	if (!new)
-		return (0);
-	if (cmd)
-		new->command = cmd;
-	new->next = NULL;
-	if (!*head)
-		*head = new;
-	else
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-	return (1);
-}
 
 // static int	check_args(char *input)
 // {

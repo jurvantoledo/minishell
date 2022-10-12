@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/10 16:54:57 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/12 12:03:53 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ typedef struct s_outfile
 }	t_outfile;
 
 typedef struct s_command {
-	char				*command;
+	char				*path;
+	char				**command;
 	struct s_command	*next;
 }	t_command;
 
@@ -89,7 +90,7 @@ void	post_process(char *input, t_lexer *lexer);
 void	ft_parser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
 int		get_args(char *input, t_lexer *lexer);
-int		add_to_cmd_list(t_command **head, char *cmd);
+int		add_to_cmd_list(t_command **head, char **cmd);
 
 // Util Functions
 int		special_chars(char c);
