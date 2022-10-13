@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/12 13:33:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/13 11:01:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 // en lexer->next->type 6 is dan zal die 2de type wss een argument zijn.
 static void	change_commands_args(t_lexer *lexer)
 {
-	if (lexer->next->type == COMMAND && lexer->next->next->type == COMMAND)
-		lexer->next->next->type = ARGUMENT;
+	if (lexer->type == COMMAND && lexer->next->type == COMMAND)
+		lexer->next->type = ARGUMENT;
 }
 
 static int	check_cmd_args(char *input, t_lexer *lexer, t_lexer *prev_node)
 {
-	if (lexer->next == NULL || lexer->next->next == NULL)
+	if (lexer->next == NULL)
 		return (0);
 	if (prev_node->type != INFILE && prev_node->type != OUTFILE \
 		&& prev_node->type != HERE_DOC && prev_node->type != OUTFILE_APPEND \
