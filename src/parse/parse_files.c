@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/07 15:22:12 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/13 16:37:57 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ int	check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out)
 {
 	char	*file;
 
-	if (lexer->type == 0 || lexer->type == 3)
+	// still need to fix here_doc and outfile_append
+	if ((lexer->type == 0 || lexer->type == 3) && input[lexer->index] == '<')
 	{
 		file = ft_substr(input, lexer->next->index, lexer->next->length);
 		if (!file)
@@ -76,7 +77,7 @@ int	check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out)
 			return (0);
 		free(file);
 	}
-	if (lexer->type == 1 || lexer->type == 2)
+	if ((lexer->type == 1 || lexer->type == 2) && input[lexer->index] == '>')
 	{
 		file = ft_substr(input, lexer->next->index, lexer->next->length);
 		if (!file)
