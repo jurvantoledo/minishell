@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/13 18:08:00 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/14 14:18:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	add_to_cmd_list(t_command **head, char **cmd)
+static int	add_to_cmd_list(t_command **head, char **cmd)
 {
 	t_command	*tmp;
 	t_command	*new;
@@ -20,7 +20,6 @@ int	add_to_cmd_list(t_command **head, char **cmd)
 	new = ft_calloc(sizeof(t_command), 1);
 	if (!new)
 		return (0);
-	// printf("the command in list: %s & the argument in list: %s\n", cmd[0], cmd[1]);
 	new->command = cmd;
 	new->next = NULL;
 	if (!*head)
@@ -35,12 +34,30 @@ int	add_to_cmd_list(t_command **head, char **cmd)
 	return (1);
 }
 
-void	parse_cmds(char *input, t_lexer *lexer)
+char	**parse_cmd(char *input, t_lexer *lexer)
+{
+	char	**commands;
+	char	*str_cmd;
+	char	*str_arg;
+
+	commands = (char **)malloc(sizeof(char *));
+	if (!commands)
+		return (NULL);
+	str_cmd = ft_substr(input, lexer->index, lexer->length);
+	if (!str_cmd)
+		return (NULL);
+	commands[0] = str_cmd;
+	str_arg = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (!str_arg)
+		return (NULL);
+	commands[1] = str_arg;
+	return (commands);
+}
+
+void	get_cmds(char *input, t_lexer *lexer)
 {
 	char		**command;
 	t_command	*cmd;
-	char		*str_cmd;
-	char		*str_arg;
 
 	command = (char **)malloc(sizeof(char *));
 	if (!command)
@@ -50,26 +67,10 @@ void	parse_cmds(char *input, t_lexer *lexer)
 	{
 		if (lexer->type == COMMAND && lexer->next->type == ARGUMENT)
 		{
-			str_cmd = ft_substr(input, lexer->index, lexer->length);
-			if (!str_cmd)
-				return ;
-			command[0] = str_cmd;
-			str_arg = ft_substr(input, lexer->next->index, lexer->next->length);
-			if (!str_arg)
-				return ;
-			command[1] = str_arg;
+			command = parse_cmd(input, lexer);
 			add_to_cmd_list(&cmd, command);
 		}
 		lexer = lexer->next;
 	}
 	print_cmd_list(cmd);
-}
-
-void	get_cmds(char *input, t_lexer *lexer)
-{
-	char		**command;
-	t_command	*cmd;
-
-	cmd = NULL;
-	parse_cmds(input, lexer);
 }
