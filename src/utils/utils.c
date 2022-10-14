@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/14 13:06:38 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/14 17:49:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print_cmd_list(t_command *head)
 {
 	while (head != NULL)
 	{
-		printf("The command in head: %s & the argument in head: %s\n", head->command[0], head->command[1]);
+		printf("The arguments in head: %s\n", head->command[0]);
 		head = head->next;
 	}
 }

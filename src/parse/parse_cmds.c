@@ -6,71 +6,86 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/14 14:18:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/14 18:35:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	add_to_cmd_list(t_command **head, char **cmd)
-{
-	t_command	*tmp;
-	t_command	*new;
+t_shell	g_shell;
 
-	new = ft_calloc(sizeof(t_command), 1);
-	if (!new)
-		return (0);
-	new->command = cmd;
-	new->next = NULL;
-	if (!*head)
-		*head = new;
-	else
+int	command_counter(t_lexer *lexer)
+{
+	int	count;
+
+	count = 0;
+	while (lexer)
 	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		if (lexer->type == COMMAND)
+			count++;
+		lexer = lexer->next;
 	}
-	return (1);
+	return (count);
 }
 
-char	**parse_cmd(char *input, t_lexer *lexer)
+int	arg_counter(t_lexer *lexer)
 {
-	char	**commands;
-	char	*str_cmd;
-	char	*str_arg;
+	int	count;
 
-	commands = (char **)malloc(sizeof(char *));
-	if (!commands)
-		return (NULL);
-	str_cmd = ft_substr(input, lexer->index, lexer->length);
-	if (!str_cmd)
-		return (NULL);
-	commands[0] = str_cmd;
-	str_arg = ft_substr(input, lexer->next->index, lexer->next->length);
-	if (!str_arg)
-		return (NULL);
-	commands[1] = str_arg;
-	return (commands);
+	count = 0;
+	while (lexer)
+	{
+		if (lexer->type == ARGUMENT)
+			count++;
+		lexer = lexer->next;
+	}
+	return (count);
+}
+
+char	**parse_args(char *input, t_lexer *lexer, int arg_len)
+{
+	char	*str;
+	char	**args;
+	int		i;
+
+	args = ft_calloc(sizeof(char *), arg_len);
+	i = 0;
+	while (lexer && i < arg_len)
+	{
+		if (lexer->type == ARGUMENT)
+		{
+			str = ft_substr(input, lexer->index, lexer->length);
+			args[i] = str;
+			printf("%s\n", args[i]);
+		}
+		i++;
+		lexer = lexer->next;
+	}
+	return (args);
 }
 
 void	get_cmds(char *input, t_lexer *lexer)
 {
-	char		**command;
-	t_command	*cmd;
+	int			arg_len;
+	int			cmd_len;
+	int			i;
 
-	command = (char **)malloc(sizeof(char *));
-	if (!command)
+	g_shell.cmd_len = command_counter(lexer);
+	g_shell.command = ft_calloc(g_shell.cmd_len, sizeof(t_command));
+	if (!g_shell.command)
 		return ;
-	cmd = NULL;
-	while (lexer != NULL)
+	i = 0;
+	while (lexer && i < g_shell.cmd_len)
 	{
-		if (lexer->type == COMMAND && lexer->next->type == ARGUMENT)
+		if (lexer->type == COMMAND)
 		{
-			command = parse_cmd(input, lexer);
-			add_to_cmd_list(&cmd, command);
+			arg_len = arg_counter(lexer);
+			g_shell.command[i].command = parse_args(input, lexer, arg_len);
+			if (!g_shell.command[i].command)
+				return ;
+			printf("%s\n", g_shell.command[i].command[0]);
+			i++;
 		}
 		lexer = lexer->next;
 	}
-	print_cmd_list(cmd);
 }

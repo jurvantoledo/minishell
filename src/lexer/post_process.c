@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/13 11:01:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/14 17:11:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,27 @@
 // en lexer->next->type 6 is dan zal die 2de type wss een argument zijn.
 static void	change_commands_args(t_lexer *lexer)
 {
-	if (lexer->type == COMMAND && lexer->next->type == COMMAND)
+	if (lexer->type == COMMAND)
+	{
 		lexer->next->type = ARGUMENT;
+	}
 }
 
 static int	check_cmd_args(char *input, t_lexer *lexer, t_lexer *prev_node)
 {
+	printf("%d\n", lexer->type);
 	if (lexer->next == NULL)
 		return (0);
-	if (prev_node->type != INFILE && prev_node->type != OUTFILE \
-		&& prev_node->type != HERE_DOC && prev_node->type != OUTFILE_APPEND \
-		&& prev_node->type != PIPE)
+	if (lexer->type != INFILE && lexer->type != OUTFILE \
+		&& lexer->type != HERE_DOC && lexer->type != OUTFILE_APPEND \
+		&& lexer->type != PIPE)
 	{
-		change_commands_args(lexer);
-		return (1);
-	}
-	if (lexer->type == PIPE && input[lexer->next->next->index] == '-')
-	{
-		change_commands_args(lexer);
+		if (lexer->next->type != INFILE && lexer->next->type != OUTFILE \
+			&& lexer->next->type != HERE_DOC && \
+			lexer->next->type != OUTFILE_APPEND && lexer->next->type != PIPE)
+		{
+			lexer->next->type = ARGUMENT;
+		}
 		return (1);
 	}
 	return (1);

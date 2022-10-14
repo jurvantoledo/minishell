@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:08:53 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/14 18:22:13 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_outfile
 typedef struct s_command {
 	char				*path;
 	char				**command;
-	struct s_command	*next;
 }	t_command;
 
 typedef struct s_lexer {
@@ -71,6 +70,7 @@ typedef struct s_shell
 	int			fd_in;
 	int			fd_out;
 	int			pipe[2];
+	int			cmd_len;
 	pid_t		pid;
 	t_lexer		*lexer;
 	t_command	*command;
@@ -99,6 +99,7 @@ int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	print_file_list(t_infile *in_head, t_outfile *out_head);
 void	print_cmd_list(t_command *head);
+void	free_cmds(char **commands);
 
 // Builtins
 int		run_builtins(void);

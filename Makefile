@@ -7,6 +7,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC =	src/main.c \
 		src/utils/utils.c \
+		src/utils/free.c \
 		src/env/env.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
