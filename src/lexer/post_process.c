@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/14 17:11:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/17 18:15:21 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	change_commands_args(t_lexer *lexer)
 
 static int	check_cmd_args(char *input, t_lexer *lexer, t_lexer *prev_node)
 {
-	printf("%d\n", lexer->type);
 	if (lexer->next == NULL)
 		return (0);
 	if (lexer->type != INFILE && lexer->type != OUTFILE \
