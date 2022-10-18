@@ -16,7 +16,6 @@ SRC =	src/main.c \
 		src/parse/parse_files.c \
 		src/parse/parse_args.c \
 		src/parse/parse_cmds.c \
-		src/parse/parse_cmds2.c \
 		src/exeggutor/exeggutor.c \
 		src/builtins/run.c \
 		src/builtins/pwd.c \
