@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/19 13:33:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:55:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ typedef struct s_shell
 	int			fd_in;
 	int			fd_out;
 	int			pipe[2];
-	int			cmd_len;
+	size_t		cmd_len;
 	pid_t		pid;
 	t_lexer		*lexer;
 	t_command	*command;
 }	t_shell;
 
 extern t_shell	g_shell;
+
+int		main(int argc, char *argv[], char *envp[]);
 
 // Envp parser for storing the keys and values of envp
 t_env	*parse_env(char *envp[]);
