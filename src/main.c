@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/14 15:08:15 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:29:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	main(int argc, char *argv[], char *envp[])
 		add_history(input);
 		g_shell.lexer = ft_snorlexer(input);
 		ft_parser(input, g_shell.lexer);
+		resolve_path();
 		free(input);
 		// if (!run_builtins())
 		// 	return (0);

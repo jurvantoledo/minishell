@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:06:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:30:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static void	ft_redirections(char *input, t_lexer *lexer)
 void	ft_parser(char *input, t_lexer *lexer)
 {
 	ft_redirections(input, lexer);
-	// get_args(input, lexer);
-	// get_cmds(input, lexer);
-	get_cmds(input, lexer);
+	parse_cmds(input, lexer);
 	return ;
 }

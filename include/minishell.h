@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/17 15:00:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/19 13:33:24 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,13 +91,14 @@ void	post_process(char *input, t_lexer *lexer);
 void	ft_parser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
 int		get_args(char *input, t_lexer *lexer);
-void	get_cmds(char *input, t_lexer *lexer);
-// int		add_to_cmd_list(t_command **head, char **cmd);
+void	parse_cmds(char *input, t_lexer *lexer);
+void	resolve_path(void);
 
 // Util Functions
 int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	print_file_list(t_infile *in_head, t_outfile *out_head);
+void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 
 // Builtins

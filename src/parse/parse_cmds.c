@@ -6,13 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/17 18:21:46 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/19 14:40:21 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-t_shell	g_shell;
 
 int	command_counter(t_lexer *lexer)
 {
@@ -54,22 +52,22 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		return (NULL);
 	while (lexer && i < arg_len)
 	{
-		if (lexer->type == ARGUMENT)
+		if (lexer->type == ARGUMENT || lexer->type == COMMAND)
 		{
 			str = ft_substr(input, lexer->index, lexer->length);
 			if (!str)
 				return (NULL);
 			args[i] = str;
-			free(str);
-			printf("the arguments: %s\n", args[i]);
+			printf("%s\n", args[i]);
 			i++;
 		}
 		lexer = lexer->next;
 	}
+	args[i] = 0;
 	return (args);
 }
 
-void	get_cmds(char *input, t_lexer *lexer)
+void	parse_cmds(char *input, t_lexer *lexer)
 {
 	int			arg_len;
 	int			i;
@@ -84,8 +82,8 @@ void	get_cmds(char *input, t_lexer *lexer)
 		if (lexer->type == COMMAND)
 		{
 			arg_len = arg_counter(lexer);
-			if (arg_len == 0)
-				return ;
+			// if (!g_shell.command)
+			// 	return ;
 			g_shell.command[i].arguments = parse_args(input, lexer, arg_len);
 			if (!g_shell.command[i].arguments)
 				return ;
