@@ -14,7 +14,6 @@ SRC =	src/main.c \
 		src/lexer/post_process.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
-		src/parse/parse_args.c \
 		src/parse/parse_cmds.c \
 		src/parse/parse_path.c \
 		src/exeggutor/exeggutor.c \

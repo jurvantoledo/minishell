@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:29:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/20 15:59:44 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int	main(int argc, char *argv[], char *envp[])
 	char			*input;
 
 	g_shell.env = parse_env(envp);
+	g_shell.fd_in = STDIN_FILENO;
+	g_shell.fd_out = STDOUT_FILENO;
 	while (1)
 	{
 		input = readline("Dit is echt leuk: ");
@@ -26,8 +28,9 @@ int	main(int argc, char *argv[], char *envp[])
 			exit(EXIT_FAILURE);
 		add_history(input);
 		g_shell.lexer = ft_snorlexer(input);
-		ft_parser(input, g_shell.lexer);
+		ft_paraser(input, g_shell.lexer);
 		resolve_path();
+		ft_exeggutor();
 		free(input);
 		// if (!run_builtins())
 		// 	return (0);

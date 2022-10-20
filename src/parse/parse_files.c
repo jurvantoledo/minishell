@@ -6,86 +6,49 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/13 16:37:57 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/20 15:59:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	add_to_infile_list(t_infile **head, char *infile, t_token_type type)
+void	parse_in(t_lexer *lexer, char *input)
 {
-	t_infile	*tmp;
-	t_infile	*new;
+	char	*tmp;
 
-	new = ft_calloc(sizeof(t_infile), 1);
-	if (!new)
-		return (0);
-	if (type == 3)
-		new->heredick = infile;
-	else
-		new->infile = infile;
-	new->next = NULL;
-	if (!*head)
-		*head = new;
-	else
-	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
-	}
-	return (1);
+	if (g_shell.fd_in != STDIN_FILENO)
+		close(g_shell.fd_in);
+	tmp = ft_substr(input, lexer->index, lexer->length);
+	if (access(tmp, R_OK) == 0)
+		g_shell.fd_in = open(tmp, O_RDONLY);
+	free(tmp);
 }
 
-static int	add_to_outfile_list(t_outfile **head, char *outfile, \
-								t_token_type type)
+void	parse_out(t_lexer *lexer, char *input)
 {
-	t_outfile	*tmp;
-	t_outfile	*new;
+	char	*tmp;
 
-	new = ft_calloc(sizeof(t_outfile), 1);
-	if (!new)
-		return (0);
-	if (type == 2)
-		new->out_append = outfile;
-	else
-		new->outfile = outfile;
-	new->next = NULL;
-	if (!*head)
-		*head = new;
-	else
+	if (g_shell.fd_out != STDOUT_FILENO)
+		close(g_shell.fd_out);
+	tmp = ft_substr(input, lexer->index, lexer->length);
+	if (lexer->type == OUTFILE)
 	{
-		tmp = *head;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
+						0644);
 	}
-	return (1);
+	if (lexer->type == OUTFILE_APPEND)
+	{
+		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
+						0644);
+	}
+	free(tmp);
 }
 
-int	check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out)
+int	check_files(char *input, t_lexer *lexer)
 {
-	char	*file;
-
-	// still need to fix here_doc and outfile_append
-	if ((lexer->type == 0 || lexer->type == 3) && input[lexer->index] == '<')
-	{
-		file = ft_substr(input, lexer->next->index, lexer->next->length);
-		if (!file)
-			return (0);
-		if (add_to_infile_list(&in, file, lexer->type) == 0)
-			return (0);
-		free(file);
-	}
-	if ((lexer->type == 1 || lexer->type == 2) && input[lexer->index] == '>')
-	{
-		file = ft_substr(input, lexer->next->index, lexer->next->length);
-		if (!file)
-			return (0);
-		if (add_to_outfile_list(&out, file, lexer->type) == 0)
-			return (0);
-		free(file);
-	}
-	print_file_list(in, out);
+	if (lexer->type == INFILE)
+		parse_in(lexer, input);
+	if (lexer->type == OUTFILE || lexer->type == OUTFILE_APPEND)
+		parse_out(lexer, input);
 	return (1);
 }

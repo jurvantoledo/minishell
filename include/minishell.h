@@ -6,13 +6,14 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:55:07 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/20 16:00:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
 # include <stdio.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -49,6 +50,12 @@ typedef struct s_outfile
 	struct s_outfile	*next;
 }	t_outfile;
 
+typedef struct s_files
+{
+	t_infile			*in;
+	t_outfile			*out;
+}	t_files;
+
 typedef struct s_command {
 	char				*path;
 	char				**arguments;
@@ -58,8 +65,8 @@ typedef struct s_lexer {
 	t_token_type		type;
 	int					length;
 	int					index;
-	struct s_infile		*in;
-	struct s_outfile	*out;
+	t_infile			*in;
+	t_outfile			*out;
 	struct s_lexer		*next;
 }	t_lexer;
 
@@ -73,6 +80,7 @@ typedef struct s_shell
 	size_t		cmd_len;
 	pid_t		pid;
 	t_lexer		*lexer;
+	t_files		*files;
 	t_command	*command;
 }	t_shell;
 
@@ -83,6 +91,7 @@ int		main(int argc, char *argv[], char *envp[]);
 // Envp parser for storing the keys and values of envp
 t_env	*parse_env(char *envp[]);
 t_env	*get_env(t_env *head, char *pathname);
+char	**set_env(void);
 
 // Lexer Functions
 t_lexer	*ft_snorlexer(char *input);
@@ -90,11 +99,14 @@ int		check_quotes(char *input);
 void	post_process(char *input, t_lexer *lexer);
 
 // Parser
-void	ft_parser(char *input, t_lexer *lexer);
-int		check_files(char *input, t_lexer *lexer, t_infile *in, t_outfile *out);
+void	ft_paraser(char *input, t_lexer *lexer);
+int		check_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 void	parse_cmds(char *input, t_lexer *lexer);
 void	resolve_path(void);
+
+// Exeggutor
+void	ft_exeggutor(void);
 
 // Util Functions
 int		special_chars(char c);
