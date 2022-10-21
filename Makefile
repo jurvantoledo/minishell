@@ -19,7 +19,8 @@ SRC =	src/main.c \
 		src/exeggutor/exeggutor.c \
 		src/builtins/run.c \
 		src/builtins/pwd.c \
-		src/builtins/echo.c
+		src/builtins/echo.c \
+		src/builtins/exec.c
 
 OBJ = $(SRC:%.c=%.o)
 

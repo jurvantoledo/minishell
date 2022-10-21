@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/20 16:00:11 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/21 12:16:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,5 +118,6 @@ void	free_cmds(char **commands);
 // Builtins
 int		run_builtins(void);
 int		pwd(void);
+void	echo(void);
 
 #endif

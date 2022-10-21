@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/20 15:56:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/21 12:07:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	ft_exec(int i)
 		close(g_shell.fd_out);
 	}
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
+	exec_builtins(i);
 }
 
 int	child_process(int i)

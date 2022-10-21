@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/06 10:41:54 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/21 12:16:05 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_echo(void)
+void	echo(void)
 {
 	return ;
 }

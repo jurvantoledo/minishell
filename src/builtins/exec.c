@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   pwd.c                                              :+:    :+:            */
+/*   exec.c                                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/06 12:30:54 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/21 12:14:51 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/21 12:15:57 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	pwd(void)
+void	exec_builtins(int i)
 {
-	t_env	*pwd;
-
-	pwd = get_env(g_shell.env, "PWD");
-	if (ft_strncmp(pwd->key, "PWD", ft_strlen(pwd->key)) == 0)
-	{
-		ft_putendl_fd(pwd->value, 1);
-		return (1);
-	}
-	return (0);
+	printf("the command: %s\n", g_shell.command[i].arguments[0]);
+	if (ft_strncmp(g_shell.command[i].arguments[0], "pwd", \
+		ft_strlen(g_shell.command[i].arguments[0])) == 0)
+		pwd();
+	if (ft_strncmp(g_shell.command[i].arguments[0], "echo", \
+		ft_strlen(g_shell.command[i].arguments[0])) == 0)
+		echo();
 }
