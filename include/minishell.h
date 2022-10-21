@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/21 12:16:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/21 18:22:40 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,10 @@ void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 
 // Builtins
+void	exec_builtins(void);
 int		run_builtins(void);
-int		pwd(void);
-void	echo(void);
+int		builtin_pwd(void);
+void	builtin_echo(void);
+int		builtin_env(void);
 
 #endif

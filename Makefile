@@ -18,8 +18,9 @@ SRC =	src/main.c \
 		src/parse/parse_path.c \
 		src/exeggutor/exeggutor.c \
 		src/builtins/run.c \
-		src/builtins/pwd.c \
-		src/builtins/echo.c \
+		src/builtins/builtin_pwd.c \
+		src/builtins/builtin_echo.c \
+		src/builtins/builtin_env.c \
 		src/builtins/exec.c
 
 OBJ = $(SRC:%.c=%.o)

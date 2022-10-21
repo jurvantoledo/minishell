@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/20 14:20:47 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/21 18:06:39 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ unsigned int	env_len(void)
 
 int	strenv(char **res, t_env *env)
 {
-
 	res[0] = env->key;
 	if (!res[0])
 		return (0);
