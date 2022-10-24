@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_env.c                                      :+:    :+:            */
+/*   free_env.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:35:25 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/24 17:50:47 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/24 18:08:18 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	builtin_env(void)
+void	clear_list(t_env **head)
 {
-	char	*str;
-	t_env	*env;
+	t_env	*thead;
+	t_env	*next;
 
-	env = g_shell.env;
-	if (!env)
-		return (0);
-	while (env->next)
+	thead = *head;
+	while (thead)
 	{
-		ft_putstr_fd(env->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(env->value, 1);
-		env = env->next;
+		next = thead->next;
+		free(thead->key);
+		free(thead->value);
+		free(thead);
+		thead = next;
 	}
-	return (1);
+	*head = NULL;
 }

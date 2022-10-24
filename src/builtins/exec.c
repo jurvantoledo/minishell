@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:17:29 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/24 18:18:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,7 @@ void	exec_builtins(void)
 	if (ft_strncmp(g_shell.command[0].arguments[0], "env", \
 		ft_strlen(g_shell.command[0].arguments[0])) == 0)
 		builtin_env();
+	if (ft_strncmp(g_shell.command[0].arguments[0], "unset", \
+		ft_strlen(g_shell.command[0].arguments[0])) == 0)
+		builtin_unset();
 }

@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_env.c                                      :+:    :+:            */
+/*   builtin_unset.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 14:35:25 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/24 14:38:42 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/24 18:18:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	builtin_env(void)
+int	builtin_unset(void)
 {
-	char	*str;
 	t_env	*env;
+	char	*key;
+	int		i;
 
 	env = g_shell.env;
 	if (!env)
 		return (0);
+	i = 0;
 	while (env->next)
 	{
-		ft_putstr_fd(env->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(env->value, 1);
+		key = g_shell.command[0].arguments[1];
+		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
+		{
+			clear_list(env);
+		}
 		env = env->next;
 	}
-	return (1);
 }
