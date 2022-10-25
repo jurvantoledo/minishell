@@ -12,82 +12,87 @@
 
 #include "../../include/minishell.h"
 
-t_env	*parse_env(char *envp[])
+static int set_env_key(t_env *env, char *env_str)
 {
-	t_env	*head;
-	t_env	*type;
-	int		i;
-	char	**split_envp;
+	size_t len1;
+	size_t len2;
 
-	type = ft_calloc(sizeof(t_env), 1);
-	if (!type)
-		return (NULL);
-	head = type;
-	i = 0;
-	while (envp[i])
+	len1 = 0;
+	len2 = 0;
+	while (env_str[len1] != '=')
+		len1++;
+	while (env_str[len1 + len2 + 1])
+		len2++;
+	env->key = ft_calloc(sizeof(char), len1 + 1);
+	env->value = ft_calloc(sizeof(char), len2 + 1);
+	if (!env->key || !env->value)
 	{
-		split_envp = ft_split(envp[i], '=');
-		if (!split_envp)
-			return (NULL);
-		type->key = split_envp[0];
-		type->value = split_envp[1];
-		if (type->value && type->key)
-		{
-			type->next = ft_calloc(sizeof(t_env), 1);
-			type = type->next;
-		}
-		i++;
+		free(env->key);
+		free(env->value);
+		free(env);
+		return (0);
 	}
+	ft_memcpy(env->key, env_str, (len1 + 1));
+	ft_memcpy(env->value, (env_str + len1 + 1), len2);
+	return (1);
+}
+
+static int add_to_env(t_env **head, char *envp)
+{
+	t_env *tmp;
+	t_env *new;
+
+	new = ft_calloc(sizeof(t_env), 1);
+	if (!new)
+		return (0);
+	if (!set_env_key(new, envp))
+		return (0);
+	if (*head == NULL)
+	{
+		*head = new;
+		return (1);
+	}
+	tmp = *head;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (1);
+}
+
+t_env *parse_env(char *envp[])
+{
+	t_env *head;
+
+	head = NULL;
+	if (!envp)
+		return (NULL);
+	while (*envp)
+	{
+		if (!add_to_env(&head, *envp))
+			return (clear_env(head));
+		envp++;
+	}
+	printf("%s\n", head->key);
 	return (head);
 }
 
-t_env	*get_env(t_env *head, char *pathname)
+t_env *get_env(t_env *head, char *pathname)
 {
 	while (head)
 	{
-		if (ft_strlen(head->key) == ft_strlen(pathname) \
-			&& ft_strncmp(head->key, pathname, ft_strlen(head->key)) == 0)
+		if (ft_strlen(head->key) == ft_strlen(pathname) && ft_strncmp(head->key, pathname, ft_strlen(head->key)) == 0)
 			return (head);
 		head = head->next;
 	}
 	return (NULL);
 }
 
-unsigned int	env_len(void)
+char **set_env(void)
 {
-	unsigned int	len;
-	t_env			*env;
-
-	len = 0;
-	env = g_shell.env;
-	while (env)
-	{
-		len++;
-		env = env->next;
-	}
-	return (len);
-}
-
-int	strenv(char **res, t_env *env)
-{
-	res[0] = env->key;
-	if (!res[0])
-		return (0);
-	res[0] = ft_strjoin(res[0], "=");
-	if (!res[0])
-		return (0);
-	res[0] = ft_strjoin(res[0], env->value);
-	if (!res[0])
-		return (0);
-	return (1);
-}
-
-char	**set_env(void)
-{
-	char			**res;
-	char			**temp;
-	t_env			*env;
-	int				i;
+	char **res;
+	char **temp;
+	t_env *env;
+	int i;
 
 	res = ft_calloc(sizeof(char *), env_len() + 1);
 	env = g_shell.env;

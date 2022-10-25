@@ -12,16 +12,17 @@
 
 #ifndef MINISHELL_H
 
-# include <stdio.h>
-# include <fcntl.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include "./libft/libft.h"
+#include <stdio.h>
+#include <fcntl.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "./libft/libft.h"
 
-# define MINISHELL_H
-# define SPECIAL_CHAR "$|<>\"\'"
+#define MINISHELL_H
+#define SPECIAL_CHAR "$|<>\"\'"
 
-typedef enum e_token_type {
+typedef enum e_token_type
+{
 	INFILE,
 	OUTFILE,
 	OUTFILE_APPEND,
@@ -29,97 +30,103 @@ typedef enum e_token_type {
 	ARGUMENT,
 	PIPE,
 	COMMAND,
-}	t_token_type;
+} t_token_type;
 
-typedef struct s_env {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}	t_env;
+typedef struct s_env
+{
+	char *key;
+	char *value;
+	struct s_env *next;
+} t_env;
 
-typedef struct s_infile {
-	char			*infile;
-	char			*heredick;
-	struct s_infile	*next;
-}	t_infile;
+typedef struct s_infile
+{
+	char *infile;
+	char *heredick;
+	struct s_infile *next;
+} t_infile;
 
 typedef struct s_outfile
 {
-	char				*outfile;
-	char				*out_append;
-	struct s_outfile	*next;
-}	t_outfile;
+	char *outfile;
+	char *out_append;
+	struct s_outfile *next;
+} t_outfile;
 
 typedef struct s_files
 {
-	t_infile			*in;
-	t_outfile			*out;
-}	t_files;
+	t_infile *in;
+	t_outfile *out;
+} t_files;
 
-typedef struct s_command {
-	char				*path;
-	char				**arguments;
-}	t_command;
+typedef struct s_command
+{
+	char *path;
+	char **arguments;
+} t_command;
 
-typedef struct s_lexer {
-	t_token_type		type;
-	int					length;
-	int					index;
-	t_infile			*in;
-	t_outfile			*out;
-	struct s_lexer		*next;
-}	t_lexer;
+typedef struct s_lexer
+{
+	t_token_type type;
+	int length;
+	int index;
+	t_infile *in;
+	t_outfile *out;
+	struct s_lexer *next;
+} t_lexer;
 
 typedef struct s_shell
 {
-	t_env		*env;
-	int			exit_code;
-	int			fd_in;
-	int			fd_out;
-	int			pipe[2];
-	size_t		cmd_len;
-	pid_t		pid;
-	t_lexer		*lexer;
-	t_files		*files;
-	t_command	*command;
-}	t_shell;
+	t_env *env;
+	int exit_code;
+	int fd_in;
+	int fd_out;
+	int pipe[2];
+	size_t cmd_len;
+	pid_t pid;
+	t_lexer *lexer;
+	t_files *files;
+	t_command *command;
+} t_shell;
 
-extern t_shell	g_shell;
+extern t_shell g_shell;
 
-int		main(int argc, char *argv[], char *envp[]);
+int main(int argc, char *argv[], char *envp[]);
 
 // Envp parser for storing the keys and values of envp
-t_env	*parse_env(char *envp[]);
-t_env	*get_env(t_env *head, char *pathname);
-char	**set_env(void);
+t_env *parse_env(char *envp[]);
+t_env *get_env(t_env *head, char *pathname);
+char **set_env(void);
+unsigned int env_len(void);
+int strenv(char **res, t_env *env);
 
 // Lexer Functions
-t_lexer	*ft_snorlexer(char *input);
-int		check_quotes(char *input);
-void	post_process(char *input, t_lexer *lexer);
+t_lexer *ft_snorlexer(char *input);
+int check_quotes(char *input);
+void post_process(char *input, t_lexer *lexer);
 
 // Parser
-void	ft_paraser(char *input, t_lexer *lexer);
-int		check_files(char *input, t_lexer *lexer);
-int		get_args(char *input, t_lexer *lexer);
-void	parse_cmds(char *input, t_lexer *lexer);
-void	resolve_path(void);
+void ft_paraser(char *input, t_lexer *lexer);
+int check_files(char *input, t_lexer *lexer);
+int get_args(char *input, t_lexer *lexer);
+void parse_cmds(char *input, t_lexer *lexer);
+void resolve_path(void);
 
 // Exeggutor
-void	ft_exeggutor(void);
+void ft_exeggutor(void);
 
 // Util Functions
-int		special_chars(char c);
-void	print_list(t_lexer *head);
-void	print_file_list(t_infile *in_head, t_outfile *out_head);
-void	ft_free_char(char **src);
-void	free_cmds(char **commands);
+int special_chars(char c);
+void print_list(t_lexer *head);
+void print_file_list(t_infile *in_head, t_outfile *out_head);
+void ft_free_char(char **src);
+void free_cmds(char **commands);
 
 // Builtins
-void	exec_builtins(void);
-int		run_builtins(void);
-int		builtin_pwd(void);
-void	builtin_echo(void);
-int		builtin_env(void);
+void exec_builtins(void);
+int run_builtins(void);
+int builtin_pwd(void);
+void builtin_echo(void);
+int builtin_env(void);
 
 #endif

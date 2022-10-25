@@ -12,19 +12,17 @@
 
 #include "../../include/minishell.h"
 
-void	clear_list(t_env **head)
+t_env *clear_env(t_env *env)
 {
-	t_env	*thead;
-	t_env	*next;
+	t_env *temp;
 
-	thead = *head;
-	while (thead)
+	while (env)
 	{
-		next = thead->next;
-		free(thead->key);
-		free(thead->value);
-		free(thead);
-		thead = next;
+		temp = env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = temp;
 	}
-	*head = NULL;
+	return (NULL);
 }

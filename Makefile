@@ -10,6 +10,7 @@ SRC =	src/main.c \
 		src/utils/free.c \
 		src/env/env.c \
 		src/env/free_env.c \
+		src/env/env_utils.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
 		src/lexer/post_process.c \

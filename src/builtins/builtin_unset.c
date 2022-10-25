@@ -12,11 +12,11 @@
 
 #include "../../include/minishell.h"
 
-int	builtin_unset(void)
+int builtin_unset(void)
 {
-	t_env	*env;
-	char	*key;
-	int		i;
+	t_env *env;
+	char *key;
+	int i;
 
 	env = g_shell.env;
 	if (!env)
@@ -25,10 +25,10 @@ int	builtin_unset(void)
 	while (env->next)
 	{
 		key = g_shell.command[0].arguments[1];
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
-		{
-			clear_list(env);
-		}
+		// if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
+		// {
+		// 	// clear_list(env);
+		// }
 		env = env->next;
 	}
 }
