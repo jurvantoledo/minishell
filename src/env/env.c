@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:29:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/26 16:57:55 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,16 @@ int	add_env(t_env **head, char *env)
 		*head = new;
 	else
 	{
+		if (ft_strcmp((*head)->key, new->key) > 0)
+		{
+			new->next = (*head)->next;
+			*head = new;
+			return (1);
+		}
 		tmp = *head;
-		while (tmp->next)
+		while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
 			tmp = tmp->next;
+		new->next = tmp->next;
 		tmp->next = new;
 	}
 	return (1);
