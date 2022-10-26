@@ -1,31 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_env.c                                      :+:    :+:            */
+/*   env_utils.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/25 16:17:06 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/26 10:55:52 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	builtin_env(void)
+size_t	env_len(void)
 {
-	char	*str;
+	size_t	len;
 	t_env	*env;
 
+	len = 0;
 	env = g_shell.env;
-	if (!env)
-		return (0);
-	while (env->next)
+	while (env)
 	{
-		ft_putstr_fd(env->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(env->value, 1);
+		len++;
 		env = env->next;
 	}
+	return (len);
+}
+
+int	strenv(char **res, t_env *env)
+{
+	res[0] = env->key;
+	if (!res[0])
+		return (0);
+	res[0] = ft_strjoin(res[0], "=");
+	if (!res[0])
+		return (0);
+	res[0] = ft_strjoin(res[0], env->value);
+	if (!res[0])
+		return (0);
 	return (1);
 }

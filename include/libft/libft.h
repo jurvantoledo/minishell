@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/14 15:44:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/09/16 12:29:29 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/26 10:56:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -392,5 +392,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // For spaces
 int		ft_isspace(char c);
+
+/* For finding th elength of an array */
+size_t	ft_arraylen(char **array);
+
+/* forn comparing 2 strings */
+int		ft_strcmp(char *s1, char *s2);
 
 #endif /* LIBFT_H */

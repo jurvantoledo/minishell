@@ -10,6 +10,7 @@ SRC =	src/main.c \
 		src/utils/free.c \
 		src/env/env.c \
 		src/env/free_env.c \
+		src/env/env_utils.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
 		src/lexer/post_process.c \
@@ -23,6 +24,7 @@ SRC =	src/main.c \
 		src/builtins/builtin_echo.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_unset.c \
+		src/builtins/builtin_export.c \
 		src/builtins/exec.c
 
 OBJ = $(SRC:%.c=%.o)

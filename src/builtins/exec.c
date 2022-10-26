@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:18:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/26 14:16:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,9 @@ void	exec_builtins(void)
 		builtin_env();
 	if (ft_strncmp(g_shell.command[0].arguments[0], "unset", \
 		ft_strlen(g_shell.command[0].arguments[0])) == 0)
-		builtin_unset();
+		builtin_unset(ft_arraylen(g_shell.command[0].arguments), \
+					g_shell.command[0].arguments);
+	if (ft_strncmp(g_shell.command[0].arguments[0], "export", \
+		ft_strlen(g_shell.command[0].arguments[0])) == 0)
+		builtin_export(g_shell.command[0].arguments);
 }

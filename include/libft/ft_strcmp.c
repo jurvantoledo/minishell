@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_env.c                                      :+:    :+:            */
+/*   ft_strcmp.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/25 16:17:06 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/26 10:55:41 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/26 10:56:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
-
-int	builtin_env(void)
+int	ft_strcmp(char *s1, char *s2)
 {
-	char	*str;
-	t_env	*env;
+	int	i;
 
-	env = g_shell.env;
-	if (!env)
-		return (0);
-	while (env->next)
+	i = 0;
+	while (s1[i] && s2[i])
 	{
-		ft_putstr_fd(env->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(env->value, 1);
-		env = env->next;
+		if (s1[i] != s2[i])
+		{
+			return (s1[i] - s2[i]);
+		}
+		i++;
 	}
-	return (1);
+	return (0);
 }

@@ -6,29 +6,54 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 14:38:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:18:01 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/26 14:15:20 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	builtin_unset(void)
+/* Given a reference (pointer to pointer) to the head of a
+   list and a key, deletes the first occurrence of key in
+   linked list */
+static void	unset_env(t_env **head_ref, char *key)
 {
-	t_env	*env;
+	t_env	*temp;
+
+	temp = *head_ref;
+	printf("temp: %s  key: %s\n", temp->key, key);
+	if (temp != NULL && ft_strcmp(temp->key, key) == 0)
+	{
+		*head_ref = temp->next;
+		free(temp->key);
+		free(temp->value);
+		free(temp);
+		return ;
+	}
+	while (temp && (ft_strcmp(temp->key, key) != 0))
+	{
+		*head_ref = temp;
+		temp = temp->next;
+	}
+	if (temp == NULL)
+		return ;
+	(*head_ref)->next = temp->next;
+	free(temp->key);
+	free(temp->value);
+	free(temp);
+}
+
+int	builtin_unset(int argc, char **args)
+{
 	char	*key;
 	int		i;
 
-	env = g_shell.env;
-	if (!env)
+	if (!g_shell.env)
 		return (0);
-	i = 0;
-	while (env->next)
+	i = 1;
+	while (args[i])
 	{
-		key = g_shell.command[0].arguments[1];
-		if (ft_strncmp(env->key, key, ft_strlen(env->key)) == 0)
-		{
-			clear_list(env);
-		}
-		env = env->next;
+		unset_env(&g_shell.env, args[i]);
+		i++;
 	}
+	return (1);
 }

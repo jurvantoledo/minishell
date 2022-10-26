@@ -6,25 +6,52 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 17:50:47 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/24 18:08:18 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/26 12:00:40 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	clear_list(t_env **head)
+t_env	*clear_list(t_env **head)
 {
 	t_env	*thead;
-	t_env	*next;
+	t_env	*tmp;
 
 	thead = *head;
 	while (thead)
 	{
-		next = thead->next;
+		tmp = thead->next;
 		free(thead->key);
 		free(thead->value);
 		free(thead);
-		thead = next;
+		thead = tmp;
 	}
 	*head = NULL;
+	return (NULL);
 }
+
+// int	remove_node(t_env **head, char *key)
+// {
+// 	t_env	*tmp;
+// 	t_env	*env;
+
+// 	env = get_env(*head, key);
+// 	if (!env)
+// 		return (0);
+// 	if (*head == env)
+// 	{
+// 		*head = (*head)->next;
+// 		free(env->key);
+// 		free(env->value);
+// 		free(env);
+// 		return (1);
+// 	}
+// 	tmp = *head;
+// 	while (tmp->next != env)
+// 		tmp = tmp->next;
+// 	tmp->next = tmp->next->next;
+// 	free(env->key);
+// 	free(env->value);
+// 	free(env);
+// 	return (1);
+// }

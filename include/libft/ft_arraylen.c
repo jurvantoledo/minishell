@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   builtin_env.c                                      :+:    :+:            */
+/*   ft_arraylen.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/25 16:17:06 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/10/26 10:53:26 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/10/26 10:54:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "libft.h"
 
-int	builtin_env(void)
+size_t	ft_arraylen(char **array)
 {
-	char	*str;
-	t_env	*env;
+	size_t	len;
 
-	env = g_shell.env;
-	if (!env)
-		return (0);
-	while (env->next)
-	{
-		ft_putstr_fd(env->key, 1);
-		ft_putchar_fd('=', 1);
-		ft_putendl_fd(env->value, 1);
-		env = env->next;
-	}
-	return (1);
+	len = 0;
+	while (array[len])
+		len++;
+	return (len);
 }
