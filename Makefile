@@ -25,6 +25,7 @@ SRC =	src/main.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_unset.c \
 		src/builtins/builtin_export.c \
+		src/builtins/builtins_exit.c \
 		src/builtins/exec.c
 
 OBJ = $(SRC:%.c=%.o)
