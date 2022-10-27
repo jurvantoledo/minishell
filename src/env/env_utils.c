@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 16:54:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 12:52:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,31 +41,49 @@ int	strenv(char **res, t_env *env)
 		free(res);
 		return (0);
 	}
-	res[0] = ft_strjoin(res[0], env->value);
-	if (!res[0])
+	if (env->value)
 	{
-		free(res);
-		return (0);
+		res[0] = ft_strjoin(res[0], env->value);
+		if (!res[0])
+		{
+			free(res);
+			return (0);
+		}
 	}
 	return (1);
 }
 
-// Sorteer de lijst head = TMPDIR
-void	sort_env(t_env **head)
+void	sort_env(t_env **head, t_env *new)
 {
-	// t_env	*env;
-	// t_env	*tmp;
+	t_env	*tmp;
 
-	// env = *head;
-	// while (env && env->next)
-	// {
-	// 	if (ft_strcmp(env->key, env->next->key) > 0)
-	// 	{
-	// 		tmp = env;
-	// 		env = env->next;
-	// 		env->next = tmp;
-	// 	}
-	// 	env = env->next;
-	// }
-	return ;
+	if (ft_strcmp((*head)->key, new->key) > 0)
+	{
+		new->next = (*head)->next;
+		*head = new;
+		return ;
+	}
+	tmp = *head;
+	while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
+		tmp = tmp->next;
+	new->next = tmp->next;
+	tmp->next = new;
+}
+
+int	add_env_var(t_env **head, char *var_str)
+{
+	t_env	*new;
+
+	new = ft_calloc(sizeof(t_env), 1);
+	if (!new)
+		return (0);
+	if (!add_str_env(new, var_str))
+		return (0);
+	if (*head == NULL)
+	{
+		*head = new;
+		return (1);
+	}
+	sort_env(head, new);
+	return (1);
 }

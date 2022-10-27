@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:29:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 12:13:49 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ t_env	*get_env(t_env *head, char *pathname);
 char	**set_env(void);
 size_t	env_len(void);
 int		strenv(char **res, t_env *env);
+int		add_str_env(t_env *env, char *str);
+int		add_env_var(t_env **head, char *var_str);
+void	sort_env(t_env **head, t_env *new);
 t_env	*clear_list(t_env **head);
 
 // Lexer Functions
@@ -127,6 +130,6 @@ int		builtin_pwd(void);
 void	builtin_echo(void);
 int		builtin_env(void);
 int		builtin_unset(int argc, char **args);
-void	builtin_export(char **args);
+void	builtin_export(int argc, char **args);
 
 #endif

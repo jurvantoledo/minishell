@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:45:39 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 12:44:23 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,47 @@ static int	print_env(void)
 	return (1);
 }
 
-void	builtin_export(char **args)
+static	int	handle_no_val(char *str)
 {
-	if (!print_env())
+	t_env	*env;
+
+	if (get_env(g_shell.env, str))
+		return (1);
+	env = ft_calloc(1, sizeof(t_env));
+	if (!env)
+		return (0);
+	env->key = ft_strdup(str);
+	if (!env->key)
+	{
+		free(env);
+		return (0);
+	}
+	sort_env(&g_shell.env, env);
+	return (1);
+}
+
+void	builtin_export(int argc, char **args)
+{
+	int	i;
+
+	if (argc == 1)
+	{
+		print_env();
 		return ;
-	return ;
+	}
+	i = 0;
+	while (args[i + 1])
+	{
+		i++;
+		if (ft_strchr(args[i], '=') == NULL)
+		{
+			if (!handle_no_val(args[i]))
+				return ;
+			else
+				continue ;
+		}
+		else
+			if (!add_env_var(&g_shell.env, args[i]))
+				return ;
+	}
 }

@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 16:57:55 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 12:55:46 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	add_str_env(t_env *env, char *str)
+int	add_str_env(t_env *env, char *str)
 {
 	size_t	len1;
 	size_t	len2;
@@ -48,21 +48,12 @@ int	add_env(t_env **head, char *env)
 	if (!add_str_env(new, env))
 		return (0);
 	if (*head == NULL)
-		*head = new;
-	else
 	{
-		if (ft_strcmp((*head)->key, new->key) > 0)
-		{
-			new->next = (*head)->next;
-			*head = new;
-			return (1);
-		}
-		tmp = *head;
-		while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
-			tmp = tmp->next;
-		new->next = tmp->next;
-		tmp->next = new;
+		*head = new;
+		return (1);
 	}
+	else
+		sort_env(head, new);
 	return (1);
 }
 
@@ -101,6 +92,8 @@ char	**set_env(void)
 	int				i;
 
 	res = ft_calloc(sizeof(char *), env_len() + 1);
+	if (!res)
+		return (NULL);
 	env = g_shell.env;
 	i = 0;
 	while (env)
