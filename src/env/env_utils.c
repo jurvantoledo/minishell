@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 15:33:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 17:31:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ size_t	env_len(void)
 		len++;
 		env = env->next;
 	}
-	printf("%zu\n", len);
 	return (len);
 }
 

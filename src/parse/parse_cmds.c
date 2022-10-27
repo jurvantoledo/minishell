@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/20 16:15:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 17:31:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,9 @@ static size_t	arg_counter(t_lexer *lexer)
 	count = 1;
 	while (lexer && (lexer->type == ARGUMENT || lexer->type == COMMAND))
 	{
-		// if (lexer->type == ARGUMENT)
 		count++;
 		lexer = lexer->next;
 	}
-	printf("count %d \n", count);
 	return (count);
 }
 
