@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:47:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 14:37:03 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	g_shell.fd_out = STDOUT_FILENO;
 	while (1)
 	{
-		input = readline("Dit is echt leuk: ");
+		input = readline("[terminal cancer]: ");
 		if (!input)
 			exit(EXIT_FAILURE);
 		add_history(input);

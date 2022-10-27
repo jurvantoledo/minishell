@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:52:07 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 15:33:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ size_t	env_len(void)
 		len++;
 		env = env->next;
 	}
+	printf("%zu\n", len);
 	return (len);
 }
 
@@ -53,23 +54,6 @@ int	strenv(char **res, t_env *env)
 	return (1);
 }
 
-void	sort_env(t_env **head, t_env *new)
-{
-	t_env	*tmp;
-
-	if (ft_strcmp((*head)->key, new->key) > 0)
-	{
-		new->next = (*head)->next;
-		*head = new;
-		return ;
-	}
-	tmp = *head;
-	while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
-		tmp = tmp->next;
-	new->next = tmp->next;
-	tmp->next = new;
-}
-
 int	add_env_var(t_env **head, char *var_str)
 {
 	t_env	*new;
@@ -86,4 +70,23 @@ int	add_env_var(t_env **head, char *var_str)
 	}
 	sort_env(head, new);
 	return (1);
+}
+
+void	sort_env(t_env **head, t_env *new)
+{
+	t_env	*tmp;
+
+	if (get_env(g_shell.env, new->key))
+		remove_node(&g_shell.env, new->key);
+	if (ft_strcmp((*head)->key, new->key) > 0)
+	{
+		new->next = (*head);
+		*head = new;
+		return ;
+	}
+	tmp = *head;
+	while (tmp->next && ft_strcmp(tmp->next->key, new->key) < 0)
+		tmp = tmp->next;
+	new->next = tmp->next;
+	tmp->next = new;
 }

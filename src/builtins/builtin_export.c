@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 12:44:23 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/27 15:32:57 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static	int	handle_no_val(char *str)
 	sort_env(&g_shell.env, env);
 	return (1);
 }
+
 
 void	builtin_export(int argc, char **args)
 {
