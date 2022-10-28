@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 17:41:15 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/28 13:33:40 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 # define MINISHELL_H
 # define SPECIAL_CHAR "$|<>\"\'"
+# define MAX_PATH 256
 
 typedef enum e_token_type {
 	INFILE,
@@ -89,41 +90,46 @@ extern t_shell	g_shell;
 
 int		main(int argc, char *argv[], char *envp[]);
 
-// Envp parser for storing the keys and values of envp
+/* --------> Envp parser for storing the keys and values of envp <---------- */
 t_env	*parse_env(char *envp[]);
-int		add_env(t_env **head, char *env);
 t_env	*get_env(t_env *head, char *pathname);
 char	**set_env(void);
 size_t	env_len(void);
-int		strenv(char **res, t_env *env);
+void	sort_env(t_env **head, t_env *new);
+
+// Adding to env list
+int		add_env(t_env **head, char *env);
 int		add_str_env(t_env *env, char *str);
 int		add_env_var(t_env **head, char *var_str);
-void	sort_env(t_env **head, t_env *new);
+int		strenv(char **res, t_env *env);
+
+// Free env
+int		remove_node(t_env **head, char *key);
 t_env	*clear_list(t_env **head);
 
-// Lexer Functions
+/* -----------------> Lexer Functions <--------------- */
 t_lexer	*ft_snorlexer(char *input);
 int		check_quotes(char *input);
 void	post_process(char *input, t_lexer *lexer);
 
-// Parser
+/* -----------------> Parser Functions <--------------- */
 void	ft_paraser(char *input, t_lexer *lexer);
 int		check_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 void	parse_cmds(char *input, t_lexer *lexer);
 void	resolve_path(void);
 
-// Exeggutor
+/* -----------------> Exeggutor Functions <--------------- */
 void	ft_exeggutor(void);
 
-// Util Functions
+/* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	print_file_list(t_infile *in_head, t_outfile *out_head);
 void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 
-// Builtins
+/* -----------------> Builtin Functions <--------------- */
 void	exec_builtins(void);
 int		run_builtins(void);
 int		builtin_pwd(void);
@@ -131,5 +137,7 @@ void	builtin_echo(int argc, char **args);
 int		builtin_env(void);
 int		builtin_unset(int argc, char **args);
 void	builtin_export(int argc, char **args);
+void	builtin_exit(int argc, char **argv);
+int		builtin_cd(int argc, char **argv);
 
 #endif

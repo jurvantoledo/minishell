@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 17:50:47 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 15:32:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/28 12:11:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	remove_node(t_env **head, char *key)
 	t_env	*env;
 
 	env = get_env(*head, key);
+	printf("%s\n", env->key);
 	if (!env)
 		return (0);
 	if (*head == env)

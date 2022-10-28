@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:51:53 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/20 15:43:00 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/28 13:45:32 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static int	check_builtin(char *command)
 		ft_strncmp(command, "export", ft_strlen(command)) == 0 || \
 		ft_strncmp(command, "unset", ft_strlen(command)) == 0 || \
 		ft_strncmp(command, "env", ft_strlen(command)) == 0 || \
-		ft_strncmp(command, "exit", ft_strlen(command)) == 0)
+		ft_strncmp(command, "exit", ft_strlen(command)) == 0 || \
+		ft_strncmp(command, "cd", ft_strlen(command)) == 0)
 		return (1);
 	return (0);
 }

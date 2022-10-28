@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/14 15:44:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 10:56:25 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/10/28 17:25:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	*ft_memset(void *b, int c, size_t len);
 	DESCRIPTION
      The strlcpy() and strlcat() functions copy and concatenate strings.
 	 They take the full size of the buffer and guarantee to 
-	 NUL-terminate the result.
+	 NULL-terminate the result.
 
 	RETURN VALUES
 	 The strlcpy() and strlcat() functions return the total length 
