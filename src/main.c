@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 14:37:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:31:52 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char *argv[], char *envp[])
 	g_shell.fd_out = STDOUT_FILENO;
 	while (1)
 	{
-		input = readline("[terminal cancer]: ");
+		input = readline(SHELL_NAME);
 		if (!input)
 			exit(EXIT_FAILURE);
 		add_history(input);
@@ -32,8 +32,6 @@ int	main(int argc, char *argv[], char *envp[])
 		resolve_path();
 		ft_exeggutor();
 		free(input);
-		// if (!run_builtins())
-		// 	return (0);
 		input = NULL;
 	}
 	return (0);

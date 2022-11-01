@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/28 13:33:40 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 13:51:48 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 # include <stdio.h>
 # include <fcntl.h>
+# include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "./libft/libft.h"
@@ -21,6 +22,7 @@
 # define MINISHELL_H
 # define SPECIAL_CHAR "$|<>\"\'"
 # define MAX_PATH 256
+# define SHELL_NAME "[terminal cancer]: "
 
 typedef enum e_token_type {
 	INFILE,
@@ -103,6 +105,9 @@ int		add_str_env(t_env *env, char *str);
 int		add_env_var(t_env **head, char *var_str);
 int		strenv(char **res, t_env *env);
 
+// Update env list
+int		update_env(t_env *head, char *val, char *new_val);
+
 // Free env
 int		remove_node(t_env **head, char *key);
 t_env	*clear_list(t_env **head);
@@ -139,5 +144,9 @@ int		builtin_unset(int argc, char **args);
 void	builtin_export(int argc, char **args);
 void	builtin_exit(int argc, char **argv);
 int		builtin_cd(int argc, char **argv);
+
+/* ----------------> Signals <-------------------- */
+void	signals(void);
+void	sig_handler(int signum);
 
 #endif

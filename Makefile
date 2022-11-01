@@ -1,6 +1,7 @@
 NAME = minishell
 CC = gcc
-FLAGS = -lreadline
+HEADERS	= -I .brew/opt/readline/include
+ARCHIVES = -L .brew/opt/readline/lib
 INCLUDE = include
 LIBFT_DIR = $(INCLUDE)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -27,14 +28,15 @@ SRC =	src/main.c \
 		src/builtins/builtin_export.c \
 		src/builtins/builtins_exit.c \
 		src/builtins/builtin_cd.c \
-		src/builtins/exec.c
+		src/builtins/exec.c \
+		src/signals/signals.c
 
 OBJ = $(SRC:%.c=%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(OBJ) $(FLAGS) $(LIBFT) -o $(NAME)
+	$(CC) $(OBJ) $(HEADERS) $(ARCHIVES) $(LIBFT) -lreadline -o $(NAME)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 15:00:06 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 11:30:53 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	**set_env(void)
 	if (!res)
 		return (NULL);
 	env = g_shell.env;
+	if (!env)
+		return (NULL);
 	i = 0;
 	while (env)
 	{

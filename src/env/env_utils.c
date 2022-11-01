@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/28 12:18:17 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 11:39:09 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,13 @@ void	sort_env(t_env **head, t_env *new)
 		tmp = tmp->next;
 	new->next = tmp->next;
 	tmp->next = new;
+}
+
+int	update_env(t_env *head, char *val, char *new_val)
+{
+	head = get_env(g_shell.env, val);
+	if (!head)
+		return (0);
+	head->value = new_val;
+	return (1);
 }
