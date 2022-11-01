@@ -192,12 +192,12 @@ clean:
 	@printf "$(RED)🧹Removed objects for \"$(NAME)\"!$(RESET)\n"
 
 #===============================================================================: Remove all object files and executable
-# fclean:
-# 	@$(RM) objs/
-# 	@$(RM) $(NAME)
-# 	@$(MAKE) -C $(LIBFT) fclean
-# 	@printf "$(RED)🧹Removed objects for \"$(NAME)\"!$(RESET)\n"
-# 	@printf "$(RED)🧹Removed \"$(NAME)\"!$(RESET)\n"
+fclean:
+	@$(RM) objs/
+	@$(RM) $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
+	@printf "$(RED)🧹Removed objects for \"$(NAME)\"!$(RESET)\n"
+	@printf "$(RED)🧹Removed \"$(NAME)\"!$(RESET)\n"
 
 #===============================================================================: Remove all object files, executable and remake executable
 re: fclean all
