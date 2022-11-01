@@ -6,17 +6,27 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 13:51:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 16:12:01 by lcheung       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
+// # include <stdio.h>
+// # include <signal.h>
+// # include <readline/readline.h>
+// # include <readline/history.h>
 # include <stdio.h>
-# include <fcntl.h>
-# include <signal.h>
+# include <fcntl.h> //
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <limits.h>
+# include <signal.h>
+# include <errno.h>
+# include <termios.h>
+# include <sys/wait.h>
 # include "./libft/libft.h"
 
 # define MINISHELL_H
@@ -146,7 +156,11 @@ void	builtin_exit(int argc, char **argv);
 int		builtin_cd(int argc, char **argv);
 
 /* ----------------> Signals <-------------------- */
-void	signals(void);
-void	sig_handler(int signum);
+// void	signals(void);
+// void	sig_handler(int signum);
+void	set_sigs_exec(void);
+void	sig_handler_exec(int sig);
+void	init_signal(void);
+void	set_signals(void);
 
 #endif

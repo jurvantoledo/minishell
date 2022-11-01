@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 12:56:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/01 16:37:33 by lcheung       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	ft_fork(pid_t *pid)
 
 static void	ft_exec(int i)
 {
+	set_sigs_exec();
 	if (i == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.fd_in, STDIN_FILENO);
@@ -47,7 +48,6 @@ static void	ft_exec(int i)
 	}
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
 	exec_builtins();
-	signals();
 }
 
 int	child_process(int i)
