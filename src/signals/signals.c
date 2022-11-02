@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/31 15:35:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:58:08 by lcheung       ########   odam.nl         */
+/*   Updated: 2022/11/02 16:18:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	sighandler(int num)
 	if (num == SIGQUIT)
 		return ;
 }
-
 
 void	init_signal(void)
 {
