@@ -6,43 +6,22 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:37:33 by lcheung       ########   odam.nl         */
+/*   Updated: 2022/11/03 17:27:23 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_pipe(int fds[2])
-{
-	if (pipe(fds) == -1)
-		return (0);
-	return (1);
-}
-
-int	ft_fork(pid_t *pid)
-{
-	pid_t	output;
-
-	output = fork();
-	if (output == -1)
-		return (0);
-	*pid = output;
-	return (1);
-}
-
 static void	ft_exec(int i)
 {
-	set_sigs_exec();
+	// set_sigs_exec();
 	if (i == 0 && g_shell.fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.fd_in, STDIN_FILENO);
-		printf("the infile: %d\n", g_shell.fd_in);
 		close(g_shell.fd_in);
 	}
 	if (i == g_shell.cmd_len - 1 && g_shell.fd_out != STDOUT_FILENO)
 	{
-		printf("the outfile: %d\n", g_shell.fd_out);
-		printf("piemel\n");
 		dup2(g_shell.fd_out, STDOUT_FILENO);
 		close(g_shell.fd_out);
 	}

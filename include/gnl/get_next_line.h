@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   run.c                                              :+:    :+:            */
+/*   get_next_line.h                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/06 14:08:57 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:49:09 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/03/11 10:02:58 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/03/11 10:03:00 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#ifndef GET_NEXT_LINE_H
 
-int	run_builtins(void)
-{
-	if (builtin_pwd() == 0)
-		return (0);
-	return (1);
-}
+# include <unistd.h> 
+# include <stdlib.h>
+
+# define GET_NEXT_LINE_H
+
+char	*get_next_line(int fd);
+size_t	ft_strlen(char const *str);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *src);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_remainder(char *string);
+char	*copy_sentence(char *string);
+
+#endif

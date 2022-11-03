@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 14:38:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/26 14:15:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/03 17:13:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	unset_env(t_env **head_ref, char *key)
 
 	temp = *head_ref;
 	printf("temp: %s  key: %s\n", temp->key, key);
-	if (temp != NULL && ft_strcmp(temp->key, key) == 0)
+	if (temp != NULL && ft_strncmp(temp->key, key, ft_strlen(key)) == 0)
 	{
 		*head_ref = temp->next;
 		free(temp->key);
@@ -29,7 +29,7 @@ static void	unset_env(t_env **head_ref, char *key)
 		free(temp);
 		return ;
 	}
-	while (temp && (ft_strcmp(temp->key, key) != 0))
+	while (temp && (ft_strncmp(temp->key, key, ft_strlen(key)) != 0))
 	{
 		*head_ref = temp;
 		temp = temp->next;

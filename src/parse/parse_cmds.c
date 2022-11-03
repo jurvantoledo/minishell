@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/27 17:31:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/03 11:49:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,32 +38,6 @@ static size_t	arg_counter(t_lexer *lexer)
 	}
 	return (count);
 }
-
-// char	**parse_args(char *input, t_lexer *lexer, int arg_len)
-// {
-// 	char	*str;
-// 	char	**args;
-// 	int		i;
-
-// 	i = 0;
-// 	args = ft_calloc(arg_len, sizeof(char *));
-// 	if (!args)
-// 		return (NULL);
-// 	while (lexer && i < arg_len)
-// 	{
-// 		if (lexer->type == ARGUMENT || lexer->type == COMMAND)
-// 		{
-// 			str = ft_substr(input, lexer->index, lexer->length);
-// 			if (!str)
-// 				return (NULL);
-// 			args[i] = str;
-// 			i++;
-// 		}
-// 		lexer = lexer->next;
-// 	}
-// 	args[i] = 0;
-// 	return (args);
-// }
 
 char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 {

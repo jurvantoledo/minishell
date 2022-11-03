@@ -6,18 +6,14 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:12:01 by lcheung       ########   odam.nl         */
+/*   Updated: 2022/11/03 17:47:39 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 
-// # include <stdio.h>
-// # include <signal.h>
-// # include <readline/readline.h>
-// # include <readline/history.h>
 # include <stdio.h>
-# include <fcntl.h> //
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <stdbool.h>
@@ -28,9 +24,10 @@
 # include <termios.h>
 # include <sys/wait.h>
 # include "./libft/libft.h"
+# include "./gnl/get_next_line.h"
 
 # define MINISHELL_H
-# define SPECIAL_CHAR "$|<>\"\'"
+# define SPECIAL_CHAR "$|<>"
 # define MAX_PATH 256
 # define SHELL_NAME "[terminal cancer]: "
 
@@ -126,6 +123,7 @@ t_env	*clear_list(t_env **head);
 t_lexer	*ft_snorlexer(char *input);
 int		check_quotes(char *input);
 void	post_process(char *input, t_lexer *lexer);
+int		check_input(char *input, int i);
 
 /* -----------------> Parser Functions <--------------- */
 void	ft_paraser(char *input, t_lexer *lexer);
@@ -136,6 +134,8 @@ void	resolve_path(void);
 
 /* -----------------> Exeggutor Functions <--------------- */
 void	ft_exeggutor(void);
+int		ft_pipe(int fds[2]);
+int		ft_fork(pid_t *pid);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
@@ -149,7 +149,7 @@ void	exec_builtins(void);
 int		run_builtins(void);
 int		builtin_pwd(void);
 void	builtin_echo(int argc, char **args);
-int		builtin_env(void);
+int		builtin_env(int argc, char **argv);
 int		builtin_unset(int argc, char **args);
 void	builtin_export(int argc, char **args);
 void	builtin_exit(int argc, char **argv);

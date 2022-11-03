@@ -6,14 +6,12 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/19 14:39:49 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/03 15:59:20 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-// Checken of lexer-type een argument is. dus als lexer->type 6 is
-// en lexer->next->type 6 is dan zal die 2de type wss een argument zijn.
 static int	check_cmd_args(char *input, t_lexer *lexer, t_lexer *prev_node)
 {
 	if (lexer->next == NULL)

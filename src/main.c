@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/01 16:01:47 by lcheung       ########   odam.nl         */
+/*   Updated: 2022/11/03 17:22:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,18 @@ int	main(int argc, char *argv[], char *envp[])
 	g_shell.fd_out = STDOUT_FILENO;
 	while (1)
 	{
-		init_signal();
+		// init_signal();
 		input = readline(SHELL_NAME);
 		if (!input)
-			exit(EXIT_FAILURE);
+		{
+			ft_putendl_fd("exit", 1);
+			return (0);
+		}
 		add_history(input);
 		g_shell.lexer = ft_snorlexer(input);
 		ft_paraser(input, g_shell.lexer);
 		resolve_path();
 		ft_exeggutor();
-		// signals();
 		free(input);
 		input = NULL;
 	}
