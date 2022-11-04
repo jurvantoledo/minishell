@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 16:31:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:24:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	check_input(char *input, int i)
 	}
 	return (len);
 }
-
 
 int	check_quotes(char *input)
 {

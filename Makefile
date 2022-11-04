@@ -49,6 +49,7 @@ SRCS =	src/main.c \
 		src/builtins/builtin_export.c \
 		src/builtins/builtins_exit.c \
 		src/builtins/builtin_cd.c \
+		src/builtins/errors.c \
 		src/builtins/exec.c \
 		src/signals/signals.c \
 		include/gnl/get_next_line_utils.c \

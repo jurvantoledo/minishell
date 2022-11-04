@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 14:38:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:13:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/04 11:05:56 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	unset_env(t_env **head_ref, char *key)
 	}
 	while (temp && (ft_strncmp(temp->key, key, ft_strlen(key)) != 0))
 	{
-		*head_ref = temp;
+		*head_ref = temp->next;
 		temp = temp->next;
 	}
 	if (temp == NULL)
@@ -52,7 +52,7 @@ int	builtin_unset(int argc, char **args)
 	i = 1;
 	while (args[i])
 	{
-		unset_env(&g_shell.env, args[i]);
+		remove_node(&g_shell.env, args[i]);
 		i++;
 	}
 	return (1);

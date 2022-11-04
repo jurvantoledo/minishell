@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:47:39 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/04 12:30:17 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # include "./gnl/get_next_line.h"
 
 # define MINISHELL_H
-# define SPECIAL_CHAR "$|<>"
+# define SPECIAL_CHAR "|<>"
 # define MAX_PATH 256
 # define SHELL_NAME "[terminal cancer]: "
 
@@ -148,6 +148,7 @@ void	free_cmds(char **commands);
 void	exec_builtins(void);
 int		run_builtins(void);
 int		builtin_pwd(void);
+int		print_old_pwd(void);
 void	builtin_echo(int argc, char **args);
 int		builtin_env(int argc, char **argv);
 int		builtin_unset(int argc, char **args);
