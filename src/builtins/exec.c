@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:47:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/07 15:58:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	invalid_cmd(int argc, char *argv)
 		ft_putchar_fd(':', 1);
 		ft_putchar_fd(' ', 1);
 		ft_putendl_fd("Command not found", 1);
+		g_shell.exit_code = 127;
 	}
 }
 

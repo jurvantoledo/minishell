@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:30:17 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/07 15:57:26 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,14 +147,24 @@ void	free_cmds(char **commands);
 /* -----------------> Builtin Functions <--------------- */
 void	exec_builtins(void);
 int		run_builtins(void);
+
+// PWD builtin
 int		builtin_pwd(void);
 int		print_old_pwd(void);
+
 void	builtin_echo(int argc, char **args);
 int		builtin_env(int argc, char **argv);
 int		builtin_unset(int argc, char **args);
 void	builtin_export(int argc, char **args);
 void	builtin_exit(int argc, char **argv);
+
+// CD Builtin
 int		builtin_cd(int argc, char **argv);
+int		cd_home_path(t_env *dir, char *path);
+int		set_path(char *path);
+int		set_old_cd(char *path);
+
+int		errors(char *var, char *str, int exit_code);
 
 /* ----------------> Signals <-------------------- */
 // void	signals(void);

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:50:41 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 15:50:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/07 15:34:28 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	set_pwd(char *old)
 	return (1);
 }
 
-static int	set_path(char *path)
+int	set_path(char *path)
 {
 	char	cwd[MAX_PATH];
 
@@ -36,19 +36,6 @@ static int	set_path(char *path)
 	}
 	if (!set_pwd(cwd))
 		return (0);
-	return (1);
-}
-
-int	set_old_cd(char *path)
-{
-	t_env	*dir;
-
-	dir = get_env(g_shell.env, "OLDPWD");
-	if (!dir)
-		return (0);
-	if (!set_path(dir->value))
-		return (0);
-	print_old_pwd();
 	return (1);
 }
 
@@ -78,20 +65,22 @@ int	set_cd(int argc, char *path)
 	char	cwd[MAX_PATH];
 	t_env	*dir;
 
-	// if (ft_strncmp(path, "~", 2) == 0 || ft_strncmp(path, "-", 2) == 0)
-	// {
-	// 	if (!cd_flags(path))
-	// 		return (0);
-	// }
-	// else
-	// {
-	// 	if (!set_path(path))
-	// 		return (0);
-	// }
-	if (ft_strncmp(path, "~/", 2) == 0 && ft_strlen(path) != 1)
+	if (ft_strncmp(path, "~", 2) == 0 || ft_strncmp(path, "-", 2) == 0)
 	{
-		dir = get_env(g_shell.env, "OLDPWD");
+		if (!cd_flags(path))
+			return (0);
+	}
+	else if (ft_strncmp(path, "~/", 2) == 0 && ft_strlen(path) != 1)
+	{
+		dir = get_env(g_shell.env, "HOME");
 		if (!dir)
+			return (0);
+		if (!cd_home_path(dir, path))
+			return (0);
+	}
+	else
+	{
+		if (!set_path(path))
 			return (0);
 	}
 	return (1);
@@ -108,7 +97,10 @@ int	builtin_cd(int argc, char **argv)
 		return (0);
 	}
 	else if (argc > 1)
-		set_cd(argc, argv[1]);
+	{
+		if (!set_cd(argc, argv[1]))
+			return (0);
+	}
 	else if (argc == 1)
 	{
 		dir = get_env(g_shell.env, "HOME");
