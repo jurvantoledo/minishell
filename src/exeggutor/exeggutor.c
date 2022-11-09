@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:27:23 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:56:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	child_process(int i)
 		close(fd[1]);
 		return (0);
 	}
-	if (g_shell.pid == 0)
+	if (g_shell.pid != 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);

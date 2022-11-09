@@ -47,6 +47,7 @@ SRCS =	src/main.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_unset.c \
 		src/builtins/builtin_export.c \
+		src/builtins/builtin_export_utils.c \
 		src/builtins/builtins_exit.c \
 		src/builtins/builtin_cd.c \
 		src/builtins/builtin_cd_utils.c \

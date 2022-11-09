@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:24:10 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 13:33:49 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,13 @@ int	check_input(char *input, int i)
 {
 	int	len;
 
+	len = 0;
 	if (!special_chars(input[i]))
 	{
-		len = 0;
 		len = ft_lexer_wrlength(&input[i]);
 	}
 	else
 	{
-		len = 0;
 		len = ft_symbol_len(&input[i]);
 	}
 	return (len);

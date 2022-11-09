@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/07 15:57:26 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:30:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,10 +152,21 @@ int		run_builtins(void);
 int		builtin_pwd(void);
 int		print_old_pwd(void);
 
+// ECHO builtin
 void	builtin_echo(int argc, char **args);
+
+// ENV builtin
 int		builtin_env(int argc, char **argv);
+
+// UNSET builtin
 int		builtin_unset(int argc, char **args);
+
+// EXPORT builtin
 void	builtin_export(int argc, char **args);
+int		check_val_quotes(char *val);
+int		args_identifier(char **args);
+
+// EXIT builtin
 void	builtin_exit(int argc, char **argv);
 
 // CD Builtin

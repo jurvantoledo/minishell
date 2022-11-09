@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exec_utils.c                                       :+:    :+:            */
+/*   builtin_export_utils.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 12:13:39 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/11/09 15:20:36 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/11/09 15:35:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_pipe(int fds[2])
+int	check_val_quotes(char *val)
 {
-	if (pipe(fds) == -1)
-		return (0);
-	return (1);
+	int	i;
+
+	i = 0;
+	while (val[i])
+	{
+		if (val[i] == '\"' || val[i] == '\'')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
-int	ft_fork(pid_t *pid)
+int	args_identifier(char **args)
 {
-	pid_t	output;
-
-	output = fork();
-	if (output == -1)
+	if (ft_strcmp(args[1], "\"") == 0)
+	{
+		errors(args[1], " not a valid identifier", 1);
 		return (0);
-	*pid = output;
+	}
 	return (1);
 }

@@ -6,13 +6,56 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/28 12:16:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:35:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	print_env(void)
+static void	check_env_val(char *arg, int fd)
+{
+	t_env	*dir;
+	int		i;
+
+	i = 0;
+	if (ft_strncmp(arg, "$", 1) == 0)
+	{
+		while (arg[i])
+		{
+			if (arg[i] == '$')
+			{
+				i++;
+				dir = get_env(g_shell.env, &arg[i]);
+				if (!dir)
+					return ;
+				ft_putstr_fd(dir->value, fd);
+				return ;
+			}
+			i++;
+		}
+	}
+	else
+		ft_putstr_fd(arg, fd);
+}
+
+static void	print_env_value(char *value)
+{
+	t_env	*dir;
+
+	if (!check_val_quotes(value))
+	{
+		ft_putstr_fd("=\"", 1);
+		check_env_val(value, 1);
+		ft_putchar_fd('"', 1);
+	}
+	else
+	{
+		ft_putstr_fd("=", 1);
+		check_env_val(value, 1);
+	}
+}
+
+static int	check_env(void)
 {
 	t_env	*env;
 
@@ -25,9 +68,7 @@ static int	print_env(void)
 		ft_putstr_fd(env->key, 1);
 		if (env->value)
 		{
-			ft_putstr_fd("=\"", 1);
-			ft_putstr_fd(env->value, 1);
-			ft_putchar_fd('"', 1);
+			print_env_value(env->value);
 		}
 		ft_putchar_fd('\n', 1);
 		env = env->next;
@@ -60,9 +101,11 @@ void	builtin_export(int argc, char **args)
 
 	if (argc == 1)
 	{
-		print_env();
+		check_env();
 		return ;
 	}
+	if (!args_identifier(args))
+		return ;
 	i = 0;
 	while (args[i + 1])
 	{
