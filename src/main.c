@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 17:13:40 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 17:36:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char *argv[], char *envp[])
 	{
 		// init_signal();
 		input = readline(SHELL_NAME);
+		if (!input)
+			return (0);
 		add_history(input);
 		g_shell.lexer = ft_snorlexer(input);
 		if (!g_shell.lexer)
