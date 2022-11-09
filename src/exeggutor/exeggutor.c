@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:56:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 17:14:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ int	exec_func(void)
 	int	i;
 
 	i = 0;
+	if (!g_shell.cmd_len)
+		return (0);
 	while (i < g_shell.cmd_len - 1)
 	{
 		if (!child_process(i))

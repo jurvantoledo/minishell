@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:35:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/09 17:04:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ static void	parse_out(t_lexer *lexer, char *input)
 		close(g_shell.fd_out);
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
 	printf("the out: %s\n", tmp);
-	if (lexer->type == OUTFILE)
+	if (lexer->next->type == OUTFILE)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
 						0644);
 	}
-	if (lexer->type == OUTFILE_APPEND)
+	if (lexer->next->type == OUTFILE_APPEND)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
