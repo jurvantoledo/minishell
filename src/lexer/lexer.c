@@ -83,11 +83,6 @@ t_lexer	*ft_snorlexer(char *input)
 		while (input[i] && ft_isspace(input[i]))
 			i++;
 		len = check_input(input, i);
-		if (input[i] == '\"' || input[i] == '\'')
-		{
-			len = check_quotes(&input[i]);
-			i++;
-		}
 		set_snorlexer(&head, input, len, i);
 		i += len;
 		len = 0;

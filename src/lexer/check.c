@@ -12,15 +12,15 @@
 
 #include "../../include/minishell.h"
 
-static int	ft_symbol_len(char *input)
+static int ft_symbol_len(char *input)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (input[i] && !ft_isspace(input[i]))
 	{
-		if ((input[i] == '<' && input[i + 1] == '<') || \
-		(input[i] == '>' && input[i + 1] == '>'))
+		if ((input[i] == '<' && input[i + 1] == '<') ||
+			(input[i] == '>' && input[i + 1] == '>'))
 			return (2);
 		else if (special_chars(input[i]))
 			return (1);
@@ -29,19 +29,29 @@ static int	ft_symbol_len(char *input)
 	return (0);
 }
 
-static int	ft_lexer_wrlength(char *input)
+static int ft_lexer_wrlength(char *input)
 {
-	int	i;
+	int i;
+	int	len;
 
 	i = 0;
+	len = 0;
 	while (input[i] && (!ft_isspace(input[i]) && special_chars(input[i]) == 0))
+	{
+		if (input[i] == '\"' || input[i] == '\'')
+		{
+			len = check_quotes(&input[i]);
+			i++;
+		}
 		i++;
+	}
+	i += len;
 	return (i);
 }
 
-int	check_input(char *input, int i)
+int check_input(char *input, int i)
 {
-	int	len;
+	int len;
 
 	len = 0;
 	if (!special_chars(input[i]))
@@ -55,9 +65,9 @@ int	check_input(char *input, int i)
 	return (len);
 }
 
-int	check_quotes(char *input)
+int check_quotes(char *input)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (input[i] == '\"')
@@ -74,5 +84,5 @@ int	check_quotes(char *input)
 			i++;
 		i--;
 	}
-	return (i);
+	return (i - 1);
 }
