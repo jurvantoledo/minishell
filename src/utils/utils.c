@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:24:33 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/10 17:59:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_list(t_lexer *head)
 {
 	while (head != NULL)
 	{
-		printf("index: %d\t lenght: %d\t type: %d\n", head->index, \
+		printf("index: %d\t length: %d\t type: %d\n", head->index, \
 				head->length, head->type);
 		head = head->next;
 	}

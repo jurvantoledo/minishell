@@ -6,18 +6,29 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/07 15:58:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:53:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	invalid_cmd(int argc, char *argv)
+int	invalid_cmd(int argc, char *argv)
 {
 	if (ft_strncmp(argv, "exit", 5) != 0 && ft_strncmp(argv, "unset", 6) != 0 \
 		&& ft_strncmp(argv, "export", 7) != 0 && \
 		ft_strcmp(argv, "env") != 0 && ft_strncmp(argv, "echo", 5) != 0 && \
-		ft_strncmp(argv, "pwd", 4) != 0 && ft_strncmp(argv, "cd", 3) != 0)
+		ft_strncmp(argv, "pwd", 4) != 0 && ft_strncmp(argv, "cd", 3) != 0 && \
+		ft_strncmp(argv, "./minishell", 12) != 0)
+	{
+		return (0);
+	}
+	return (1);
+}
+
+void	print_err(int argc, char *argv)
+{
+	if ((!invalid_cmd(argc, argv) && !expander(argv)) \
+		|| g_shell.lexer->length == 0)
 	{
 		ft_putstr_fd(argv, 1);
 		ft_putchar_fd(':', 1);
@@ -49,6 +60,8 @@ void	exec_builtins(void)
 	if (ft_strncmp(g_shell.command[0].arguments[0], "cd", 3) == 0)
 		builtin_cd(ft_arraylen(g_shell.command[0].arguments), \
 					g_shell.command[0].arguments);
-	invalid_cmd(ft_arraylen(g_shell.command[0].arguments), \
+	if (ft_strncmp(g_shell.command[0].arguments[0], "./minishell", 12) == 0)
+		set_shlvl();
+	print_err(ft_arraylen(g_shell.command[0].arguments), \
 				g_shell.command[0].arguments[0]);
 }

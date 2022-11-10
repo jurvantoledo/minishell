@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:30:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/10 18:05:32 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,10 @@ void	resolve_path(void);
 void	ft_exeggutor(void);
 int		ft_pipe(int fds[2]);
 int		ft_fork(pid_t *pid);
+int		set_shlvl(void);
+
+/* -----------------> Expander Functions <----------------------*/
+int		expander(char *input);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);

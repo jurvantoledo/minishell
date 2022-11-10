@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:49:02 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/10/28 17:20:34 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/10 12:24:43 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	check_digit(char *c)
+static int	check_digit(char *c)
 {
 	int	i;
 	int	x;
@@ -29,10 +29,8 @@ int	check_digit(char *c)
 	return (0);
 }
 
-void	builtin_exit(int argc, char **argv)
+static int	exit_check_args(int argc, char **argv)
 {
-	int	i;
-
 	if (argc == 1)
 	{
 		if (ft_strncmp(argv[0], "exit", 5) == 0)
@@ -40,12 +38,22 @@ void	builtin_exit(int argc, char **argv)
 			ft_putendl_fd("exit", 1);
 			exit(EXIT_SUCCESS);
 		}
+		return (1);
 	}
 	if (argc > 2)
 	{
 		ft_putendl_fd("exit: too many arguments", 1);
-		return ;
+		return (1);
 	}
+	return (0);
+}
+
+void	builtin_exit(int argc, char **argv)
+{
+	int	i;
+
+	if (exit_check_args(argc, argv) == 1)
+		return ;
 	i = 0;
 	while (argv[i])
 	{

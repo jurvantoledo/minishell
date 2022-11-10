@@ -1,41 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   exec_utils.c                                       :+:    :+:            */
+/*   expander.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:50:42 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/11/10 11:58:24 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/11/10 13:42:21 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	err_empty_string(char *argv)
+int	expand_dollar(char *input)
 {
-	ft_putstr_fd("Error: ", 1);
-	ft_putchar_fd(' ', 1);
-	ft_putstr_fd(argv, 1);
-	ft_putchar_fd('\n', 1);
-	g_shell.exit_code = 126;
+	t_env	*env;
+	int		i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '$')
+		{
+			i++;
+			env = get_env(g_shell.env, &input[i]);
+			if (!env)
+				return (0);
+			ft_putendl_fd(env->value, 1);
+			return (1);
+		}
+		i++;
+	}
 	return (0);
 }
 
-int	ft_pipe(int fds[2])
+int	expander(char *input)
 {
-	if (pipe(fds) == -1)
-		return (0);
-	return (1);
-}
-
-int	ft_fork(pid_t *pid)
-{
-	pid_t	output;
-
-	output = fork();
-	if (output == -1)
-		return (0);
-	*pid = output;
-	return (1);
+	if (expand_dollar(input) == 1)
+		return (1);
+	return (0);
 }

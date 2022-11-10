@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 17:36:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/10 18:06:13 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main(int argc, char *argv[], char *envp[])
 	g_shell.env = parse_env(envp);
 	g_shell.fd_in = STDIN_FILENO;
 	g_shell.fd_out = STDOUT_FILENO;
+	if (!set_shlvl())
+		return (0);
 	while (1)
 	{
 		// init_signal();
