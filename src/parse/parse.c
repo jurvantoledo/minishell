@@ -6,28 +6,17 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/23 14:41:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 17:13:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 10:17:09 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_redirections(char *input, t_lexer *lexer)
-{
-	char		*infile;
-
-	while (lexer->next != NULL)
-	{
-		check_files(input, lexer);
-		lexer = lexer->next;
-	}
-}
-
 void	ft_paraser(char *input, t_lexer *lexer)
 {
 	if (!lexer)
 		return ;
-	ft_redirections(input, lexer);
+	parse_files(input, lexer);
 	parse_cmds(input, lexer);
 	return ;
 }

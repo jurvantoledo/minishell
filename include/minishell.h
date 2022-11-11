@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 18:05:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 17:39:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,19 +127,19 @@ int		check_input(char *input, int i);
 
 /* -----------------> Parser Functions <--------------- */
 void	ft_paraser(char *input, t_lexer *lexer);
-int		check_files(char *input, t_lexer *lexer);
+int		parse_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 void	parse_cmds(char *input, t_lexer *lexer);
 void	resolve_path(void);
 
+/* -----------------> Expander Functions <----------------------*/
+int		expander(char *input);
+
 /* -----------------> Exeggutor Functions <--------------- */
-void	ft_exeggutor(void);
+int		ft_exeggutor(void);
 int		ft_pipe(int fds[2]);
 int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
-
-/* -----------------> Expander Functions <----------------------*/
-int		expander(char *input);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
@@ -149,7 +149,7 @@ void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 
 /* -----------------> Builtin Functions <--------------- */
-void	exec_builtins(void);
+int		exec_builtins(int i);
 int		run_builtins(void);
 
 // PWD builtin
@@ -179,7 +179,7 @@ int		cd_home_path(t_env *dir, char *path);
 int		set_path(char *path);
 int		set_old_cd(char *path);
 
-int		errors(char *var, char *str, int exit_code);
+int		errors(char *shell, char *arg, char *str, int exit_code);
 
 /* ----------------> Signals <-------------------- */
 // void	signals(void);

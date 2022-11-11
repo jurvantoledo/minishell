@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:49:26 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 15:50:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,30 @@ int	check_arg_env(char *arg)
 	int		i;
 
 	i = 0;
-	while (arg[i] == '$')
+	while (arg[i])
+	{
+		if (arg[i] != '$' && arg[i] != '~')
+		{
+			ft_putstr_fd(arg, 1);
+			ft_putchar_fd(' ', 1);
+			return (1);
+		}
+		else
+		{
+			while (arg[i] == '$')
+				i++;
+			dir = get_env(g_shell.env, &arg[i]);
+			if (!dir && ft_strncmp(arg, "$", 1) == 0)
+				return (1);
+			else if (!dir)
+				return (0);
+			ft_putstr_fd(dir->value, 1);
+			ft_putchar_fd(' ', 1);
+			return (1);
+		}
 		i++;
-	dir = get_env(g_shell.env, &arg[i]);
-	if (!dir && ft_strncmp(arg, "$", 1) == 0)
-		return (1);
-	else if (!dir)
-		return (0);
-	ft_putstr_fd(dir->value, 1);
-	return (1);
+	}
+	return (0);
 }
 
 int	check_golfje(char *arg)

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:50:41 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/07 15:34:28 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 12:43:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	set_path(char *path)
 	printf("het pad: %s\n", path);
 	if ((!path || chdir(path) < 0))
 	{
-		return (errors(path, "No such file or directory", 1));
+		return (errors("minishell", path, "No such file or directory", 1));
 	}
 	if (!set_pwd(cwd))
 		return (0);

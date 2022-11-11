@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 17:04:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 10:42:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,13 @@ static void	parse_out(t_lexer *lexer, char *input)
 
 	if (g_shell.fd_out != STDOUT_FILENO)
 		close(g_shell.fd_out);
-	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
-	printf("the out: %s\n", tmp);
-	if (lexer->next->type == OUTFILE)
+	tmp = ft_substr(input, lexer->index, lexer->length);
+	if (lexer->type == OUTFILE)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
 						0644);
 	}
-	if (lexer->next->type == OUTFILE_APPEND)
+	if (lexer->type == OUTFILE_APPEND)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
@@ -80,13 +79,17 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 	free(heredoc);
 }
 
-int	check_files(char *input, t_lexer *lexer)
+int	parse_files(char *input, t_lexer *lexer)
 {
-	if (lexer->type == HERE_DOC)
-		parse_heredoc(input, lexer);
-	if (lexer->type == INFILE)
-		parse_in(lexer, input);
-	if (lexer->type == OUTFILE || lexer->type == OUTFILE_APPEND)
-		parse_out(lexer, input);
+	while (lexer)
+	{
+		if (lexer->type == HERE_DOC)
+			parse_heredoc(input, lexer);
+		if (lexer->type == INFILE)
+			parse_in(lexer, input);
+		if (lexer->type == OUTFILE || lexer->type == OUTFILE_APPEND)
+			parse_out(lexer, input);
+		lexer = lexer->next;
+	}
 	return (1);
 }

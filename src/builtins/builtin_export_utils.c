@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/09 15:20:36 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 15:35:10 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 15:15:29 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	args_identifier(char **args)
 {
 	if (ft_strcmp(args[1], "\"") == 0)
 	{
-		errors(args[1], " not a valid identifier", 1);
+		errors("minishell: ", args[1], " not a valid identifier", 1);
 		return (0);
 	}
 	return (1);

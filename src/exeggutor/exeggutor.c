@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:52:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 17:40:56 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,14 @@ static void	ft_exec(int i)
 		dup2(g_shell.fd_out, STDOUT_FILENO);
 		close(g_shell.fd_out);
 	}
-	// if (ft_strncmp(g_shell.command[i].arguments[0], "", 1) == 0)
-	// 	err_empty_string(g_shell.command[i].arguments[0]);
+	if (g_shell.command[i].path == NULL)
+		exec_builtins(i);
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
-	exec_builtins();
+	if (access(g_shell.command[i].arguments[0], R_OK) == -1)
+		exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"Command not found", 127));
+	exit(errors("minishell", g_shell.command[i].arguments[0], \
+		"Permission denied", 127));
 }
 
 int	child_process(int i)
@@ -43,9 +47,10 @@ int	child_process(int i)
 		close(fd[1]);
 		return (0);
 	}
-	if (g_shell.pid != 0)
+	if (g_shell.pid == 0)
 	{
-		dup2(fd[1], STDOUT_FILENO);
+		if (i != g_shell.cmd_len - 1)
+			dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		close(fd[0]);
 		ft_exec(i);
@@ -76,9 +81,25 @@ int	exec_func(void)
 	return (1);
 }
 
-void	ft_exeggutor(void)
+static int	single_builtin(void)
 {
-	if (!exec_func())
-		return ;
-	return ;
+	exec_builtins(0);
+	return (1);
+}
+
+int	ft_exeggutor(void)
+{
+	int		status;
+
+	if (g_shell.cmd_len == 0)
+		return (0);
+	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL && \
+		single_builtin())
+		return (1);
+	if (!ft_fork(&g_shell.pid))
+		return (0);
+	if (g_shell.pid == 0 && !exec_func())
+		return (0);
+	waitpid(g_shell.pid, &status, 0);
+	return (1);
 }

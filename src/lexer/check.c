@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 18:05:23 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 09:57:40 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static int ft_lexer_wrlength(char *input)
 	return (i);
 }
 
-int check_input(char *input, int i)
+int	check_input(char *input, int i)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (!special_chars(input[i]))
@@ -65,9 +65,9 @@ int check_input(char *input, int i)
 	return (len);
 }
 
-int check_quotes(char *input)
+int	check_quotes(char *input)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (input[i] == '\"')
