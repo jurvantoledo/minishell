@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/11 17:46:35 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/11 17:49:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	invalid_cmd(int argc, char *argv)
+static int	invalid_cmd(int argc, char *argv)
 {
 	if (ft_strncmp(argv, "exit", 5) != 0 && ft_strncmp(argv, "unset", 6) != 0 \
 		&& ft_strncmp(argv, "export", 7) != 0 && \
@@ -25,7 +25,7 @@ int	invalid_cmd(int argc, char *argv)
 	return (0);
 }
 
-int	print_err(int i)
+static int	print_err(int i)
 {
 	if (invalid_cmd(ft_arraylen(g_shell.command[i].arguments), \
 					g_shell.command[i].arguments[0]) == 1)
