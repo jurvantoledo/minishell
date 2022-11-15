@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/11 17:40:56 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/15 17:12:33 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,12 @@ static void	ft_exec(int i)
 		dup2(g_shell.fd_out, STDOUT_FILENO);
 		close(g_shell.fd_out);
 	}
-	if (g_shell.command[i].path == NULL)
+	if (g_shell.command[i].path == NULL && \
+		!arg_files_permission())
+	{
 		exec_builtins(i);
+	}
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
-	if (access(g_shell.command[i].arguments[0], R_OK) == -1)
-		exit(errors("minishell", g_shell.command[i].arguments[0], \
-			"Command not found", 127));
-	exit(errors("minishell", g_shell.command[i].arguments[0], \
-		"Permission denied", 127));
 }
 
 int	child_process(int i)
@@ -64,6 +62,16 @@ int	child_process(int i)
 	return (1);
 }
 
+static int	single_builtin(void)
+{
+	if (arg_files_check(g_shell.command[0].arguments[0]) == 0)
+	{
+		exec_builtins(0);
+		return (1);
+	}
+	return (0);
+}
+
 int	exec_func(void)
 {
 	int	i;
@@ -81,20 +89,13 @@ int	exec_func(void)
 	return (1);
 }
 
-static int	single_builtin(void)
-{
-	exec_builtins(0);
-	return (1);
-}
-
 int	ft_exeggutor(void)
 {
 	int		status;
 
 	if (g_shell.cmd_len == 0)
 		return (0);
-	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL && \
-		single_builtin())
+	if (g_shell.cmd_len == 1 && single_builtin())
 		return (1);
 	if (!ft_fork(&g_shell.pid))
 		return (0);

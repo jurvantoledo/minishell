@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/11 10:42:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/15 16:43:38 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void	parse_in(t_lexer *lexer, char *input)
 
 	if (g_shell.fd_in != STDIN_FILENO)
 		close(g_shell.fd_in);
-	tmp = ft_substr(input, lexer->index, lexer->length);
-	printf("the inf: %s\n", tmp);
+	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
 	if (access(tmp, R_OK) == 0)
 		g_shell.fd_in = open(tmp, O_RDONLY);
+	else
+		errors("minishell", tmp, "no such file or directory", 1);
 	free(tmp);
 }
 
@@ -31,7 +32,7 @@ static void	parse_out(t_lexer *lexer, char *input)
 
 	if (g_shell.fd_out != STDOUT_FILENO)
 		close(g_shell.fd_out);
-	tmp = ft_substr(input, lexer->index, lexer->length);
+	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
 	if (lexer->type == OUTFILE)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
@@ -66,6 +67,7 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 	int		pipe[2];
 
 	heredoc = ft_substr(input, lexer->next->index, lexer->next->length);
+	printf("%s\n", heredoc);
 	if (!heredoc || !ft_pipe(pipe))
 	{
 		free(heredoc);
@@ -81,13 +83,14 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 
 int	parse_files(char *input, t_lexer *lexer)
 {
-	while (lexer)
+	while (lexer->next)
 	{
-		if (lexer->type == HERE_DOC)
+		if (lexer->type == HERE_DOC && lexer->next->type == HERE_DOC)
 			parse_heredoc(input, lexer);
-		if (lexer->type == INFILE)
+		if (lexer->type == INFILE && lexer->next->type == INFILE)
 			parse_in(lexer, input);
-		if (lexer->type == OUTFILE || lexer->type == OUTFILE_APPEND)
+		if ((lexer->type == OUTFILE && lexer->next->type == OUTFILE) \
+			|| lexer->type == OUTFILE_APPEND)
 			parse_out(lexer, input);
 		lexer = lexer->next;
 	}
