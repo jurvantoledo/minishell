@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/15 17:09:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 14:37:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,29 @@ static int	print_err(int i)
 int	exec_builtins(int i)
 {
 	if (ft_strncmp(g_shell.command[i].arguments[0], "pwd", 4) == 0)
-		builtin_pwd();
+		return (builtin_pwd());
 	if (ft_strncmp(g_shell.command[i].arguments[0], "echo", 5) == 0)
-		builtin_echo(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_echo(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "env", 4) == 0)
-		builtin_env(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_env(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "unset", 6) == 0)
-		builtin_unset(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_unset(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "export", 7) == 0)
-		builtin_export(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_export(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "exit", 5) == 0)
-		builtin_exit(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_exit(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "cd", 3) == 0)
-		builtin_cd(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments);
+		return (builtin_cd(ft_arraylen(g_shell.command[i].arguments), \
+					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "./minishell", 12) == 0)
-		set_shlvl();
-	return (print_err(i));
+		return (set_shlvl());
+	if (expander(g_shell.command[i].arguments[0]) == 1)
+		return (0);
+	return (errors("minishell", g_shell.command[i].arguments[0], \
+				"Command not found", 127));
 }

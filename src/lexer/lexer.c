@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 18:04:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 19:25:04 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_lexer	*ft_snorlexer(char *input)
 	t_lexer				*head;
 	int					i;
 	int					len;
+	int					end_quote;
 
 	head = NULL;
 	i = 0;
@@ -83,6 +84,12 @@ t_lexer	*ft_snorlexer(char *input)
 		while (input[i] && ft_isspace(input[i]))
 			i++;
 		len = check_input(input, i);
+		if (input[i] == '\"' || input[i] == '\'')
+		{
+			end_quote = search_end_quote(&input[i]);
+			len = check_quotes(&input[i], end_quote);
+			i++;
+		}
 		set_snorlexer(&head, input, len, i);
 		i += len;
 		len = 0;

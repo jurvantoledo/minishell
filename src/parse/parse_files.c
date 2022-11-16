@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/15 16:43:38 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 17:42:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 	int		pipe[2];
 
 	heredoc = ft_substr(input, lexer->next->index, lexer->next->length);
-	printf("%s\n", heredoc);
 	if (!heredoc || !ft_pipe(pipe))
 	{
 		free(heredoc);
@@ -90,7 +89,7 @@ int	parse_files(char *input, t_lexer *lexer)
 		if (lexer->type == INFILE && lexer->next->type == INFILE)
 			parse_in(lexer, input);
 		if ((lexer->type == OUTFILE && lexer->next->type == OUTFILE) \
-			|| lexer->type == OUTFILE_APPEND)
+			|| (lexer->type == OUTFILE_APPEND && lexer->next->type == OUTFILE_APPEND))
 			parse_out(lexer, input);
 		lexer = lexer->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/15 14:18:58 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 19:26:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # define MINISHELL_H
 # define SPECIAL_CHAR "|<>"
 # define MAX_PATH 256
+# define READ 0
+# define WRITE 1
 # define SHELL_NAME "[terminal cancer]: "
 
 typedef enum e_token_type {
@@ -121,9 +123,10 @@ t_env	*clear_list(t_env **head);
 
 /* -----------------> Lexer Functions <--------------- */
 t_lexer	*ft_snorlexer(char *input);
-int		check_quotes(char *input);
+int		check_quotes(char *input, int end);
 void	post_process(char *input, t_lexer *lexer);
 int		check_input(char *input, int i);
+int		search_end_quote(char *input);
 
 /* -----------------> Parser Functions <--------------- */
 void	ft_paraser(char *input, t_lexer *lexer);
@@ -141,12 +144,11 @@ int		ft_pipe(int fds[2]);
 int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
 int		arg_files_check(char *arg);
-int		arg_files_permission();
+int		arg_files_permission(void);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
 void	print_list(t_lexer *head);
-void	print_file_list(t_infile *in_head, t_outfile *out_head);
 void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 
@@ -159,7 +161,7 @@ int		builtin_pwd(void);
 int		print_old_pwd(void);
 
 // ECHO builtin
-void	builtin_echo(int argc, char **args);
+int		builtin_echo(int argc, char **args);
 
 // ENV builtin
 int		builtin_env(int argc, char **argv);
@@ -168,12 +170,12 @@ int		builtin_env(int argc, char **argv);
 int		builtin_unset(int argc, char **args);
 
 // EXPORT builtin
-void	builtin_export(int argc, char **args);
+int		builtin_export(int argc, char **args);
 int		check_val_quotes(char *val);
 int		args_identifier(char **args);
 
 // EXIT builtin
-void	builtin_exit(int argc, char **argv);
+int		builtin_exit(int argc, char **argv);
 
 // CD Builtin
 int		builtin_cd(int argc, char **argv);

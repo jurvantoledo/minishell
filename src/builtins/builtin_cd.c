@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:50:41 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/11 12:43:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 10:14:32 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	set_path(char *path)
 	char	cwd[MAX_PATH];
 
 	getcwd(cwd, sizeof(cwd));
-	printf("het pad: %s\n", path);
 	if ((!path || chdir(path) < 0))
 	{
 		return (errors("minishell", path, "No such file or directory", 1));
@@ -91,12 +90,7 @@ int	builtin_cd(int argc, char **argv)
 	t_env	*dir;
 	char	cwd[MAX_PATH];
 
-	if (argc > 2)
-	{
-		ft_putendl_fd("Too many arguments", 1);
-		return (0);
-	}
-	else if (argc > 1)
+	if (argc > 1)
 	{
 		if (!set_cd(argc, argv[1]))
 			return (0);
@@ -105,7 +99,7 @@ int	builtin_cd(int argc, char **argv)
 	{
 		dir = get_env(g_shell.env, "HOME");
 		if (!dir)
-			return (0);
+			return (errors("Error", "HOME", "not set", 1));
 		if (!set_path(dir->value))
 			return (0);
 	}

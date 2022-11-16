@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:49:02 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 12:24:43 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 14:08:42 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	exit_check_args(int argc, char **argv)
 		}
 		return (1);
 	}
-	if (argc > 2)
+	if (argc > 2 && check_digit(argv[1]) != 0)
 	{
 		ft_putendl_fd("exit: too many arguments", 1);
 		return (1);
@@ -48,24 +48,51 @@ static int	exit_check_args(int argc, char **argv)
 	return (0);
 }
 
-void	builtin_exit(int argc, char **argv)
+static int	special_case(int j)
+{
+	ft_putendl_fd("exit", 1);
+	g_shell.exit_code = 256;
+	g_shell.exit_code -= j;
+	exit(EXIT_SUCCESS);
+	return (1);
+}
+
+static int	exit_num_minus(char *argv)
+{
+	int	i;
+	int	num;
+
+	i = 0;
+	while (argv[i])
+	{
+		if (argv[i] == '-')
+		{
+			i++;
+			num = ft_atoi(&argv[i]);
+			special_case(num);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	builtin_exit(int argc, char **argv)
 {
 	int	i;
 
 	if (exit_check_args(argc, argv) == 1)
-		return ;
+		return (0);
 	i = 0;
 	while (argv[i])
 	{
 		if (ft_strncmp(argv[i], "exit", 5) == 0 && check_digit(argv[1]) == 0)
 		{
-			ft_putstr_fd("exit: ", 1);
-			ft_putstr_fd(argv[1], 1);
-			ft_putchar_fd(' ', 1);
-			ft_putstr_fd("numeric argument required\n", 1);
-			g_shell.exit_code = 0;
-			exit(EXIT_SUCCESS);
+			exit(errors("minishell", argv[i], \
+				"numeric argument required", 255));
 		}
+		else if (exit_num_minus(argv[i]) == 1)
+			return (1);
 		else
 		{
 			ft_putendl_fd("exit", 1);
@@ -73,4 +100,5 @@ void	builtin_exit(int argc, char **argv)
 		}
 		i++;
 	}
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/11 15:50:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/16 13:49:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	check_golfje(char *arg)
 	return (0);
 }
 
-void	builtin_echo(int argc, char **args)
+int	builtin_echo(int argc, char **args)
 {
 	int	i;
 	int	newline;
@@ -93,7 +93,7 @@ void	builtin_echo(int argc, char **args)
 	i = 1;
 	newline = 1;
 	if (!check_argcount(argc))
-		return ;
+		return (0);
 	if (ft_strncmp(args[1], "-n", 3) == 0)
 	{
 		newline = 0;
@@ -112,4 +112,5 @@ void	builtin_echo(int argc, char **args)
 	}
 	if (newline == 1)
 		ft_putchar_fd('\n', 1);
+	return (1);
 }
