@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:51:53 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:40:56 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/17 12:51:56 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*parse_path(char *cmd)
 	return (path);
 }
 
-void	resolve_path(void)
+int	resolve_path(void)
 {
 	int	i;
 
@@ -73,9 +73,8 @@ void	resolve_path(void)
 		{
 			g_shell.command[i].path = \
 								parse_path(g_shell.command[i].arguments[0]);
-			if (!g_shell.command[i].path)
-				return ;
 		}
 		i++;
 	}
+	return (1);
 }

@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 17:40:49 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/17 17:15:23 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	ft_exec(int i)
+static int	ft_exec(int i)
 {
 	// set_sigs_exec();
 	if (i == 0 && g_shell.fd_in != STDIN_FILENO)
@@ -20,21 +20,19 @@ static void	ft_exec(int i)
 		dup2(g_shell.fd_in, STDIN_FILENO);
 		close(g_shell.fd_in);
 	}
-	printf("index: %d\n", i);
-	printf("g_shell.cmd_len: %lu\n", g_shell.cmd_len - 1);
 	if (i == g_shell.cmd_len - 1 && g_shell.fd_out != STDOUT_FILENO)
 	{
 		dup2(g_shell.fd_out, STDOUT_FILENO);
 		close(g_shell.fd_out);
 	}
-	printf("the standard in/out %d %d\n", g_shell.fd_in, g_shell.fd_out);
-	if (g_shell.command[i].path == NULL && \
-		arg_files_permission() != 0)
+	if (g_shell.cmd_len > 1 && g_shell.command[i].path == NULL && \
+		!arg_files_permission())
 		exit(exec_builtins(i));
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
+	return (1);
 }
 
-int	child_process(int i)
+static int	child_process(int i)
 {
 	int		fd[2];
 
@@ -46,7 +44,6 @@ int	child_process(int i)
 		close(fd[1]);
 		return (0);
 	}
-	printf("the pid: %d\n", g_shell.pid);
 	if (g_shell.pid == 0)
 	{
 		if ((size_t)i != g_shell.cmd_len - 1)
@@ -77,6 +74,9 @@ static int	exec_func(void)
 		i++;
 	}
 	waitpid(g_shell.pid, &status, 0);
+	g_shell.exit_code = WEXITSTATUS(status);
+	while (wait(&status) != -1)
+		(void)"hello c:";
 	return (1);
 }
 
@@ -84,12 +84,13 @@ static int	single_builtin(void)
 {
 	if (arg_files_check(g_shell.command[0].arguments[0]) == 1)
 	{
-		arg_files_permission();
+		return (arg_files_permission());
 		return (1);
 	}
 	else
-		if (exec_builtins(0))
-			return (1);
+	{
+		return (exec_builtins(0));
+	}
 	return (0);
 }
 
@@ -97,9 +98,8 @@ int	ft_exeggutor(void)
 {
 	int		status;
 
-	printf("amount of cmds: %zu\n", g_shell.cmd_len);
-	if (g_shell.cmd_len == 0)
-		return (0);
+	if (g_shell.command == 0)
+		return (1);
 	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL \
 		&& single_builtin())
 		return (1);
@@ -108,5 +108,7 @@ int	ft_exeggutor(void)
 	if (g_shell.pid == 0 && !exec_func())
 		return (0);
 	waitpid(g_shell.pid, &status, 0);
+	if (WIFEXITED(status))
+		g_shell.exit_code = WEXITSTATUS(status);
 	return (1);
 }

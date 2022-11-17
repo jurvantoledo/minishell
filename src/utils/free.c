@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 15:02:29 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 12:24:38 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/17 14:43:16 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,27 @@ void	ft_free_char(char **src)
 		i++;
 	}
 	free(src);
+}
+
+void	ft_remove_commands(void)
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < g_shell.cmd_len)
+	{
+		j = 0;
+		while (g_shell.command[i].arguments[j])
+		{
+			free(g_shell.command[i].arguments[j]);
+			j++;
+		}
+		free(g_shell.command[i].arguments);
+		free(g_shell.command[i].path);
+		i++;
+	}
+	free(g_shell.command);
+	g_shell.command = NULL;
+	g_shell.cmd_len = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 19:26:29 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/17 10:28:47 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	search_end_quote(char *input)
 	while (input[i])
 	{
 		j = 0;
-		if (input[i] == '\"')
+		if (input[i] == '\"' || input[i] == '\'')
 		{
 			j = i;
 			break ;

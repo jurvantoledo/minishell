@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:10:33 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/17 12:47:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 	return (args);
 }
 
-void	parse_cmds(char *input, t_lexer *lexer)
+int	parse_cmds(char *input, t_lexer *lexer)
 {
 	int			arg_len;
 	int			i;
@@ -70,7 +70,7 @@ void	parse_cmds(char *input, t_lexer *lexer)
 	g_shell.cmd_len = command_counter(lexer);
 	g_shell.command = ft_calloc(sizeof(t_command), g_shell.cmd_len);
 	if (!g_shell.command)
-		return ;
+		return (0);
 	i = 0;
 	while (lexer)
 	{
@@ -79,9 +79,10 @@ void	parse_cmds(char *input, t_lexer *lexer)
 			arg_len = arg_counter(lexer);
 			g_shell.command[i].arguments = parse_args(input, lexer, arg_len);
 			if (!g_shell.command[i].arguments)
-				return ;
+				return (0);
 			i++;
 		}
 		lexer = lexer->next;
 	}
+	return (1);
 }
