@@ -14,7 +14,6 @@
 
 static int	ft_exec(int i)
 {
-	// set_sigs_exec();
 	if (!g_shell.command[i].arguments || \
 		g_shell.fd_in < 0 || g_shell.fd_out < 0)
 		exit(1);
@@ -71,6 +70,7 @@ static int	child_process(int i)
 static int	exec_func(void)
 {
 	int	i;
+	int	j;
 	int	status;
 
 	i = 0;
@@ -81,11 +81,9 @@ static int	exec_func(void)
 		i++;
 	}
 	sig_ignore();
-	waitpid(g_shell.pid, &status, 0);
+	ft_wait();
 	g_shell.exit_code = WEXITSTATUS(status);
 	sig_handler_exec(status);
-	while (wait(&status) != -1)
-		(void)"hello c:";
 	exit(EXIT_FAILURE);
 	return (1);
 }
