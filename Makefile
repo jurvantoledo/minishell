@@ -64,7 +64,7 @@ all: libft message $(NAME)
 
 #===============================================================================: Main compile
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(HEADERS) $(ARCHIVES) $(LIBFT)/libft.a -lreadline -o $(NAME)
+	@$(CC) $(OBJS) $(HEADERS) $(ARCHIVES) $(LIBFT)/libft.a -o $(NAME)
 	@printf "$(GREEN)✅Executable \"$(NAME)\" created$(RESET)\n\n"
 
 #===============================================================================: C file compile

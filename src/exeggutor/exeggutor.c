@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 14:48:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/22 17:37:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,20 @@ static int	child_process(int i)
 	int		fd[2];
 
 	if (!ft_pipe(fd))
+	{
+		ft_putendl_fd("Pipe failed", STDOUT_FILENO);
 		return (0);
+	}
 	if (!ft_fork(&g_shell.pid))
 	{
+		ft_putendl_fd("Fork failed", STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (0);
 	}
 	if (g_shell.pid == 0)
 	{
-		if ((size_t)i != g_shell.cmd_len - 1)
+		if ((size_t)i < g_shell.cmd_len - 1)
 			dup2(fd[1], STDOUT_FILENO);
 		close(fd[1]);
 		close(fd[0]);
@@ -67,7 +71,7 @@ static int	child_process(int i)
 static int	exec_func(void)
 {
 	int	i;
-	int	j;
+	int	status;
 
 	i = 0;
 	while (i < g_shell.cmd_len)
@@ -76,12 +80,13 @@ static int	exec_func(void)
 			return (0);
 		i++;
 	}
-	j = 0;
-	while (j < g_shell.cmd_len)
-	{
-		wait(NULL);
-		j++;
-	}
+	sig_ignore();
+	waitpid(g_shell.pid, &status, 0);
+	g_shell.exit_code = WEXITSTATUS(status);
+	sig_handler_exec(status);
+	while (wait(&status) != -1)
+		(void)"hello c:";
+	exit(EXIT_FAILURE);
 	return (1);
 }
 
@@ -93,7 +98,10 @@ static int	single_builtin(void)
 		return (1);
 	}
 	else
-		return (exec_builtins(0));
+	{
+		exec_builtins(0);
+		return (1);
+	}
 	return (0);
 }
 
@@ -106,41 +114,13 @@ int	ft_exeggutor(void)
 	else if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL \
 		&& single_builtin())
 		return (1);
-	else if (exec_func() == 0)
-		return (0);
+	if (!ft_fork(&g_shell.pid))
+		return (false);
+	if (g_shell.pid == 0 && !exec_func())
+		return (false);
+	sig_ignore();
+	waitpid(g_shell.pid, &status, 0);
+	if (WIFEXITED(status))
+		g_shell.exit_code = WEXITSTATUS(status);
 	return (1);
 }
-
-// int	ft_exeggutor(void)
-// {
-// 	int	fd[2];
-// 	int	status;
-// 	int	i;
-// 	pid_t pid;
-
-// 	i = 0;
-// 	while (i < g_shell.cmd_len)
-// 	{
-// 		if (!ft_pipe(fd))
-// 			return (0);
-// 		if (!ft_fork(&g_shell.pid))
-// 			return (0);
-// 		if (g_shell.pid == 0)
-// 		{
-// 			if (i != g_shell.cmd_len - 1)
-// 				dup2(fd[1], STDOUT_FILENO);
-// 			close(fd[0]);
-//         	close(fd[1]);
-// 			if (ft_exec(i) == 0)
-// 				return (0);
-// 		}
-// 		else
-// 		{
-// 			dup2(fd[0], STDIN_FILENO);
-// 			close(fd[0]);
-// 			close(fd[1]);
-// 		}
-// 		i++;
-// 	}
-// 	return (1);
-// }

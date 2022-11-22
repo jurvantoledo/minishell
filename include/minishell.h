@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 15:07:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/22 16:45:53 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
 int		arg_files_check(char *arg);
 int		arg_files_permission(void);
-int		ft_wait(void);
+void	ft_wait(void);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);

@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 13:43:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/22 17:30:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	ft_wait(void)
+void	ft_wait(void)
 {
 	int	i;
 	int	status;
@@ -25,7 +25,6 @@ int	ft_wait(void)
 	}
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
-	return (1);
 }
 
 int	ft_pipe(int fds[2])

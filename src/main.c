@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 15:11:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/22 17:38:28 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,41 +33,11 @@ static void	initialize(void)
 	g_shell.fd_out = STDOUT_FILENO;
 }
 
-static char	*sanitize(char *inp)
-{
-	int	index;
-
-	if (!inp)
-		return (NULL);
-	index = 0;
-	while (inp[index])
-		index++;
-	index--;
-	while (index >= 0)
-	{
-		if (!ft_strchr("\t ", inp[index]))
-			break ;
-		inp[index] = '\0';
-		index--;
-	}
-	if (!inp)
-	{
-		free(inp);
-		return (NULL);
-	}
-	return (inp);
-}
-
 static int	ft_run_shell(char *input)
 {
-	if (!input)
-	{
-		return (1);
-	}
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
 	{
-		g_shell.lexer = NULL;
 		free(input);
 		return (1);
 	}
@@ -77,7 +47,6 @@ static int	ft_run_shell(char *input)
 		free(input);
 		exit(EXIT_FAILURE);
 	}
-	add_history(input);
 	free(input);
 	return (1);
 }
@@ -86,12 +55,15 @@ char	*read_command_line(void)
 {
 	char	*input;
 
-	input = readline(SHELL_NAME);
+	input = readline("[terminal cancer]: ");
 	if (!input)
 	{
-		free(input);
-		return (NULL);
+		ft_putendl_fd("exit", 1);
+		rl_clear_history();
+		exit(EXIT_FAILURE);
 	}
+	if (input && *input)
+		add_history(input);
 	return (input);
 }
 
@@ -110,15 +82,8 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		initialize();
-		input = readline(SHELL_NAME);
-		if (!input)
-		{
-			ft_putendl_fd("exit", STDOUT_FILENO);
-			exit(EXIT_FAILURE);
-		}
-		input = sanitize(input);
-		if (!input)
-			continue ;
+		init_signal();
+		input = read_command_line();
 		ft_run_shell(input);
 	}
 	return (0);
