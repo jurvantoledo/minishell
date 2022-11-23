@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:06:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:52:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef enum e_token_type {
 	ARGUMENT,
 	PIPE,
 	COMMAND,
+	DOLLAR,
 }	t_token_type;
 
 typedef struct s_env {
