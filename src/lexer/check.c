@@ -51,20 +51,46 @@ int	check_input(char *input, int i)
 	return (len);
 }
 
+int	handle_double_quotes(char *input)
+{
+	int	i;
+	int	j;
+
+	i = 2;
+	j = 0;
+	while (input[i])
+	{
+		if (input[i + 1] == '\'')
+			return (0);
+		if (input[i] == '\"')
+		{
+			j = i;
+			break ;
+		}
+		i++;
+	}
+	return (j);
+}
+
 int	search_end_quote(char *input)
 {
 	int	i;
 	int	j;
 
+	if (handle_double_quotes(input) != 0)
+	{
+		printf("handle double quotes: %d\n", handle_double_quotes(input));
+		return (handle_double_quotes(input));
+	}
 	i = 1;
 	while (input[i])
 	{
 		j = 0;
-		if (input[i] == '\"' || input[i] == '\'')
+		if (input[i] == '\'')
 		{
 			j = i;
 			break ;
-		}
+		}	
 		i++;
 	}
 	return (j);

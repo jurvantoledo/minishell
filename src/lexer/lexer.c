@@ -87,6 +87,7 @@ t_lexer	*ft_snorlexer(char *input)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			end_quote = search_end_quote(&input[i]);
+			printf("the length of end quote: %d\n", end_quote);
 			len = check_quotes(&input[i], end_quote);
 			i++;
 		}

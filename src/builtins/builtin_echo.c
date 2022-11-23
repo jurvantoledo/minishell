@@ -90,12 +90,13 @@ int	builtin_echo(int argc, char **args)
 	}
 	while (args[i])
 	{
-		if (echo_exit(args[i]) == 1 && \
-		check_golfje(args[i]) == 1)
-			return (1);
-		ft_putstr_fd(args[i], 1);
-		if (args[i + 1])
-			ft_putchar_fd(' ', 1);
+		if (!echo_exit(args[i]) && !check_golfje(args[i]) \
+			&& !check_arg_env(args[i]))
+		{
+			ft_putstr_fd(args[i], 1);
+			if (args[i + 1])
+				ft_putchar_fd(' ', 1);
+		}
 		i++;
 	}
 	if (newline == 1)

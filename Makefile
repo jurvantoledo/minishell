@@ -117,6 +117,8 @@ clean:
 fclean:
 	@$(RM) objs/
 	@$(RM) $(NAME)
+	@$(RM) include/gnl/get_next_line_utils.o
+	@$(RM) include/gnl/get_next_line.o
 	@$(MAKE) -C $(LIBFT) fclean
 	@printf "$(RED)🧹Removed objects for \"$(NAME)\"!$(RESET)\n"
 	@printf "$(RED)🧹Removed \"$(NAME)\"!$(RESET)\n"
