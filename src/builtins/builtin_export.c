@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 13:52:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/23 12:36:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,33 @@ static int	check_env(void)
 	return (1);
 }
 
+char	*check_env_key(char *str)
+{
+	t_env	*env;
+	char	*key;
+	int		i;
+
+	i = 0;
+	if (ft_strncmp(str, "$", 1) == 0)
+	{
+		while (str[i])
+		{
+			if (str[i] == '$')
+			{
+				i++;
+				env = get_env(g_shell.env, &str[i]);
+				if (!env)
+					return (NULL);
+				return (env->value);
+			}
+			i++;
+		}
+	}
+	else
+		key = ft_strdup(str);
+	return (key);
+}
+
 static	int	handle_no_val(char *str)
 {
 	t_env	*env;
@@ -85,7 +112,7 @@ static	int	handle_no_val(char *str)
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		return (0);
-	env->key = ft_strdup(str);
+	env->key = check_env_key(str);
 	if (!env->key)
 	{
 		free(env);
@@ -104,12 +131,12 @@ int	builtin_export(int argc, char **args)
 		check_env();
 		return (1);
 	}
-	if (!args_identifier(args))
-		return (0);
 	i = 0;
 	while (args[i + 1])
 	{
 		i++;
+		if (!args_identifier(args[i]))
+			return (0);
 		if (ft_strchr(args[i], '=') == NULL)
 		{
 			if (!handle_no_val(args[i]))

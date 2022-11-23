@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 17:37:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/23 11:38:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	ft_exec(int i)
 		!arg_files_permission())
 		exit(exec_builtins(i));
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
+	errors("minishell", g_shell.command[i].arguments[0], \
+				"Command not found", 127);
 	return (1);
 }
 
@@ -39,13 +41,9 @@ static int	child_process(int i)
 	int		fd[2];
 
 	if (!ft_pipe(fd))
-	{
-		ft_putendl_fd("Pipe failed", STDOUT_FILENO);
 		return (0);
-	}
 	if (!ft_fork(&g_shell.pid))
 	{
-		ft_putendl_fd("Fork failed", STDOUT_FILENO);
 		close(fd[0]);
 		close(fd[1]);
 		return (0);

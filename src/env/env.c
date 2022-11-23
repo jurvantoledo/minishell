@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/08 15:29:07 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/09 13:55:21 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/23 13:53:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_env	*get_env(t_env *head, char *pathname)
 	{
 		if (ft_strlen(head->key) == ft_strlen(pathname) \
 			&& ft_strncmp(head->key, pathname, ft_strlen(head->key)) == 0)
-			return (head);
+				return (head);
 		head = head->next;
 	}
 	return (NULL);

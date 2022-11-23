@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 16:45:53 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/23 16:06:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		strenv(char **res, t_env *env);
 
 // Update env list
 int		update_env(t_env *head, char *val, char *new_val);
+char	*check_new_env_var(char *str);
 
 // Free env
 int		remove_node(t_env **head, char *key);
@@ -174,7 +175,7 @@ int		builtin_unset(int argc, char **args);
 // EXPORT builtin
 int		builtin_export(int argc, char **args);
 int		check_val_quotes(char *val);
-int		args_identifier(char **args);
+int		args_identifier(char *args);
 
 // EXIT builtin
 int		builtin_exit(int argc, char **argv);
