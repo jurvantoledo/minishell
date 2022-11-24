@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 14:31:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 16:13:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	parse_in(t_lexer *lexer, char *input)
 	if (access(tmp, R_OK) == 0)
 		g_shell.fd_in = open(tmp, O_RDONLY);
 	else
-		errors("minishell", tmp, "no such file or directory", 1);
+		exit(errors("minishell", tmp, "no such file or directory", 1));
 	free(tmp);
 }
 
@@ -33,6 +33,11 @@ static void	parse_out(t_lexer *lexer, char *input)
 	if (g_shell.fd_out != STDOUT_FILENO)
 		close(g_shell.fd_out);
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (ft_strncmp(tmp, ">", 2) == 0)
+	{
+		free(tmp);
+		tmp = NULL;
+	}
 	if (lexer->type == OUTFILE)
 	{
 		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
