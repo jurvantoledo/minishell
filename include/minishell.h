@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 15:35:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 17:07:48 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_files
 typedef struct s_command {
 	char				*path;
 	char				**arguments;
+	int					fd_in;
+	int					fd_out;
 }	t_command;
 
 typedef struct s_lexer {
