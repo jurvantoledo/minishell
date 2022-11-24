@@ -42,6 +42,8 @@ char	*parse_path(char *cmd)
 	char	*temp;
 	char	*path;
 
+	if (!get_env(g_shell.env, "PATH"))
+		return (NULL);
 	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
 	if (!paths)
 		return (NULL);
@@ -69,7 +71,9 @@ int	resolve_path(void)
 	i = 0;
 	while (i < g_shell.cmd_len)
 	{
-		if (!check_builtin(g_shell.command[i].arguments[0]))
+		if (g_shell.command[i].arguments && \
+			!check_builtin(g_shell.command[i].arguments[0]) && \
+			g_shell.command[i].arguments[0][0])
 		{
 			g_shell.command[i].path = \
 								parse_path(g_shell.command[i].arguments[0]);

@@ -41,6 +41,12 @@ static int	ft_run_shell(char *input)
 		free(input);
 		return (1);
 	}
+	// if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
+	// 	|| !ft_exeggutor())
+	// {
+	// 	free(input);
+	// 	exit(EXIT_FAILURE);
+	// }
 	if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
 		|| !ft_exeggutor())
 	{

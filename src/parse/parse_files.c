@@ -12,27 +12,39 @@
 
 #include "../../include/minishell.h"
 
-static void	parse_in(t_lexer *lexer, char *input)
+static void	parse_in(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
-	if (g_shell.fd_in != STDIN_FILENO)
-		close(g_shell.fd_in);
+	if (cmd->fd_in != STDIN_FILENO)
+	{
+		close(cmd->fd_in);
+		cmd->fd_in = STDIN_FILENO;
+	}
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (!tmp)
+		return ;
+	printf("the in: %s\n", tmp);
 	if (access(tmp, R_OK) == 0)
-		g_shell.fd_in = open(tmp, O_RDONLY);
+		cmd->fd_in = open(tmp, O_RDONLY);
 	else
 		exit(errors("minishell", tmp, "no such file or directory", 1));
 	free(tmp);
 }
 
-static void	parse_out(t_lexer *lexer, char *input)
+static void	parse_out(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
-	if (g_shell.fd_out != STDOUT_FILENO)
+	if (cmd->fd_out != STDOUT_FILENO)
+	{
 		close(g_shell.fd_out);
+		cmd->fd_out = STDOUT_FILENO;
+	}
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (!tmp)
+		return ;
+	printf("the out: %s\n", tmp);
 	if (ft_strncmp(tmp, ">", 2) == 0)
 	{
 		free(tmp);
@@ -40,12 +52,12 @@ static void	parse_out(t_lexer *lexer, char *input)
 	}
 	if (lexer->type == OUTFILE)
 	{
-		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
+		cmd->fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
 						0644);
 	}
 	if (lexer->type == OUTFILE_APPEND)
 	{
-		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
+		cmd->fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
 	}
 	free(tmp);
@@ -87,17 +99,22 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 
 int	parse_files(char *input, t_lexer *lexer)
 {
+	size_t	cmd_index;
+
+	cmd_index = 0;
 	while (lexer->next)
 	{
-		if (lexer->type == HERE_DOC && lexer->next->type == HERE_DOC)
-			parse_heredoc(input, lexer);
+		// if (lexer->type == HERE_DOC && lexer->next->type == HERE_DOC)
+		// 	parse_heredoc(input, lexer);
 		if (lexer->type == INFILE && lexer->next->type == INFILE)
-			parse_in(lexer, input);
+			parse_in(lexer, input, &g_shell.command[cmd_index]);
 		if ((lexer->type == OUTFILE && lexer->next->type == OUTFILE) \
 			|| (lexer->type == OUTFILE_APPEND && \
 			lexer->next->type == OUTFILE_APPEND))
-			parse_out(lexer, input);
+			parse_out(lexer, input, &g_shell.command[cmd_index]);
 		lexer = lexer->next;
+		if (lexer && lexer->type == PIPE && g_shell.cmd_len > cmd_index)
+			cmd_index++;
 	}
 	return (1);
 }

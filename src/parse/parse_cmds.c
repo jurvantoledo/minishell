@@ -17,6 +17,8 @@ static size_t	command_counter(t_lexer *lexer)
 	int	count;
 
 	count = 0;
+	if (!lexer)
+		return (0);
 	while (lexer != NULL)
 	{
 		if (lexer->type == COMMAND)
@@ -30,10 +32,11 @@ static size_t	arg_counter(t_lexer *lexer)
 {
 	int	count;
 
-	count = 1;
-	while (lexer && (lexer->type == ARGUMENT || lexer->type == COMMAND))
+	count = 0;
+	while (lexer)
 	{
-		count++;
+		if ((lexer->type == ARGUMENT || lexer->type == COMMAND))
+			count++;
 		lexer = lexer->next;
 	}
 	return (count);
@@ -49,12 +52,15 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 	args = ft_calloc(arg_len, sizeof(char *));
 	if (!args)
 		return (NULL);
-	while (lexer && (lexer->type == ARGUMENT || lexer->type == COMMAND))
+	while (lexer && i < arg_len)
 	{
+		while (lexer && (lexer->type != ARGUMENT && lexer->type != COMMAND))
+			lexer = lexer->next;
 		str = ft_substr(input, lexer->index, lexer->length);
 		if (!str)
 			return (NULL);
 		args[i] = str;
+		printf("the args: %s\n", args[i]);
 		i++;
 		lexer = lexer->next;
 	}
@@ -68,21 +74,26 @@ int	parse_cmds(char *input, t_lexer *lexer)
 	int			i;
 
 	g_shell.cmd_len = command_counter(lexer);
+	printf("the amount of commands: %ld\n", g_shell.cmd_len);
 	g_shell.command = ft_calloc(sizeof(t_command), g_shell.cmd_len);
 	if (!g_shell.command)
 		return (0);
 	i = 0;
-	while (lexer)
+	while (lexer && i < g_shell.cmd_len)
 	{
-		if (lexer->type == COMMAND)
+
+		g_shell.command[i].fd_in = STDIN_FILENO;
+		g_shell.command[i].fd_out = STDOUT_FILENO;
+		arg_len = arg_counter(lexer);
+		printf("the argument length: %d\n", arg_len);
+		if (arg_len)
 		{
-			arg_len = arg_counter(lexer);
 			g_shell.command[i].arguments = parse_args(input, lexer, arg_len);
 			if (!g_shell.command[i].arguments)
 				return (0);
-			i++;
 		}
 		lexer = lexer->next;
+		i++;
 	}
 	return (1);
 }

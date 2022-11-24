@@ -15,24 +15,24 @@
 static int	ft_exec(int i)
 {
 	if (!g_shell.command[i].arguments || \
-		g_shell.fd_in < 0 || g_shell.fd_out < 0)
+		g_shell.command[i].fd_in < 0 || g_shell.command[i].fd_out < 0)
 		exit(1);
-	if (i == 0 && g_shell.fd_in != STDIN_FILENO)
+	if (g_shell.command[i].fd_in != STDIN_FILENO)
 	{
-		dup2(g_shell.fd_in, STDIN_FILENO);
-		close(g_shell.fd_in);
+		dup2(g_shell.command[i].fd_in, STDIN_FILENO);
+		close(g_shell.command[i].fd_in);
 	}
-	if (i == g_shell.cmd_len - 1 && g_shell.fd_out != STDOUT_FILENO)
+	if (g_shell.command[i].fd_out != STDOUT_FILENO)
 	{
-		dup2(g_shell.fd_out, STDOUT_FILENO);
-		close(g_shell.fd_out);
+		dup2(g_shell.command[i].fd_out, STDOUT_FILENO);
+		close(g_shell.command[i].fd_out);
 	}
 	if (g_shell.cmd_len > 1 && g_shell.command[i].path == NULL && \
 		!arg_files_permission())
 		exit(exec_builtins(i));
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
-	errors("minishell", g_shell.command[i].arguments[0], \
-				"Command not found", 127);
+	exit(errors("minishell", g_shell.command[i].arguments[0], \
+				"Command not found", 127));
 	return (1);
 }
 
@@ -108,7 +108,7 @@ int	ft_exeggutor(void)
 	if (g_shell.cmd_len == 0)
 		return (0);
 	else if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL \
-		&& single_builtin())
+		&& g_shell.command[0].arguments && single_builtin())
 		return (1);
 	if (!ft_fork(&g_shell.pid))
 		return (false);
