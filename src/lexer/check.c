@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/17 10:28:47 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 12:05:46 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ int	search_end_quote(char *input)
 	int	j;
 
 	if (handle_double_quotes(input) != 0)
-	{
-		printf("handle double quotes: %d\n", handle_double_quotes(input));
 		return (handle_double_quotes(input));
-	}
 	i = 1;
 	while (input[i])
 	{

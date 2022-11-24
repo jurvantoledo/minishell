@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:52:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 15:35:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ void	print_list(t_lexer *head);
 void	ft_free_char(char **src);
 void	free_cmds(char **commands);
 void	ft_remove_commands(void);
+int		ft_iscapital(int c);
 
 /* -----------------> Builtin Functions <--------------- */
 int		exec_builtins(int i);
@@ -177,6 +178,7 @@ int		builtin_unset(int argc, char **args);
 int		builtin_export(int argc, char **args);
 int		check_val_quotes(char *val);
 int		args_identifier(char *args);
+char	*check_env_key(char *str);
 
 // EXIT builtin
 int		builtin_exit(int argc, char **argv);

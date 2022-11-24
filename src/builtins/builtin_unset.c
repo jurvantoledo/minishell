@@ -6,15 +6,12 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/24 14:38:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/04 11:05:56 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 15:14:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-/* Given a reference (pointer to pointer) to the head of a
-   list and a key, deletes the first occurrence of key in
-   linked list */
 static void	unset_env(t_env **head_ref, char *key)
 {
 	t_env	*temp;

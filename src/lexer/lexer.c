@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:52:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 12:06:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ t_lexer	*ft_snorlexer(char *input)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			end_quote = search_end_quote(&input[i]);
-			printf("the length of end quote: %d\n", end_quote);
 			len = check_quotes(&input[i], end_quote);
 			i++;
 		}

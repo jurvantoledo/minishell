@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 17:30:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 14:24:20 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_wait(void)
 	}
 	if (WIFEXITED(status))
 		g_shell.exit_code = WEXITSTATUS(status);
+	sig_handler_exec(status);
 }
 
 int	ft_pipe(int fds[2])

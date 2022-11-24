@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 12:36:45 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 14:10:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,6 @@ static int	check_env(void)
 		env = env->next;
 	}
 	return (1);
-}
-
-char	*check_env_key(char *str)
-{
-	t_env	*env;
-	char	*key;
-	int		i;
-
-	i = 0;
-	if (ft_strncmp(str, "$", 1) == 0)
-	{
-		while (str[i])
-		{
-			if (str[i] == '$')
-			{
-				i++;
-				env = get_env(g_shell.env, &str[i]);
-				if (!env)
-					return (NULL);
-				return (env->value);
-			}
-			i++;
-		}
-	}
-	else
-		key = ft_strdup(str);
-	return (key);
 }
 
 static	int	handle_no_val(char *str)

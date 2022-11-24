@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/15 14:02:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 13:32:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,15 @@ void	print_list(t_lexer *head)
 				head->length, head->type);
 		head = head->next;
 	}
+}
+
+int	ft_iscapital(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+	{
+		return (c);
+	}
+	return (0);
 }
 
 int	special_chars(char c)
