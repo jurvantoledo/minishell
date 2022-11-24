@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 17:07:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/24 17:38:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,8 @@ int		print_old_pwd(void);
 
 // ECHO builtin
 int		builtin_echo(int argc, char **args);
+int		check_arg_env(char *arg);
+char	*get_env_arg(char *arg);
 
 // ENV builtin
 int		builtin_env(int argc, char **argv);
