@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/24 17:36:01 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 17:37:39 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/25 15:40:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	handle_arg_env(char *arg)
 		{
 			j = 0;
 			while (ft_iscapital(new_arg[j]))
-			j++;
+				j++;
 			new_arg[j] = '\0';
 			env = get_env(g_shell.env, new_arg);
 			if (!env)

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/22 17:38:28 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/25 14:10:36 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,20 @@
 
 t_shell	g_shell;
 
-static int	clean_shell(void)
+int	clean_shell(void)
 {
-	if (g_shell.fd_in > 2)
-		close(g_shell.fd_in);
-	if (g_shell.fd_out > 2)
-		close(g_shell.fd_out);
-	return (0);
-}
+	int	i;
 
-static void	initialize(void)
-{
-	if (g_shell.fd_in > 2)
-		close(g_shell.fd_in);
-	if (g_shell.fd_out > 2)
-		close(g_shell.fd_out);
-	g_shell.fd_in = STDIN_FILENO;
-	g_shell.fd_out = STDOUT_FILENO;
+	i = 0;
+	while (i < g_shell.cmd_len)
+	{
+		if (g_shell.command[i].fd_in > 2)
+			close(g_shell.command[i].fd_in);
+		if (g_shell.command[i].fd_out > 2)
+			close(g_shell.command[i].fd_out);
+		i++;
+	}
+	return (0);
 }
 
 static int	ft_run_shell(char *input)
@@ -87,10 +84,10 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(EXIT_FAILURE);
 	while (1)
 	{
-		initialize();
 		init_signal();
 		input = read_command_line();
 		ft_run_shell(input);
+		clean_shell();
 	}
 	return (0);
 }

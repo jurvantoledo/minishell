@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 17:38:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/25 10:58:37 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,5 @@ void	set_signals(void);
 
 void	sig_ignore(void);
 static void	sighandler(int num);
-
 
 #endif

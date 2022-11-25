@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 16:13:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/25 15:20:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	parse_in(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
-	if (cmd->fd_in != STDIN_FILENO)
+	if (cmd->fd_in != STDIN_FILENO || cmd->fd_in < 0)
 	{
 		close(cmd->fd_in);
 		cmd->fd_in = STDIN_FILENO;
@@ -24,7 +24,7 @@ static void	parse_in(t_lexer *lexer, char *input, t_command *cmd)
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
 	if (!tmp)
 		return ;
-	printf("the in: %s\n", tmp);
+	printf("the infile: %s\n", tmp);
 	if (access(tmp, R_OK) == 0)
 		cmd->fd_in = open(tmp, O_RDONLY);
 	else
@@ -36,15 +36,17 @@ static void	parse_out(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
+	if (cmd->fd_out < 0 || cmd->fd_in < 0)
+		return ;
 	if (cmd->fd_out != STDOUT_FILENO)
 	{
-		close(g_shell.fd_out);
+		close(cmd->fd_out);
 		cmd->fd_out = STDOUT_FILENO;
 	}
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
 	if (!tmp)
 		return ;
-	printf("the out: %s\n", tmp);
+	printf("the outfile: %s\n", tmp);
 	if (ft_strncmp(tmp, ">", 2) == 0)
 	{
 		free(tmp);
@@ -102,7 +104,7 @@ int	parse_files(char *input, t_lexer *lexer)
 	size_t	cmd_index;
 
 	cmd_index = 0;
-	while (lexer->next)
+	while (lexer->next && g_shell.cmd_len)
 	{
 		// if (lexer->type == HERE_DOC && lexer->next->type == HERE_DOC)
 		// 	parse_heredoc(input, lexer);
@@ -116,5 +118,6 @@ int	parse_files(char *input, t_lexer *lexer)
 		if (lexer && lexer->type == PIPE && g_shell.cmd_len > cmd_index)
 			cmd_index++;
 	}
+	printf("the command index in parse_files.c: %zu\n", cmd_index);
 	return (1);
 }
