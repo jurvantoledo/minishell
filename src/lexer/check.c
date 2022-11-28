@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 12:05:46 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/28 17:18:20 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,29 @@ static int	ft_symbol_len(char *input)
 static int	ft_lexer_wrlength(char *input)
 {
 	int	i;
+	int	len;
 
 	i = 0;
-	while (input[i] && (!ft_isspace(input[i]) && special_chars(input[i]) == 0))
+	len = 0;
+	while (input[i] && special_chars(input[i]) == 0)
+	{
+		if (input[i] == '\"')
+		{
+			len = check_quotes(&input[i], search_end_quote(&input[i]));
+			i += len;
+			break ;
+		}
+		if (input[i] == '\'')
+		{
+			i++;
+			while (input[i] != '\'')
+				i++;
+		}
+		else if (ft_isspace(input[i]))
+			break ;
 		i++;
+	}
+	printf("the len: %d\n", len);
 	return (i);
 }
 
@@ -45,62 +64,12 @@ int	check_input(char *input, int i)
 
 	len = 0;
 	if (!special_chars(input[i]))
+	{
 		len = ft_lexer_wrlength(&input[i]);
+	}
 	else
+	{
 		len = ft_symbol_len(&input[i]);
-	return (len);
-}
-
-int	handle_double_quotes(char *input)
-{
-	int	i;
-	int	j;
-
-	i = 2;
-	j = 0;
-	while (input[i])
-	{
-		if (input[i + 1] == '\'')
-			return (0);
-		if (input[i] == '\"')
-		{
-			j = i;
-			break ;
-		}
-		i++;
 	}
-	return (j);
-}
-
-int	search_end_quote(char *input)
-{
-	int	i;
-	int	j;
-
-	if (handle_double_quotes(input) != 0)
-		return (handle_double_quotes(input));
-	i = 1;
-	while (input[i])
-	{
-		j = 0;
-		if (input[i] == '\'')
-		{
-			j = i;
-			break ;
-		}	
-		i++;
-	}
-	return (j);
-}
-
-int	check_quotes(char *input, int end)
-{
-	int	len;
-
-	len = 0;
-	if (end == 0)
-		return (0);
-	while (len < end - 1)
-		len++;
 	return (len);
 }

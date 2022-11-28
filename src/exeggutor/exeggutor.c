@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/25 15:38:35 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/28 09:52:15 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,11 @@ static int	ft_exec(int i)
 	if (!g_shell.command[i].arguments || \
 		g_shell.command[i].fd_in < 0 || g_shell.command[i].fd_out < 0)
 		exit(1);
-	printf("fd in: %d\n", g_shell.command[i].fd_in);
 	if (g_shell.command[i].fd_in != STDIN_FILENO)
 	{
 		dup2(g_shell.command[i].fd_in, STDIN_FILENO);
 		close(g_shell.command[i].fd_in);
 	}
-	printf("fd out: %d\n", g_shell.command[i].fd_out);
 	if (g_shell.command[i].fd_out != STDOUT_FILENO)
 	{
 		dup2(g_shell.command[i].fd_out, STDOUT_FILENO);

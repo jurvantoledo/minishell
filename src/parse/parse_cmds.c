@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/25 15:18:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/28 09:52:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		if (!str)
 			return (NULL);
 		args[i] = str;
-		printf("the args: %s\n", args[i]);
 		i++;
 		lexer = lexer->next;
 	}
@@ -74,7 +73,6 @@ int	parse_cmds(char *input, t_lexer *lexer)
 	int			i;
 
 	g_shell.cmd_len = command_counter(lexer);
-	printf("the amount of commands: %ld\n", g_shell.cmd_len);
 	g_shell.command = ft_calloc(sizeof(t_command), g_shell.cmd_len);
 	if (!g_shell.command)
 		return (0);
@@ -84,7 +82,6 @@ int	parse_cmds(char *input, t_lexer *lexer)
 		g_shell.command[i].fd_in = STDIN_FILENO;
 		g_shell.command[i].fd_out = STDOUT_FILENO;
 		arg_len = arg_counter(lexer);
-		printf("the argument length: %d\n", arg_len);
 		if (arg_len)
 		{
 			g_shell.command[i].arguments = parse_args(input, lexer, arg_len);

@@ -35,6 +35,7 @@ SRCS =	src/main.c \
 		src/env/env_extra.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
+		src/lexer/quotes.c \
 		src/lexer/post_process.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
