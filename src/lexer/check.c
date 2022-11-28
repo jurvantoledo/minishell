@@ -44,29 +44,6 @@ int	ft_add_adjacent(char *input, int i, int len)
 	printf("len in adjacent: %d\n", len);
 }
 
-void	remove_quotes(char *input, char ch)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (input[i])
-	{
-		if (input[i] != ch)
-		{
-			j = i;
-			while (input[j])
-			{
-				input[j] = input[j + 1];
-				j++;
-			}
-			i--;
-		}
-		i++;
-	}
-	printf("the length of new string: %d\n", j);
-}
-
 static int	ft_lexer_wrlength(char *input)
 {
 	int	i;
