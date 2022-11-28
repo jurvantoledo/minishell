@@ -22,11 +22,49 @@ static int	ft_symbol_len(char *input)
 		if ((input[i] == '<' && input[i + 1] == '<') || \
 			(input[i] == '>' && input[i + 1] == '>'))
 			return (2);
-		else if (special_chars(input[i]))
+		else if (input[i] == '|' || input[i] == '>' || input[i] == '<')
 			return (1);
 		i++;
 	}
 	return (0);
+}
+
+int	ft_add_adjacent(char *input, int i, int len)
+{
+	char	*new;
+
+	printf("the i in adjacent: %d\n", i);
+	new = ft_calloc(sizeof(char *), 1);
+	while (input[i])
+	{
+		printf("%c\n", input[i]);
+		i++;
+	}
+	
+	printf("len in adjacent: %d\n", len);
+}
+
+void	remove_quotes(char *input, char ch)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] != ch)
+		{
+			j = i;
+			while (input[j])
+			{
+				input[j] = input[j + 1];
+				j++;
+			}
+			i--;
+		}
+		i++;
+	}
+	printf("the length of new string: %d\n", j);
 }
 
 static int	ft_lexer_wrlength(char *input)
@@ -41,20 +79,15 @@ static int	ft_lexer_wrlength(char *input)
 		if (input[i] == '\"')
 		{
 			len = check_quotes(&input[i], search_end_quote(&input[i]));
+			if (len == 0)
+				break ;
 			i += len;
 			break ;
-		}
-		if (input[i] == '\'')
-		{
-			i++;
-			while (input[i] != '\'')
-				i++;
 		}
 		else if (ft_isspace(input[i]))
 			break ;
 		i++;
 	}
-	printf("the len: %d\n", len);
 	return (i);
 }
 

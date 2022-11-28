@@ -86,13 +86,9 @@ t_lexer	*ft_snorlexer(char *input)
 		len = check_input(input, i);
 		if (input[i] == '\"' || input[i] == '\'')
 		{
-			// end_quote = search_end_quote(&input[i]);
-			// printf("the end quote: %d\n", end_quote);
-			// len = check_quotes(&input[i], end_quote);
-			// printf("len in snorlexer: %d\n", len);
 			i++;
 			len -= 2;
-		}
+		}	
 		printf("the len in snorlexer: %d\n", len);
 		set_snorlexer(&head, input, len, i);
 		i += len;
