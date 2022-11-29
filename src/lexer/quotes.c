@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/28 13:39:33 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 13:44:07 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 15:00:39 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,15 @@ int	search_end_quote(char *input)
 
 	if (!input)
 		return (0);
-	if (handle_single_double_quotes(input) != 0)
-		return (handle_single_double_quotes(input));
-	i = 1;
+	// if (handle_single_double_quotes(input) != 0)
+	// 	return (handle_single_double_quotes(input));
+	i = 0;
 	j = 0;
-	while (input[i])
+	while (input[i] && input[i] != '\"')
 	{
-		if (input[i] == '\'' || input[i] == '\"')
-		{
-			j = i;
-			break ;
-		}
 		i++;
 	}
+	j = i;
 	return (j);
 }
 
@@ -61,7 +57,7 @@ int	check_quotes(char *input, int end)
 	len = 0;
 	if (end == 0)
 		return (0);
-	while (len < end - 1)
+	while (len < end)
 		len++;
 	return (len);
 }

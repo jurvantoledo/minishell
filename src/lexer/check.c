@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 17:18:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 13:09:32 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,6 @@ static int	ft_symbol_len(char *input)
 	return (0);
 }
 
-int	ft_add_adjacent(char *input, int i, int len)
-{
-	char	*new;
-
-	printf("the i in adjacent: %d\n", i);
-	new = ft_calloc(sizeof(char *), 1);
-	while (input[i])
-	{
-		printf("%c\n", input[i]);
-		i++;
-	}
-	
-	printf("len in adjacent: %d\n", len);
-}
-
 static int	ft_lexer_wrlength(char *input)
 {
 	int	i;
@@ -51,18 +36,9 @@ static int	ft_lexer_wrlength(char *input)
 
 	i = 0;
 	len = 0;
-	while (input[i] && special_chars(input[i]) == 0)
+	while (input[i] && !ft_isspace(input[i]) && special_chars(input[i]) == 0 \
+		&& input[i] != '\"')
 	{
-		if (input[i] == '\"')
-		{
-			len = check_quotes(&input[i], search_end_quote(&input[i]));
-			if (len == 0)
-				break ;
-			i += len;
-			break ;
-		}
-		else if (ft_isspace(input[i]))
-			break ;
 		i++;
 	}
 	return (i);

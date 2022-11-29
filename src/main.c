@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/25 14:10:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 13:58:47 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,6 @@ static int	ft_run_shell(char *input)
 		free(input);
 		return (1);
 	}
-	// if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
-	// 	|| !ft_exeggutor())
-	// {
-	// 	free(input);
-	// 	exit(EXIT_FAILURE);
-	// }
 	if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
 		|| !ft_exeggutor())
 	{

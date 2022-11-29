@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/25 10:58:37 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 15:16:44 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct s_lexer {
 	t_token_type		type;
 	int					length;
 	int					index;
+	bool				adjacent;
 	t_infile			*in;
 	t_outfile			*out;
 	struct s_lexer		*next;
@@ -131,6 +132,8 @@ int		check_quotes(char *input, int end);
 void	post_process(char *input, t_lexer *lexer);
 int		check_input(char *input, int i);
 int		search_end_quote(char *input);
+int		ft_adjacent(char *input, t_lexer *lexer);
+char	*ft_is_adjacent(char *input, t_lexer *lexer);
 
 /* -----------------> Parser Functions <--------------- */
 int		ft_paraser(char *input, t_lexer *lexer);

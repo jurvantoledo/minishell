@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 09:52:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 15:13:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,11 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 	{
 		while (lexer && (lexer->type != ARGUMENT && lexer->type != COMMAND))
 			lexer = lexer->next;
-		str = ft_substr(input, lexer->index, lexer->length);
+		str = ft_is_adjacent(input, lexer);
 		if (!str)
 			return (NULL);
 		args[i] = str;
+		printf("the arguments: %s\n", args[i]);
 		i++;
 		lexer = lexer->next;
 	}

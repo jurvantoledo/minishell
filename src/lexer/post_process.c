@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:51:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 15:52:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	check_cmd_args(char *input, t_lexer *lexer, t_lexer *prev_node)
+static int	check_cmd_args(char *input, t_lexer *lexer)
 {
 	if (lexer->next == NULL)
 		return (0);
@@ -53,18 +53,61 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 	return (1);
 }
 
+int	ft_adjacent(char *input, t_lexer *lexer)
+{
+	char	*first;
+	char	*second;
+	char	*new;
+	int		i;
+
+	i = 0;
+	while (input[i] && lexer->next)
+	{
+		if ((input[i] == '\"' || input[i] == '\'') && \
+			(!ft_isspace(input[i]) && special_chars(input[i]) == 0))
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+char	*ft_is_adjacent(char *input, t_lexer *lexer)
+{
+	char	*first;
+	char	*second;
+	char	*new;
+
+	printf("adjacent: %d\n", ft_adjacent(input, lexer));
+	if (ft_adjacent(input, lexer) == 1)
+	{
+		first = ft_substr(input, lexer->index, lexer->length);
+		if (!first)
+			return (NULL);
+		printf("the first string: %s\n", first);
+		second = ft_substr(input, lexer->next->index, lexer->next->length);
+		if (!second)
+			return (NULL);
+		printf("the second string: %s\n", second);
+		new = ft_strjoin(first, second);
+		free(first);
+		free(second);
+		return (new);
+	}
+	new = ft_substr(input, lexer->index, lexer->length);
+	return (new);
+}
+
 void	post_process(char *input, t_lexer *lexer)
 {
-	t_lexer	*prev_node;
-
 	while (lexer != NULL)
 	{
-		prev_node = lexer;
 		if (lexer->next == NULL)
 			return ;
 		if (check_infile_out(input, lexer) == 0)
 			return ;
-		if (check_cmd_args(input, lexer, prev_node) == 0)
+		if (check_cmd_args(input, lexer) == 0)
 			return ;
 		lexer = lexer->next;
 	}

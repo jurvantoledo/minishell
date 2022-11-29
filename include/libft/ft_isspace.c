@@ -6,12 +6,12 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 12:28:29 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 14:57:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/29 11:10:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isspace(char c)
 {
 	return (c == '\t' || c == '\n' || c == '\v' || c == '\f' || c == '\r' || \
-			c == ' ' || c == '\\');
+			c == ' ' || c == '\\' || c == ';');
 }
