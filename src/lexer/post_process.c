@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/29 15:52:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/30 14:08:38 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 
 void	find_adjacent(const char *input, t_lexer *lexer)
 {
-		if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
-			&& input[lexer->index + lexer->length])
-			lexer->adjacent = true;
+	if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
+		&& input[lexer->index + lexer->length])
+		lexer->adjacent = true;
 }
 
 char	*ft_is_adjacent(char *input, t_lexer *lexer)
@@ -99,19 +99,3 @@ void	post_process(char *input, t_lexer *lexer)
 		lexer = lexer->next;
 	}
 }
-
-			// if (input[i] == '\"' || input[i] == '\'' && !ft_isspace(input[i]))
-			// {
-			// 	first = ft_substr(input, lexer->index, lexer->length);
-			// 	if (!first)
-			// 		return (NULL);
-			// 	printf("the first string: %s\n", first);
-			// 	second = ft_substr(input, lexer->next->index, lexer->next->length);
-			// 	if (!second)
-			// 		return (NULL);
-			// 	printf("the second string: %s\n", second);
-			// 	new = ft_strjoin(first, second);
-			// 	free(first);
-			// 	free(second);
-			// 	return (new);
-			// }
