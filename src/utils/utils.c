@@ -36,9 +36,9 @@ int	special_chars(char c)
 	int	j;
 
 	j = 0;
-	while (SPECIAL_CHAR[j])
+	while (SPECIAL_CHAR[j] || c == '\"' || c == '\'')
 	{
-		if (c == SPECIAL_CHAR[j])
+		if (c == SPECIAL_CHAR[j] || c == '\"' || c == '\'')
 			return (1);
 		j++;
 	}

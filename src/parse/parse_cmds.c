@@ -57,10 +57,11 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		while (lexer && (lexer->type != ARGUMENT && lexer->type != COMMAND))
 			lexer = lexer->next;
 		str = ft_is_adjacent(input, lexer);
+		if (lexer->adjacent == true)
+			lexer = lexer->next;
 		if (!str)
 			return (NULL);
 		args[i] = str;
-		printf("the arguments: %s\n", args[i]);
 		i++;
 		lexer = lexer->next;
 	}

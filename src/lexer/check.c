@@ -22,7 +22,7 @@ static int	ft_symbol_len(char *input)
 		if ((input[i] == '<' && input[i + 1] == '<') || \
 			(input[i] == '>' && input[i + 1] == '>'))
 			return (2);
-		else if (input[i] == '|' || input[i] == '>' || input[i] == '<')
+		else if (input[i] == '|' || input[i] == '>' || input[i] == '<' || input[i] == '\"' || input[i] == '\'')
 			return (1);
 		i++;
 	}
@@ -36,8 +36,7 @@ static int	ft_lexer_wrlength(char *input)
 
 	i = 0;
 	len = 0;
-	while (input[i] && !ft_isspace(input[i]) && special_chars(input[i]) == 0 \
-		&& input[i] != '\"')
+	while (input[i] && !ft_isspace(input[i]) && special_chars(input[i]) == 0)
 	{
 		i++;
 	}

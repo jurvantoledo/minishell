@@ -53,24 +53,11 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 	return (1);
 }
 
-int	ft_adjacent(char *input, t_lexer *lexer)
+void	find_adjacent(const char *input, t_lexer *lexer)
 {
-	char	*first;
-	char	*second;
-	char	*new;
-	int		i;
-
-	i = 0;
-	while (input[i] && lexer->next)
-	{
-		if ((input[i] == '\"' || input[i] == '\'') && \
-			(!ft_isspace(input[i]) && special_chars(input[i]) == 0))
-		{
-			return (1);
-		}
-		i++;
-	}
-	return (0);
+		if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
+			&& input[lexer->index + lexer->length])
+			lexer->adjacent = true;
 }
 
 char	*ft_is_adjacent(char *input, t_lexer *lexer)
@@ -79,8 +66,7 @@ char	*ft_is_adjacent(char *input, t_lexer *lexer)
 	char	*second;
 	char	*new;
 
-	printf("adjacent: %d\n", ft_adjacent(input, lexer));
-	if (ft_adjacent(input, lexer) == 1)
+	if (lexer->adjacent == true)
 	{
 		first = ft_substr(input, lexer->index, lexer->length);
 		if (!first)
@@ -105,6 +91,7 @@ void	post_process(char *input, t_lexer *lexer)
 	{
 		if (lexer->next == NULL)
 			return ;
+		find_adjacent(input, lexer);
 		if (check_infile_out(input, lexer) == 0)
 			return ;
 		if (check_cmd_args(input, lexer) == 0)
@@ -112,3 +99,19 @@ void	post_process(char *input, t_lexer *lexer)
 		lexer = lexer->next;
 	}
 }
+
+			// if (input[i] == '\"' || input[i] == '\'' && !ft_isspace(input[i]))
+			// {
+			// 	first = ft_substr(input, lexer->index, lexer->length);
+			// 	if (!first)
+			// 		return (NULL);
+			// 	printf("the first string: %s\n", first);
+			// 	second = ft_substr(input, lexer->next->index, lexer->next->length);
+			// 	if (!second)
+			// 		return (NULL);
+			// 	printf("the second string: %s\n", second);
+			// 	new = ft_strjoin(first, second);
+			// 	free(first);
+			// 	free(second);
+			// 	return (new);
+			// }

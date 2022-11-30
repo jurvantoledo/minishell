@@ -38,15 +38,19 @@ int	search_end_quote(char *input)
 
 	if (!input)
 		return (0);
-	// if (handle_single_double_quotes(input) != 0)
-	// 	return (handle_single_double_quotes(input));
+	if (handle_single_double_quotes(input) != 0)
+		return (handle_single_double_quotes(input));
 	i = 0;
 	j = 0;
-	while (input[i] && input[i] != '\"')
+	while (input[i])
 	{
+		if (input[i] == '\"')
+		{
+			j = i;
+			break ;
+		}
 		i++;
 	}
-	j = i;
 	return (j);
 }
 
