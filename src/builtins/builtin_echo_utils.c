@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/24 17:36:01 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/25 15:40:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/01 16:02:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static int	handle_arg_env(char *arg)
 	{
 		i++;
 		new_arg = get_env_arg(&arg[i]);
+		if (!new_arg)
+			return (0);
 		env = get_env(g_shell.env, new_arg);
 		if (!env)
 		{
@@ -42,10 +44,7 @@ static int	handle_arg_env(char *arg)
 
 int	check_arg_env(char *arg)
 {
-	t_env	*env;
 	int		i;
-	int		j;
-	char	*new_arg;
 
 	i = 0;
 	if (ft_strncmp(arg, "$", 1) == 0)

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 17:36:09 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/01 17:25:35 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ char	*get_env_arg(char *arg)
 	char	*new;
 
 	new = malloc(sizeof(char *));
+	if (!new)
+		return (NULL);
 	i = 0;
 	while (arg[i] && arg[i] != '$')
 	{
@@ -51,42 +53,83 @@ char	*get_env_arg(char *arg)
 int	check_golfje(char *arg)
 {
 	t_env	*dir;
-	int		i;
 
-	i = 0;
-	while (arg[i])
+	if (ft_strncmp(arg, "~", 2) == 0)
 	{
-		if (arg[i] == '~')
-		{
-			dir = get_env(g_shell.env, "HOME");
-			if (!dir)
-				return (0);
-			ft_putstr_fd(dir->value, 1);
-			return (1);
-		}
-		i++;
+		dir = get_env(g_shell.env, "HOME");
+		if (!dir)
+			return (0);
+		ft_putstr_fd(dir->value, 1);
+		return (1);
 	}
 	return (0);
 }
 
-int	builtin_echo(int argc, char **args)
+bool	ft_prev_arg(char *arg, int i)
+{
+	while (arg[i])
+	{
+		ft_putstr_fd(&arg[i], 1);
+		i++;
+	}
+	return (true);
+}
+
+bool	ft_next_arg(char *arg)
 {
 	int	i;
-	int	newline;
+
+	i = 0;
+	if (arg[0] != '-')
+	{
+		return (true);
+	}
+	while (arg[i])
+	{
+		if (arg[i] != 'n')
+		{
+			return (true);
+		}
+		i++;
+	}
+	return (false);
+}
+
+bool	ft_newline(char *args, bool yeet)
+{
+	int	i;
 
 	i = 1;
-	newline = 1;
-	if (!check_argcount(argc))
-		return (0);
-	if (ft_strncmp(args[1], "-n", 3) == 0)
-	{
-		newline = 0;
-		i = 2;
-	}
+	if (args[0] != '-')
+		return (false);
 	while (args[i])
 	{
+		if (args[i] != 'n')
+		{
+			return (false);
+		}
+		i++;
+	}
+	return (true);
+}
+
+int	builtin_echo(int argc, char **args)
+{
+	int		i;
+	bool	newline;
+	bool	yeet;
+
+	newline = true;
+	yeet = true;
+	i = 1;
+	if (!check_argcount(argc))
+		return (0);
+	while (args[i])
+	{
+		if (ft_newline(args[i], yeet))
+			newline = false;
 		if (!echo_exit(args[i]) && !check_golfje(args[i]) \
-			&& !check_arg_env(args[i]))
+			&& !check_arg_env(args[i]) && !ft_newline(args[i], yeet))
 		{
 			ft_putstr_fd(args[i], 1);
 			if (args[i + 1])
@@ -94,7 +137,7 @@ int	builtin_echo(int argc, char **args)
 		}
 		i++;
 	}
-	if (newline == 1)
+	if (newline)
 		ft_putchar_fd('\n', 1);
 	return (1);
 }

@@ -6,23 +6,43 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 11:58:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 14:26:50 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/01 14:08:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	expand_value(char *value)
+bool	expand_adjacent(char *input)
 {
-	printf("the expanded value: %s\n", value);
-	if (check_builtin(value) || parse_path(value) != NULL)
+	char	**loc;
+
+	loc = ft_split(input, ' ');
+	if (!loc)
+		return (NULL);
+	if (check_builtin(loc[0]) || parse_path(loc[0]) != NULL)
 	{
-		printf("LOL TRUE\n");
-		expand_adjacent(value);
+		g_shell.lexer = ft_snorlexer(input);
+		if (!g_shell.lexer)
+		{
+			free(input);
+			return (false);
+		}
+		if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
+			|| !ft_exeggutor())
+		{
+			free(input);
+			exit(EXIT_FAILURE);
+		}
+		ft_free_char(loc);
 		return (true);
 	}
-	printf("LOL FALSE\n");
+	ft_free_char(loc);
 	return (false);
+}
+
+bool	expand_value(char *value)
+{
+	return (expand_adjacent(value));
 }
 
 int	expand_dollar(char *input)

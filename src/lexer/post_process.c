@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/30 14:08:38 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/01 12:31:12 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,6 @@ void	find_adjacent(const char *input, t_lexer *lexer)
 	if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
 		&& input[lexer->index + lexer->length])
 		lexer->adjacent = true;
-}
-
-char	*expand_adjacent(char *input)
-{
-	char	**loc;
-	
-	printf("sheesh\n");
-	loc = ft_split(input, ' ');
-	if (!loc)
-		return (NULL);
-	printf("%s\n", loc[0]);
-	return (input);
 }
 
 char	*ft_is_adjacent(char *input, t_lexer *lexer)
