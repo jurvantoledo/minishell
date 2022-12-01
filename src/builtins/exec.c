@@ -58,7 +58,7 @@ int	exec_builtins(int i)
 					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "./minishell", 12) == 0)
 		return (set_shlvl());
-	if (expander(g_shell.command[i].arguments[0]) == 1)
+	if (expander(g_shell.command[i].arguments[0]))
 		return (0);
 	return (errors("minishell", g_shell.command[i].arguments[0], \
 				"Command not found", 127));

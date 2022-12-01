@@ -60,22 +60,32 @@ void	find_adjacent(const char *input, t_lexer *lexer)
 		lexer->adjacent = true;
 }
 
+char	*expand_adjacent(char *input)
+{
+	char	**loc;
+	
+	printf("sheesh\n");
+	loc = ft_split(input, ' ');
+	if (!loc)
+		return (NULL);
+	printf("%s\n", loc[0]);
+	return (input);
+}
+
 char	*ft_is_adjacent(char *input, t_lexer *lexer)
 {
 	char	*first;
 	char	*second;
 	char	*new;
 
-	if (lexer->adjacent == true)
+	if (lexer->adjacent)
 	{
 		first = ft_substr(input, lexer->index, lexer->length);
 		if (!first)
 			return (NULL);
-		printf("the first string: %s\n", first);
 		second = ft_substr(input, lexer->next->index, lexer->next->length);
 		if (!second)
 			return (NULL);
-		printf("the second string: %s\n", second);
 		new = ft_strjoin(first, second);
 		free(first);
 		free(second);

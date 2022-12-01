@@ -86,7 +86,6 @@ t_lexer	*ft_snorlexer(char *input)
 		{
 			i++;
 			len = check_quotes(&input[i], search_end_quote(&input[i]));
-			printf("%d\n", len);
 			if (len == 0)
 				continue ;
 		}

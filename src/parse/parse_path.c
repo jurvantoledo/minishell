@@ -12,7 +12,7 @@
 
 #include "../../include/minishell.h"
 
-static int	check_builtin(char *command)
+int	check_builtin(char *command)
 {
 	if (ft_strncmp(command, "echo", ft_strlen(command)) == 0 || \
 		ft_strncmp(command, "pwd", ft_strlen(command)) == 0 || \

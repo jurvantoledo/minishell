@@ -12,6 +12,19 @@
 
 #include "../../include/minishell.h"
 
+bool	expand_value(char *value)
+{
+	printf("the expanded value: %s\n", value);
+	if (check_builtin(value) || parse_path(value) != NULL)
+	{
+		printf("LOL TRUE\n");
+		expand_adjacent(value);
+		return (true);
+	}
+	printf("LOL FALSE\n");
+	return (false);
+}
+
 int	expand_dollar(char *input)
 {
 	t_env	*env;
@@ -26,8 +39,13 @@ int	expand_dollar(char *input)
 			env = get_env(g_shell.env, &input[i]);
 			if (!env)
 				return (0);
-			ft_putendl_fd(env->value, 1);
-			return (1);
+			if (expand_value(env->value))
+				return (1);
+			else
+			{				
+				ft_putendl_fd(env->value, 1);
+				return (1);
+			}
 		}
 		i++;
 	}

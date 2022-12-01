@@ -81,6 +81,7 @@ typedef struct s_lexer {
 	int					length;
 	int					index;
 	bool				adjacent;
+	bool				expanded;
 	t_infile			*in;
 	t_outfile			*out;
 	struct s_lexer		*next;
@@ -134,16 +135,20 @@ int		check_input(char *input, int i);
 int		search_end_quote(char *input);
 int		ft_adjacent(char *input, t_lexer *lexer);
 char	*ft_is_adjacent(char *input, t_lexer *lexer);
+char	*expand_adjacent(char *input);
 
 /* -----------------> Parser Functions <--------------- */
 int		ft_paraser(char *input, t_lexer *lexer);
 int		parse_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 int		parse_cmds(char *input, t_lexer *lexer);
+int		check_builtin(char *command);
+char	*parse_path(char *cmd);
 int		resolve_path(void);
 
 /* -----------------> Expander Functions <----------------------*/
 int		expander(char *input);
+bool	expand_value(char *value);
 
 /* -----------------> Exeggutor Functions <--------------- */
 int		ft_exeggutor(void);
