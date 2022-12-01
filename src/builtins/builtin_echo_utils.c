@@ -59,3 +59,21 @@ int	check_arg_env(char *arg)
 	}
 	return (0);
 }
+
+char	*get_env_arg(char *arg)
+{
+	int		i;
+	char	*new;
+
+	new = malloc(sizeof(char *));
+	if (!new)
+		return (NULL);
+	i = 0;
+	while (arg[i] && arg[i] != '$')
+	{
+		new[i] = arg[i];
+		i++;
+	}
+	new[i] = '\0';
+	return (new);
+}
