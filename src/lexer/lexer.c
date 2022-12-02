@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/29 14:33:13 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:26:26 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
 	return (1);
 }
 
-void	set_snorlexer(t_lexer **head, char *input, int len, int i)
+static void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 {
 	t_token_type	type;
 
@@ -67,6 +67,22 @@ void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 		return ;
 	if (add_to_list(head, len, i, type) == 0)
 		return ;
+}
+
+bool	clear_token_list(t_lexer **head)
+{
+	t_lexer	*next;
+	t_lexer	*thead;
+
+	thead = *head;
+	while (thead)
+	{
+		next = thead->next;
+		free(thead);
+		thead = next;
+	}
+	*head = NULL;
+	return (false);
 }
 
 t_lexer	*ft_snorlexer(char *input)

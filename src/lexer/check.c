@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/29 13:09:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:26:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	ft_symbol_len(char *input)
 		if ((input[i] == '<' && input[i + 1] == '<') || \
 			(input[i] == '>' && input[i + 1] == '>'))
 			return (2);
-		else if (input[i] == '|' || input[i] == '>' || input[i] == '<' || input[i] == '\"' || input[i] == '\'')
+		else if (input[i] == '|' || input[i] == '>' || input[i] == '<' || \
+			input[i] == '\"' || input[i] == '\'')
 			return (1);
 		i++;
 	}

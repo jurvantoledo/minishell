@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/29 13:58:47 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:23:19 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,36 @@
 
 t_shell	g_shell;
 
-int	clean_shell(void)
+int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 {
 	int	i;
+	int	j;
 
+	if (exit_prog)
+		clear_list(&g_shell.env);
 	i = 0;
 	while (i < g_shell.cmd_len)
 	{
+		j = 0;
 		if (g_shell.command[i].fd_in > 2)
 			close(g_shell.command[i].fd_in);
 		if (g_shell.command[i].fd_out > 2)
 			close(g_shell.command[i].fd_out);
+		while (g_shell.command[i].arguments && g_shell.command[i].arguments[j])
+		{
+			free(g_shell.command[i].arguments[j]);
+			j++;
+		}
+		free(g_shell.command[i].arguments);
+		free(g_shell.command[i].path);
 		i++;
 	}
-	return (0);
+	free(g_shell.command);
+	g_shell.command = NULL;
+	g_shell.cmd_len = 0;
+	clear_token_list(&g_shell.lexer);
+	lexer = NULL;
+	return (exit);
 }
 
 static int	ft_run_shell(char *input)
@@ -35,6 +51,7 @@ static int	ft_run_shell(char *input)
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
 	{
+		clean_shell(g_shell.lexer, 0, false);
 		free(input);
 		return (1);
 	}
@@ -42,7 +59,7 @@ static int	ft_run_shell(char *input)
 		|| !ft_exeggutor())
 	{
 		free(input);
-		exit(EXIT_FAILURE);
+		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
 	free(input);
 	return (1);
@@ -57,7 +74,7 @@ char	*read_command_line(void)
 	{
 		ft_putendl_fd("exit", 1);
 		rl_clear_history();
-		exit(EXIT_FAILURE);
+		exit(clean_shell(NULL, 1, true));
 	}
 	if (input && *input)
 		add_history(input);
@@ -81,7 +98,8 @@ int	main(int argc, char *argv[], char *envp[])
 		init_signal();
 		input = read_command_line();
 		ft_run_shell(input);
-		clean_shell();
+		clean_shell(g_shell.lexer, 0, false);
+		system("leaks minishell");
 	}
 	return (0);
 }
