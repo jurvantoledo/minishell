@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 12:50:41 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 10:14:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 16:01:06 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,14 @@ int	cd_flags(char *path)
 	}
 	else if (ft_strncmp(path, "-", 2) == 0 && ft_strlen(path) == 1)
 	{
-		if (!set_old_cd(path))
+		if (!set_old_cd())
 			return (0);
 	}
 	return (1);
 }
 
-int	set_cd(int argc, char *path)
+int	set_cd(char *path)
 {
-	char	*new_path;
-	char	cwd[MAX_PATH];
 	t_env	*dir;
 
 	if (ft_strncmp(path, "~", 2) == 0 || ft_strncmp(path, "-", 2) == 0)
@@ -88,11 +86,10 @@ int	set_cd(int argc, char *path)
 int	builtin_cd(int argc, char **argv)
 {
 	t_env	*dir;
-	char	cwd[MAX_PATH];
 
 	if (argc > 1)
 	{
-		if (!set_cd(argc, argv[1]))
+		if (!set_cd(argv[1]))
 			return (0);
 	}
 	else if (argc == 1)

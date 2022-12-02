@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/01 17:25:35 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:53:48 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static bool	ft_newline(char *args)
 	return (true);
 }
 
-static void	print_all(int argc, char **args, int i)
+static void	print_all(char **args, int i)
 {
 	while (args[i])
 	{
@@ -90,7 +90,7 @@ int	builtin_echo(int argc, char **args)
 	}
 	if (i > 1)
 		newline = false;
-	print_all(argc, args, i);
+	print_all(args, i);
 	if (newline)
 		ft_putchar_fd('\n', 1);
 	return (1);

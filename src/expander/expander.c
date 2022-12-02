@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 11:58:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/01 14:08:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:42:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ bool	expand_adjacent(char *input)
 		g_shell.lexer = ft_snorlexer(input);
 		if (!g_shell.lexer)
 		{
+			clean_shell(g_shell.lexer, 0, false);
 			free(input);
 			return (false);
 		}
@@ -31,8 +32,9 @@ bool	expand_adjacent(char *input)
 			|| !ft_exeggutor())
 		{
 			free(input);
-			exit(EXIT_FAILURE);
+			exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 		}
+		clean_shell(g_shell.lexer, 0, false);
 		ft_free_char(loc);
 		return (true);
 	}

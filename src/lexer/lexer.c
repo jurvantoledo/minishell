@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:26:26 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:51:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_lexer	*ft_snorlexer(char *input)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			i++;
-			len = check_quotes(&input[i], search_end_quote(&input[i]));
+			len = check_quotes(search_end_quote(&input[i]));
 			if (len == 0)
 				continue ;
 		}

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:13:28 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 16:00:53 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,12 @@ typedef struct s_shell
 
 extern t_shell	g_shell;
 
-int		main(int argc, char *argv[], char *envp[]);
+/* --------> Main functions <---------- */
 
-/* --------> Envp parser for storing the keys and values of envp <---------- */
+int		main(int argc, char *argv[], char *envp[]);
+int		clean_shell(t_lexer *lexer, int exit, bool exit_prog);
+
+/* --------> Env List functions <---------- */
 t_env	*parse_env(char *envp[]);
 t_env	*get_env(t_env *head, char *pathname);
 char	**set_env(void);
@@ -129,7 +132,7 @@ t_env	*clear_list(t_env **head);
 
 /* -----------------> Lexer Functions <--------------- */
 t_lexer	*ft_snorlexer(char *input);
-int		check_quotes(char *input, int end);
+int		check_quotes(int end);
 void	post_process(char *input, t_lexer *lexer);
 int		check_input(char *input, int i);
 int		search_end_quote(char *input);
@@ -200,7 +203,7 @@ int		builtin_exit(int argc, char **argv);
 int		builtin_cd(int argc, char **argv);
 int		cd_home_path(t_env *dir, char *path);
 int		set_path(char *path);
-int		set_old_cd(char *path);
+int		set_old_cd(void);
 
 int		errors(char *shell, char *arg, char *str, int exit_code);
 
@@ -213,6 +216,5 @@ void	init_signal(void);
 void	set_signals(void);
 
 void	sig_ignore(void);
-static void	sighandler(int num);
 
 #endif

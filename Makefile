@@ -16,7 +16,7 @@ LIBFT		= include/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-# CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
@@ -40,6 +40,7 @@ SRCS =	src/main.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \
+		src/parse/parse_adjacent.c \
 		src/parse/parse_path.c \
 		src/expander/expander.c \
 		src/exeggutor/exec_utils.c \
@@ -81,7 +82,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/expander
 	@$(MKDIR) objs/exeggutor
-	@$(CC) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif

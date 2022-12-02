@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 14:24:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:53:00 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	ft_wait(void)
 {
-	int	i;
-	int	status;
+	size_t	i;
+	int		status;
 
 	i = 0;
 	while (i < g_shell.cmd_len)

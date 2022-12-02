@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/01 12:31:12 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:51:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	check_cmd_args(char *input, t_lexer *lexer)
+static int	check_cmd_args(t_lexer *lexer)
 {
 	if (lexer->next == NULL)
 		return (0);
@@ -60,29 +60,6 @@ void	find_adjacent(const char *input, t_lexer *lexer)
 		lexer->adjacent = true;
 }
 
-char	*ft_is_adjacent(char *input, t_lexer *lexer)
-{
-	char	*first;
-	char	*second;
-	char	*new;
-
-	if (lexer->adjacent)
-	{
-		first = ft_substr(input, lexer->index, lexer->length);
-		if (!first)
-			return (NULL);
-		second = ft_substr(input, lexer->next->index, lexer->next->length);
-		if (!second)
-			return (NULL);
-		new = ft_strjoin(first, second);
-		free(first);
-		free(second);
-		return (new);
-	}
-	new = ft_substr(input, lexer->index, lexer->length);
-	return (new);
-}
-
 void	post_process(char *input, t_lexer *lexer)
 {
 	while (lexer != NULL)
@@ -92,7 +69,7 @@ void	post_process(char *input, t_lexer *lexer)
 		find_adjacent(input, lexer);
 		if (check_infile_out(input, lexer) == 0)
 			return ;
-		if (check_cmd_args(input, lexer) == 0)
+		if (check_cmd_args(lexer) == 0)
 			return ;
 		lexer = lexer->next;
 	}

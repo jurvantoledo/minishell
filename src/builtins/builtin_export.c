@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 09:45:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:55:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	check_env_val(char *arg, int fd)
 
 static void	print_env_value(char *value)
 {
-	t_env	*dir;
-
 	if (!check_val_quotes(value))
 	{
 		ft_putstr_fd("=\"", 1);

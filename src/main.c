@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:23:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:49:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 	if (exit_prog)
 		clear_list(&g_shell.env);
 	i = 0;
-	while (i < g_shell.cmd_len)
+	while ((size_t)i < g_shell.cmd_len)
 	{
 		j = 0;
 		if (g_shell.command[i].fd_in > 2)
@@ -51,7 +51,7 @@ static int	ft_run_shell(char *input)
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
 	{
-		clean_shell(g_shell.lexer, 0, false);
+		clean_shell(g_shell.lexer, 0, true);
 		free(input);
 		return (1);
 	}
@@ -61,6 +61,7 @@ static int	ft_run_shell(char *input)
 		free(input);
 		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
+	clean_shell(g_shell.lexer, 0, false);
 	free(input);
 	return (1);
 }
@@ -98,8 +99,6 @@ int	main(int argc, char *argv[], char *envp[])
 		init_signal();
 		input = read_command_line();
 		ft_run_shell(input);
-		clean_shell(g_shell.lexer, 0, false);
-		system("leaks minishell");
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:51:53 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/17 12:51:56 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:52:46 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,6 @@ int	check_builtin(char *command)
 		ft_strncmp(command, "cd", ft_strlen(command)) == 0)
 		return (1);
 	return (0);
-}
-
-char	**find_path(char *cmd)
-{
-	char	**paths;
-
-	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
-	if (!paths)
-		return (NULL);
-	return (paths);
 }
 
 char	*parse_path(char *cmd)
@@ -66,7 +56,7 @@ char	*parse_path(char *cmd)
 
 int	resolve_path(void)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < g_shell.cmd_len)

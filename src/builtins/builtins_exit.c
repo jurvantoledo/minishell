@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:49:02 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 14:08:42 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:59:30 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static int	check_digit(char *c)
 {
 	int	i;
-	int	x;
 
 	i = 0;
 	while (c[i])
@@ -93,12 +92,9 @@ int	builtin_exit(int argc, char **argv)
 		}
 		else if (exit_num_minus(argv[i]) == 1)
 			return (1);
-		else
-		{
-			ft_putendl_fd("exit", 1);
-			exit(EXIT_SUCCESS);
-		}
 		i++;
 	}
+	ft_putendl_fd("exit", 1);
+	exit(EXIT_SUCCESS);
 	return (1);
 }

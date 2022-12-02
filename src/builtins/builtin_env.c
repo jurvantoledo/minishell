@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 15:44:12 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:51:11 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:53:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	builtin_env(int argc, char **argv)
 {
-	char	*str;
 	t_env	*env;
 
 	if (argc > 1)
