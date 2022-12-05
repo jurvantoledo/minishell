@@ -68,6 +68,10 @@ char	*check_new_env_var(char *str)
 		key = key_val(str);
 		val = str_val(str);
 		new_str = ft_strjoin(key, val);
+		if (!new_str)
+			return (NULL);
+		free(key);
+		free(val);
 		return (new_str);
 	}
 	return (str);

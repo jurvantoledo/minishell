@@ -37,6 +37,7 @@ bool	expand_adjacent(char *input)
 			exit(clean_shell(lexer, EXIT_FAILURE, true));
 		}
 		clean_shell(lexer, 0, false);
+		free(input);
 		ft_free_char(loc);
 		return (true);
 	}

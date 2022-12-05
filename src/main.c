@@ -46,7 +46,7 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 	return (exit);
 }
 
-static int	ft_run_shell(char *input)
+int	ft_run_shell(char *input)
 {
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
