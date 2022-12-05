@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:51:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 16:47:43 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 	else if (lexer->type == OUTFILE_APPEND && \
 			ft_strncmp(str, ">>", 3) == 0)
 		lexer->next->type = OUTFILE_APPEND;
+	free(str);
 	return (1);
 }
 

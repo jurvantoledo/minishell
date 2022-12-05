@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:05:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 15:36:24 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,12 @@ int	update_env(t_env *head, char *val, char *new_val)
 	head = get_env(g_shell.env, val);
 	if (!head)
 		return (0);
-	head->value = new_val;
+	else if (head)
+	{
+		free(head->value);
+		head->value = new_val;
+		return (1);
+	}
+	free(new_val);
 	return (1);
 }

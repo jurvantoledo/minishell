@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/21 15:43:51 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:26:34 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 15:43:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,7 @@ static int	ft_lexer_wrlength(char *input)
 	i = 0;
 	len = 0;
 	while (input[i] && !ft_isspace(input[i]) && special_chars(input[i]) == 0)
-	{
 		i++;
-	}
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:49:58 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 16:56:04 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 	free(g_shell.command);
 	g_shell.command = NULL;
 	g_shell.cmd_len = 0;
-	clear_token_list(&g_shell.lexer);
+	clear_token_list(&lexer);
 	lexer = NULL;
 	return (exit);
 }
@@ -61,25 +61,10 @@ static int	ft_run_shell(char *input)
 		free(input);
 		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
+	add_history(input);
 	clean_shell(g_shell.lexer, 0, false);
 	free(input);
 	return (1);
-}
-
-char	*read_command_line(void)
-{
-	char	*input;
-
-	input = readline("[terminal cancer]: ");
-	if (!input)
-	{
-		ft_putendl_fd("exit", 1);
-		rl_clear_history();
-		exit(clean_shell(NULL, 1, true));
-	}
-	if (input && *input)
-		add_history(input);
-	return (input);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -97,8 +82,14 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		init_signal();
-		input = read_command_line();
+		input = readline("[terminal cancer]: ");
+		if (!input)
+		{
+			ft_putendl_fd("exit", 1);
+			exit(clean_shell(NULL, 1, true));
+		}
 		ft_run_shell(input);
+		// system("leaks minishell");
 	}
 	return (0);
 }

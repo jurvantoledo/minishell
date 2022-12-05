@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:53:00 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 15:39:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	ft_fork(pid_t *pid)
 
 int	arg_files_check(char *arg)
 {
-	if (ft_strncmp(arg, "./", 2) == 0)
+	if (ft_strncmp(arg, "./", 2) == 0 && \
+		ft_strncmp(arg, "./minishell", 12) != 0)
 		return (1);
 	return (0);
 }

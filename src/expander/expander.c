@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 11:58:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:42:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 16:55:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,28 @@
 bool	expand_adjacent(char *input)
 {
 	char	**loc;
+	t_lexer	*lexer;
 
+	lexer = NULL;
 	loc = ft_split(input, ' ');
 	if (!loc)
 		return (NULL);
 	if (check_builtin(loc[0]) || parse_path(loc[0]) != NULL)
 	{
-		g_shell.lexer = ft_snorlexer(input);
-		if (!g_shell.lexer)
+		lexer = ft_snorlexer(input);
+		if (!lexer)
 		{
-			clean_shell(g_shell.lexer, 0, false);
+			clean_shell(lexer, 0, false);
 			free(input);
 			return (false);
 		}
-		if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
+		if (!ft_paraser(input, lexer) || !resolve_path() \
 			|| !ft_exeggutor())
 		{
 			free(input);
-			exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
+			exit(clean_shell(lexer, EXIT_FAILURE, true));
 		}
-		clean_shell(g_shell.lexer, 0, false);
+		clean_shell(lexer, 0, false);
 		ft_free_char(loc);
 		return (true);
 	}
