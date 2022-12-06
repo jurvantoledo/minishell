@@ -42,7 +42,6 @@ SRCS =	src/main.c \
 		src/parse/parse_cmds.c \
 		src/parse/parse_adjacent.c \
 		src/parse/parse_path.c \
-		src/expander/expander.c \
 		src/exeggutor/exec_utils.c \
 		src/exeggutor/exeggutor.c \
 		src/exeggutor/shlvl.c \
@@ -80,7 +79,6 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/builtins
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
-	@$(MKDIR) objs/expander
 	@$(MKDIR) objs/exeggutor
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)

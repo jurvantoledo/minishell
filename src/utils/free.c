@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/14 15:02:29 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/17 14:43:16 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/06 11:10:52 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_char(char **src)
 	int	i;
 
 	i = 0;
-	while (src[i])
+	while (src && src[i])
 	{
 		free(src[i]);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 16:01:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/06 12:17:29 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ int	exec_builtins(int i)
 					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "./minishell", 12) == 0)
 		return (set_shlvl());
-	if (expander(g_shell.command[i].arguments[0]))
-		return (0);
 	return (errors("minishell", g_shell.command[i].arguments[0], \
 				"Command not found", 127));
 }
