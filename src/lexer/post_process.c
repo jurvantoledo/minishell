@@ -57,7 +57,7 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 void	find_adjacent(const char *input, t_lexer *lexer)
 {
 	if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
-		&& input[lexer->index + lexer->length])
+		&& input[lexer->index + lexer->length] && lexer->next->type != OUTFILE)
 		lexer->adjacent = true;
 }
 
