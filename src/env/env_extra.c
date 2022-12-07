@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/23 16:05:22 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/23 16:28:37 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:17:38 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*key_val(char *str)
 		key[i - 1] = str[i];
 		i++;
 	}
-	printf("the key in key_val function: %s\n", key);
 	key[i] = '\0';
 	env = get_env(g_shell.env, key);
 	if (!env)

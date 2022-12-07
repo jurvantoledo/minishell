@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 11:53:54 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:04:20 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int	main(int argc, char *argv[], char *envp[])
 			exit(clean_shell(NULL, 1, true));
 		}
 		ft_run_shell(input);
-		// system("leaks minishell");
 	}
 	return (0);
 }

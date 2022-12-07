@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:53:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:15:08 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	builtin_echo(int argc, char **args)
 	if (argc == 1)
 	{
 		ft_putchar_fd('\n', 1);
-		return (0);
+		return (1);
 	}
 	while (args[i] && ft_newline(args[i]) && argc >= 2)
 	{

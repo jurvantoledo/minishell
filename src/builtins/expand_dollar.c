@@ -6,12 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 12:14:49 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 12:47:34 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:04:35 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
 
 int	expand_dollar(char *input)
 {

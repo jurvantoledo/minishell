@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 12:49:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:06:27 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,6 @@ int		ft_iscapital(int c);
 
 /* -----------------> Builtin Functions <--------------- */
 int		exec_builtins(int i);
-int		run_builtins(void);
 
 // PWD builtin
 int		builtin_pwd(void);

@@ -6,14 +6,14 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 12:49:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:16:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	exec_builtins(int i)
-{	
+static int	run_builtins(int i)
+{
 	if (ft_strncmp(g_shell.command[i].arguments[0], "pwd", 4) == 0)
 		return (builtin_pwd());
 	if (ft_strncmp(g_shell.command[i].arguments[0], "echo", 5) == 0)
@@ -38,6 +38,13 @@ int	exec_builtins(int i)
 		return (set_shlvl());
 	if (expand_dollar(g_shell.command[i].arguments[0]))
 		return (1);
+	return (0);
+}
+
+int	exec_builtins(int i)
+{	
+	if (run_builtins(i) != 0)
+		return (0);
 	return (errors("minishell", g_shell.command[i].arguments[0], \
-				"Command not found", 127));
+			"Command not found", 127));
 }
