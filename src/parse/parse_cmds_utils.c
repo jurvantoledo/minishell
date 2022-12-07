@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 11:44:00 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 11:52:55 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 11:58:22 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-bool	what_am_i_doing(char *val)
+static bool	what_am_i_doing(char *val)
 {
 	char	**loc;
 	char	*path;
@@ -54,7 +54,7 @@ bool	maybe_expand(char *str)
 	return (false);
 }
 
-char	**new_args(char *str)
+static char	**new_args(char *str)
 {
 	int		i;
 	t_env	*env;
