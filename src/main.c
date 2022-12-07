@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/06 18:08:38 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 10:57:57 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,9 @@ t_shell	g_shell;
 
 int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 {
-	int	i;
-	int	j;
-
 	if (exit_prog)
 		clear_list(&g_shell.env);
-	i = 0;
-	while ((size_t)i < g_shell.cmd_len)
-	{
-		j = 0;
-		if (g_shell.command[i].fd_in > 2)
-			close(g_shell.command[i].fd_in);
-		if (g_shell.command[i].fd_out > 2)
-			close(g_shell.command[i].fd_out);
-		while (g_shell.command[i].arguments && g_shell.command[i].arguments[j])
-		{
-			free(g_shell.command[i].arguments[j]);
-			j++;
-		}
-		free(g_shell.command[i].arguments);
-		free(g_shell.command[i].path);
-		i++;
-	}
-	free(g_shell.command);
-	g_shell.command = NULL;
-	g_shell.cmd_len = 0;
+	purge_commands();
 	clear_token_list(&lexer);
 	lexer = NULL;
 	return (exit);

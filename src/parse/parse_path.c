@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:51:53 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/06 17:46:15 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 10:56:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ char	*parse_path(char *cmd)
 	char	*temp;
 	char	*path;
 
-	// if (ft_strchr("./", cmd[0]) && access(cmd, F_OK & X_OK) != -1)
-	// 	return (ft_strdup(cmd));
+	if (ft_strchr("./", cmd[0]) && access(cmd, F_OK & X_OK) != -1)
+		return (ft_strdup(cmd));
 	if (!get_env(g_shell.env, "PATH"))
 		return (NULL);
 	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
@@ -48,7 +48,6 @@ char	*parse_path(char *cmd)
 			break ;
 		free(path);
 		path = NULL;
-		temp = NULL;
 		i++;
 	}
 	ft_free_char(paths);

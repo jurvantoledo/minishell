@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/06 12:18:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 10:50:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ int		parse_cmds(char *input, t_lexer *lexer);
 int		check_builtin(char *command);
 char	*parse_path(char *cmd);
 int		resolve_path(void);
+void	purge_commands(void);
 
 /* -----------------> Exeggutor Functions <--------------- */
 int		ft_exeggutor(void);

@@ -37,11 +37,13 @@ SRCS =	src/main.c \
 		src/lexer/check.c \
 		src/lexer/quotes.c \
 		src/lexer/post_process.c \
+		src/lexer/clear_lexer.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \
 		src/parse/parse_adjacent.c \
 		src/parse/parse_path.c \
+		src/parse/free_cmds.c \
 		src/exeggutor/exec_utils.c \
 		src/exeggutor/exeggutor.c \
 		src/exeggutor/shlvl.c \

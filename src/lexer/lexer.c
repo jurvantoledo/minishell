@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/05 16:46:34 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 11:06:37 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,11 @@ static void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 		return ;
 }
 
-bool	clear_token_list(t_lexer **head)
+t_lexer	*ft_gluttony(t_lexer *head, char *input)
 {
-	t_lexer	*next;
-	t_lexer	*thead;
+	int	i;
+	int	len;
 
-	thead = *head;
-	while (thead)
-	{
-		next = thead->next;
-		free(thead);
-		thead = next;
-	}
-	*head = NULL;
-	return (false);
-}
-
-t_lexer	*ft_snorlexer(char *input)
-{
-	t_lexer				*head;
-	int					i;
-	int					len;
-
-	head = NULL;
 	i = 0;
 	len = 0;
 	while (input[i])
@@ -111,8 +93,17 @@ t_lexer	*ft_snorlexer(char *input)
 		i += len;
 		len = 0;
 	}
-	post_process(input, head);
+	return (head);
+}
+
+t_lexer	*ft_snorlexer(char *input)
+{
+	t_lexer				*head;
+
+	head = NULL;
+	head = ft_gluttony(head, input);
 	print_list(head);
+	post_process(input, head);
 	return (head);
 }
 
