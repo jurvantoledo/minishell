@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 11:44:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 12:49:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ int		cd_home_path(t_env *dir, char *path);
 int		set_path(char *path);
 int		set_old_cd(void);
 
+int		expand_dollar(char *input);
 int		errors(char *shell, char *arg, char *str, int exit_code);
 
 /* ----------------> Signals <-------------------- */

@@ -48,7 +48,6 @@ SRCS =	src/main.c \
 		src/exeggutor/exec_utils.c \
 		src/exeggutor/exeggutor.c \
 		src/exeggutor/shlvl.c \
-		src/builtins/run.c \
 		src/builtins/builtin_pwd.c \
 		src/builtins/builtin_echo.c \
 		src/builtins/builtin_echo_utils.c \
@@ -61,6 +60,7 @@ SRCS =	src/main.c \
 		src/builtins/builtin_cd_utils.c \
 		src/builtins/errors.c \
 		src/builtins/exec.c \
+		src/builtins/expand_dollar.c \
 		src/signals/signals.c \
 		include/gnl/get_next_line_utils.c \
 		include/gnl/get_next_line.c

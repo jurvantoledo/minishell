@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 11:44:00 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 11:58:22 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 12:49:30 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,22 @@ static bool	what_am_i_doing(char *val)
 	char	**loc;
 	char	*path;
 
-	loc = ft_split(val, ' ');
-	if (!loc)
-		return (false);
-	path = parse_path(loc[0]);
-	if (check_builtin(loc[0]) || path != NULL)
+	if (access(val, F_OK & X_OK) == -1)
 	{
-		free(path);
+		loc = ft_split(val, ' ');
+		if (!loc)
+			return (false);
+		path = parse_path(loc[0]);
+		if (check_builtin(loc[0]) || path != NULL)
+		{
+			free(path);
+			ft_free_char(loc);
+			ft_putendl_fd(val, STDOUT_FILENO);
+			return (true);
+		}
 		ft_free_char(loc);
-		return (true);
+		return (false);
 	}
-	ft_free_char(loc);
 	return (false);
 }
 
