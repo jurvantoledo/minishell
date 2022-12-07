@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 11:44:00 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 12:49:30 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 14:22:03 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static bool	what_am_i_doing(char *val)
 		{
 			free(path);
 			ft_free_char(loc);
-			ft_putendl_fd(val, STDOUT_FILENO);
 			return (true);
 		}
 		ft_free_char(loc);
