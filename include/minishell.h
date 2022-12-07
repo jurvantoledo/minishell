@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 10:50:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 11:44:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ int		ft_paraser(char *input, t_lexer *lexer);
 int		parse_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 int		parse_cmds(char *input, t_lexer *lexer);
+char	**expanded_args(char **args, char *str);
+bool	maybe_expand(char *str);
 int		check_builtin(char *command);
 char	*parse_path(char *cmd);
 int		resolve_path(void);

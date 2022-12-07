@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/06 18:05:16 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/07 11:53:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,64 +42,6 @@ static size_t	arg_counter(t_lexer *lexer)
 	return (count);
 }
 
-char	**new_args(char *str)
-{
-	int		i;
-	t_env	*env;
-	char	**loc;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			i++;
-			env = get_env(g_shell.env, &str[i]);
-			if (!env)
-				return (NULL);
-			loc = ft_split(env->value, ' ');
-			if (!loc)
-				return (NULL);
-			return (loc);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-bool	maybe_expand(char *str)
-{
-	int		i;
-	t_env	*env;
-	char	**loc;
-	char	*path;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '$')
-		{
-			i++;
-			env = get_env(g_shell.env, &str[i]);
-			if (!env)
-				return (false);
-			loc = ft_split(env->value, ' ');
-			if (!loc)
-				return (false);
-			path = parse_path(loc[0]);
-			if (check_builtin(loc[0]) || path != NULL)
-			{
-				free(path);
-				ft_free_char(loc);
-				return (true);
-			}
-			ft_free_char(loc);
-		}
-		i++;
-	}
-	return (false);
-}
-
 char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 {
 	char	*str;
@@ -120,12 +62,7 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		if (lexer->adjacent)
 			lexer = lexer->next;
 		if (maybe_expand(str))
-		{
-			free(args);
-			args = new_args(str);
-			free(str);
-			return (args);
-		}
+			return (expanded_args(args, str));
 		args[i] = str;
 		i++;
 		lexer = lexer->next;

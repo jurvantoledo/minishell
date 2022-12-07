@@ -41,6 +41,7 @@ SRCS =	src/main.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \
+		src/parse/parse_cmds_utils.c \
 		src/parse/parse_adjacent.c \
 		src/parse/parse_path.c \
 		src/parse/free_cmds.c \
