@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 14:06:27 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 12:30:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ t_env	*clear_list(t_env **head);
 t_lexer	*ft_snorlexer(char *input);
 int		check_quotes(int end);
 void	post_process(char *input, t_lexer *lexer);
-int		check_input(char *input, int i);
+int		ft_lexer_wrlength(char *input);
+int		ft_symbol_len(char *input);
 int		search_end_quote(char *input);
 int		ft_adjacent(char *input, t_lexer *lexer);
 char	*ft_is_adjacent(char *input, t_lexer *lexer);

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 11:06:37 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 12:24:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,13 @@ t_lexer	*ft_gluttony(t_lexer *head, char *input)
 		{
 			i++;
 			len = check_quotes(search_end_quote(&input[i]));
-			if (len == 0)
-				continue ;
 		}
+		else if (!special_chars(input[i]))
+			len = ft_lexer_wrlength(&input[i]);
 		else
-			len = check_input(input, i);
+			len = ft_symbol_len(&input[i]);
+		if (len == 0)
+			continue ;
 		set_snorlexer(&head, input, len, i);
 		i += len;
 		len = 0;
@@ -98,12 +100,15 @@ t_lexer	*ft_gluttony(t_lexer *head, char *input)
 
 t_lexer	*ft_snorlexer(char *input)
 {
-	t_lexer				*head;
+	t_lexer	*head;
+	int		i;
+	int		len;
 
 	head = NULL;
+	i = 0;
 	head = ft_gluttony(head, input);
-	print_list(head);
 	post_process(input, head);
+	print_list(head);
 	return (head);
 }
 

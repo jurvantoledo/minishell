@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/05 16:47:43 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 12:37:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	check_infile_out(char *input, t_lexer *lexer)
 	if (!str)
 		return (0);
 	if (lexer->type == INFILE && input[lexer->index] == '<' \
-		&& lexer->next->type != OUTFILE)
+			&& lexer->next->type != OUTFILE)
 		lexer->next->type = INFILE;
 	else if (lexer->type == HERE_DOC && \
 			ft_strncmp(str, "<<", 3) == 0)
@@ -64,14 +64,14 @@ void	find_adjacent(const char *input, t_lexer *lexer)
 void	post_process(char *input, t_lexer *lexer)
 {
 	while (lexer != NULL)
-	{
+	{	
 		if (lexer->next == NULL)
 			return ;
-		find_adjacent(input, lexer);
 		if (check_infile_out(input, lexer) == 0)
 			return ;
 		if (check_cmd_args(lexer) == 0)
 			return ;
+		find_adjacent(input, lexer);
 		lexer = lexer->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 14:04:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 12:58:24 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,37 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 	return (exit);
 }
 
-int	ft_run_shell(char *input)
+static char	*sanitize(char *inp)
+{
+	int	index;
+
+	if (!inp)
+		return (NULL);
+	index = 0;
+	while (inp[index])
+		index++;
+	index--;
+	while (index >= 0)
+	{
+		if (!ft_strchr("\t ", inp[index]))
+			break ;
+		inp[index] = '\0';
+		index--;
+	}
+	if (!inp)
+	{
+		free(inp);
+		return (NULL);
+	}
+	return (inp);
+}
+
+static int	ft_run_shell(char *input)
 {
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
 	{
-		clean_shell(g_shell.lexer, 0, true);
+		clean_shell(g_shell.lexer, 0, false);
 		free(input);
 		return (1);
 	}
@@ -56,7 +81,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (!g_shell.env)
 		exit(EXIT_FAILURE);
 	if (!set_shlvl())
-		exit(EXIT_FAILURE);
+		exit(clean_shell(NULL, EXIT_FAILURE, true));
 	while (1)
 	{
 		init_signal();

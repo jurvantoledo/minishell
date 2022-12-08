@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:53:30 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 12:58:42 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,13 @@ int	ft_exeggutor(void)
 {
 	int	status;
 
-	if (g_shell.cmd_len == 0)
-		return (0);
 	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL && \
 		g_shell.command[0].arguments && single_builtin())
-		return (true);
+		return (1);
 	if (!ft_fork(&g_shell.pid))
-		return (false);
+		return (0);
 	if (g_shell.pid == 0 && !exec_func())
-		return (false);
+		return (0);
 	sig_ignore();
 	waitpid(g_shell.pid, &status, 0);
 	if (WIFEXITED(status))
