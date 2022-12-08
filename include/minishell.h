@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:30:31 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 15:36:19 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ void	post_process(char *input, t_lexer *lexer);
 int		ft_lexer_wrlength(char *input);
 int		ft_symbol_len(char *input);
 int		search_end_quote(char *input);
-int		ft_adjacent(char *input, t_lexer *lexer);
 char	*ft_is_adjacent(char *input, t_lexer *lexer);
 bool	clear_token_list(t_lexer **head);
 
@@ -146,12 +145,15 @@ int		ft_paraser(char *input, t_lexer *lexer);
 int		parse_files(char *input, t_lexer *lexer);
 int		get_args(char *input, t_lexer *lexer);
 int		parse_cmds(char *input, t_lexer *lexer);
-char	**expanded_args(char **args, char *str);
-bool	maybe_expand(char *str);
+char	**adjacent_args(char **args, char *str);
+bool	maybe_expand_adjacent(char *str);
 int		check_builtin(char *command);
 char	*parse_path(char *cmd);
 int		resolve_path(void);
 void	purge_commands(void);
+
+/* -----------------> Expander <------------------ */
+char	*expand_dollar(char *input);
 
 /* -----------------> Exeggutor Functions <--------------- */
 int		ft_exeggutor(void);
@@ -166,8 +168,6 @@ void	ft_wait(void);
 int		special_chars(char c);
 void	print_list(t_lexer *head);
 void	ft_free_char(char **src);
-void	free_cmds(char **commands);
-void	ft_remove_commands(void);
 int		ft_iscapital(int c);
 
 /* -----------------> Builtin Functions <--------------- */
@@ -203,16 +203,13 @@ int		cd_home_path(t_env *dir, char *path);
 int		set_path(char *path);
 int		set_old_cd(void);
 
-int		expand_dollar(char *input);
 int		errors(char *shell, char *arg, char *str, int exit_code);
 
 /* ----------------> Signals <-------------------- */
 // void	signals(void);
 // void	sig_handler(int signum);
-void	set_sigs_exec(void);
 void	sig_handler_exec(int sig);
 void	init_signal(void);
-void	set_signals(void);
 
 void	sig_ignore(void);
 

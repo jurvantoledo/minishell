@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 11:44:00 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 14:22:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 15:56:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static bool	what_am_i_doing(char *val)
 	return (false);
 }
 
-bool	maybe_expand(char *str)
+bool	maybe_expand_adjacent(char *str)
 {
 	int		i;
 	t_env	*env;
@@ -83,7 +83,7 @@ static char	**new_args(char *str)
 	return (NULL);
 }
 
-char	**expanded_args(char **args, char *str)
+char	**adjacent_args(char **args, char *str)
 {
 	free(args);
 	args = new_args(str);
