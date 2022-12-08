@@ -6,21 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/24 17:36:01 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 12:00:42 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 13:14:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static void	watch_arg_env(char *new_arg)
-{
-	int	j;
-
-	j = 0;
-	while (ft_iscapital(new_arg[j]))
-		j++;
-	new_arg[j] = '\0';
-}
 
 static int	handle_arg_env(char *arg)
 {
@@ -38,12 +28,7 @@ static int	handle_arg_env(char *arg)
 			return (0);
 		env = get_env(g_shell.env, new_arg);
 		if (!env)
-		{
-			watch_arg_env(new_arg);
-			env = get_env(g_shell.env, new_arg);
-			if (!env)
-				return (0);
-		}
+			return (0);
 		ft_putstr_fd(env->value, STDOUT_FILENO);
 	}
 	return (1);

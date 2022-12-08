@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:58:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 13:02:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,31 +22,6 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 	clear_token_list(&lexer);
 	lexer = NULL;
 	return (exit);
-}
-
-static char	*sanitize(char *inp)
-{
-	int	index;
-
-	if (!inp)
-		return (NULL);
-	index = 0;
-	while (inp[index])
-		index++;
-	index--;
-	while (index >= 0)
-	{
-		if (!ft_strchr("\t ", inp[index]))
-			break ;
-		inp[index] = '\0';
-		index--;
-	}
-	if (!inp)
-	{
-		free(inp);
-		return (NULL);
-	}
-	return (inp);
 }
 
 static int	ft_run_shell(char *input)

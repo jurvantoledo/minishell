@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:56:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 13:12:13 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		if (maybe_expand(str))
 			return (expanded_args(args, str));
 		args[i] = str;
-		printf("the arguments: %s\n", args[i]);
 		i++;
 		lexer = lexer->next;
 	}
