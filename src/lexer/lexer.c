@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:24:02 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/09 15:49:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,6 @@ static void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 		return ;
 }
 
-char	*expand_dollar(char *input)
-{
-	printf("if last quote exit expand input: %s\n", input);
-}
-
 t_lexer	*ft_gluttony(t_lexer *head, char *input)
 {
 	int	i;
@@ -88,7 +83,6 @@ t_lexer	*ft_gluttony(t_lexer *head, char *input)
 		if (input[i] == '\"' || input[i] == '\'')
 		{
 			i++;
-			expand_dollar(&input[i]);
 			len = check_quotes(search_end_quote(&input[i]));
 		}
 		else if (!special_chars(input[i]))
@@ -107,11 +101,9 @@ t_lexer	*ft_gluttony(t_lexer *head, char *input)
 t_lexer	*ft_snorlexer(char *input)
 {
 	t_lexer	*head;
-	int		i;
-	int		len;
 
 	head = NULL;
-	i = 0;
+	printf("%s\n", input);
 	head = ft_gluttony(head, input);
 	post_process(input, head);
 	print_list(head);

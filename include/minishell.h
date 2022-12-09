@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 15:36:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/09 15:42:42 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void	purge_commands(void);
 
 /* -----------------> Expander <------------------ */
 char	*expand_dollar(char *input);
+char	*ft_replace(char *before, char *oldsub, char *newsub);
 
 /* -----------------> Exeggutor Functions <--------------- */
 int		ft_exeggutor(void);

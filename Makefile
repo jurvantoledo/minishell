@@ -38,6 +38,8 @@ SRCS =	src/main.c \
 		src/lexer/quotes.c \
 		src/lexer/post_process.c \
 		src/lexer/clear_lexer.c \
+		src/expander/expander.c \
+		src/expander/replace.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \
@@ -78,6 +80,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs
 	@$(MKDIR) objs/parse
 	@$(MKDIR) objs/lexer
+	@$(MKDIR) objs/expander
 	@$(MKDIR) objs/env
 	@$(MKDIR) objs/builtins
 	@$(MKDIR) objs/signals

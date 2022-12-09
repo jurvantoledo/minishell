@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 17:28:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/09 12:03:48 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parse_cmds(char *input, t_lexer *lexer)
 	if (!g_shell.command)
 		return (0);
 	i = 0;
-	while (lexer && i < g_shell.cmd_len)
+	while (lexer)
 	{
 		g_shell.command[i].fd_in = STDIN_FILENO;
 		g_shell.command[i].fd_out = STDOUT_FILENO;
