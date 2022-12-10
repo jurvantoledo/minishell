@@ -36,8 +36,6 @@ int	search_end_quote(char *input)
 	int	i;
 	int	j;
 
-	if (!input)
-		return (0);
 	if (handle_single_double_quotes(input) != 0)
 		return (handle_single_double_quotes(input));
 	i = 0;

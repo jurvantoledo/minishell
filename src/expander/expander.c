@@ -78,7 +78,7 @@ char	*expand_dollar(char *input)
 			{
 				res = ft_set_res(input, new_str, env_val);
 				free(new_str);
-				return (res);
+				input = res;
 			}
 		}
 		i++;

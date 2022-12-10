@@ -35,7 +35,7 @@ int	ft_lexer_wrlength(char *input)
 	int	i;
 
 	i = 0;
-	while (input[i] && !ft_isspace(input[i]))
+	while (input[i] && !ft_isspace(input[i]) && !special_chars(input[i]))
 		i++;
 	return (i);
 }

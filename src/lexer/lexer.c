@@ -85,7 +85,7 @@ t_lexer	*ft_gluttony(t_lexer *head, char *input)
 			i++;
 			len = check_quotes(search_end_quote(&input[i]));
 		}
-		else if (!special_chars(input[i]))
+		else if (special_chars(input[i]) == 0)
 			len = ft_lexer_wrlength(&input[i]);
 		else
 			len = ft_symbol_len(&input[i]);
@@ -103,7 +103,6 @@ t_lexer	*ft_snorlexer(char *input)
 	t_lexer	*head;
 
 	head = NULL;
-	printf("%s\n", input);
 	head = ft_gluttony(head, input);
 	post_process(input, head);
 	print_list(head);
