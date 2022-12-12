@@ -33,9 +33,11 @@ static int	ft_exec(int i)
 	if (access(g_shell.command[i].arguments[0], F_OK) == 0)
 		exit(errors("minishell", g_shell.command[i].arguments[0], \
 			"is a directory", 126));
-	if (access(g_shell.command[i].arguments[0], F_OK) == -1)
+	if (access(g_shell.command[i].arguments[0], F_OK) == -1 && arg_files_check(g_shell.command[i].arguments[0]) == 1)
 		exit(errors("minishell", g_shell.command[i].arguments[0], \
 			"Permission denied", 126));
+	exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"Command not found", 127));
 	return (1);
 }
 

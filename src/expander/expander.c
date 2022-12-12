@@ -12,11 +12,32 @@
 
 #include "../../include/minishell.h"
 
+char	*ft_expanded_exit(char *input)
+{
+	char	*exit_code;
+	int		i;
+
+	exit_code = NULL;
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '$' && input[i + 1] == '?')
+		{
+			exit_code = ft_itoa(g_shell.exit_code);
+		}
+		i++;
+	}
+	return (exit_code);
+}
+
 static char	*ft_get_env_val(char *input)
 {
 	t_env	*env;
+	char	*exit_code;
 	int		i;
 
+	if (ft_expanded_exit(input) != NULL)
+		return (ft_expanded_exit(input));
 	i = 0;
 	while (input[i])
 	{
@@ -33,7 +54,7 @@ static char	*ft_get_env_val(char *input)
 	return (input);
 }
 
-static char	*get_dollar_val(char *input)
+static char	*ft_get_dollar_val(char *input)
 {
 	char	*new_str;
 	int		i;
@@ -72,7 +93,7 @@ char	*expand_dollar(char *input)
 	{
 		if (input[i] == '$')
 		{
-			new_str = get_dollar_val(&input[i]);
+			new_str = ft_get_dollar_val(&input[i]);
 			env_val = ft_get_env_val(new_str);
 			if (env_val)
 			{
