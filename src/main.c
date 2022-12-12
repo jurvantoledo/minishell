@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/09 15:50:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 16:13:21 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	ft_run_shell(char *input)
 		free(input);
 		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
+	// printf("the exit code: %d\n", g_shell.exit_code);
 	add_history(input);
 	clean_shell(g_shell.lexer, 0, false);
 	free(input);
@@ -64,7 +65,7 @@ int	main(int argc, char *argv[], char *envp[])
 		if (!input)
 		{
 			ft_putendl_fd("exit", 1);
-			exit(clean_shell(NULL, 1, true));
+			exit(clean_shell(NULL, g_shell.exit_code, true));
 		}
 		ft_run_shell(input);
 	}

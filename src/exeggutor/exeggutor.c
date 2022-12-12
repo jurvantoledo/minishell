@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:58:42 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 16:37:04 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ static int	exec_func(void)
 		i++;
 	}
 	sig_ignore();
-	ft_wait();
+	waitpid(g_shell.pid, &status, 0);
 	g_shell.exit_code = WEXITSTATUS(status);
-	sig_handler_exec(status);
-	exit(EXIT_FAILURE);
+	ft_wait(status);
+	exit(clean_shell(NULL, g_shell.exit_code, true));
 	return (1);
 }
 
@@ -99,7 +99,7 @@ static int	single_builtin(void)
 	if (g_shell.command[0].fd_in < 0)
 		g_shell.exit_code = 1;
 	else
-		exec_builtins(0);
+		g_shell.exit_code = exec_builtins(0);
 	return (1);
 }
 
@@ -107,6 +107,8 @@ int	ft_exeggutor(void)
 {
 	int	status;
 
+	if (g_shell.cmd_len == 0)
+		return (true);
 	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL && \
 		g_shell.command[0].arguments && single_builtin())
 		return (1);

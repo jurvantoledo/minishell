@@ -6,16 +6,15 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/05 15:39:25 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 16:37:31 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_wait(void)
+void	ft_wait(int status)
 {
 	size_t	i;
-	int		status;
 
 	i = 0;
 	while (i < g_shell.cmd_len)
@@ -24,7 +23,7 @@ void	ft_wait(void)
 		i++;
 	}
 	if (WIFEXITED(status))
-		g_shell.exit_code = WEXITSTATUS(status);
+		g_shell.exit_code = 0;
 	sig_handler_exec(status);
 }
 

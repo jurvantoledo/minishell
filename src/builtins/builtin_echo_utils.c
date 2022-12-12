@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/24 17:36:01 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 14:59:40 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 13:32:39 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	*expand_lol_dollar(char *input)
 			env = get_env(g_shell.env, new_input);
 			if (!env)
 			{
-				// ft_putstr_fd("", STDOUT_FILENO);
 				return (0);
 			}
 			return (env->value);
@@ -66,9 +65,6 @@ static int	handle_arg_env(char *arg)
 
 int	check_arg_env(char *arg)
 {
-	// printf("the arg: %s\n", arg);
-	// if (!handle_arg_env(arg))
-	// 	return (0);
 	ft_putstr_fd(arg, STDOUT_FILENO);
 	return (1);
 }

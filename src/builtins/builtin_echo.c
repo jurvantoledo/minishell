@@ -6,20 +6,20 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/07 14:15:08 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 13:33:07 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	echo_exit(char *arg)
+static bool	echo_exit(char *arg)
 {
 	if (ft_strncmp(arg, "$?", 3) == 0)
 	{
 		ft_putnbr_fd(g_shell.exit_code, 1);
-		return (1);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
 
 static int	check_golfje(char *arg)

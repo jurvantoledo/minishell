@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/09 15:42:42 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 16:09:13 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ bool	clear_token_list(t_lexer **head);
 /* -----------------> Parser Functions <--------------- */
 int		ft_paraser(char *input, t_lexer *lexer);
 int		parse_files(char *input, t_lexer *lexer);
-int		get_args(char *input, t_lexer *lexer);
 int		parse_cmds(char *input, t_lexer *lexer);
 char	**adjacent_args(char **args, char *str);
 bool	maybe_expand_adjacent(char *str);
@@ -163,7 +162,7 @@ int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
 int		arg_files_check(char *arg);
 int		arg_files_permission(void);
-void	ft_wait(void);
+void	ft_wait(int status);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
@@ -207,8 +206,6 @@ int		set_old_cd(void);
 int		errors(char *shell, char *arg, char *str, int exit_code);
 
 /* ----------------> Signals <-------------------- */
-// void	signals(void);
-// void	sig_handler(int signum);
 void	sig_handler_exec(int sig);
 void	init_signal(void);
 
