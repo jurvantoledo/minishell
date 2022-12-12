@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/12 16:37:04 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 17:39:15 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,14 @@ static int	ft_exec(int i)
 		dup2(g_shell.command[i].fd_out, STDOUT_FILENO);
 		close(g_shell.command[i].fd_out);
 	}
-	if (g_shell.command[i].path == NULL && \
-		!arg_files_permission())
+	if (g_shell.command[i].path == NULL && arg_files_permission(i) == 0)
 		exit(exec_builtins(i));
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
+	if (access(g_shell.command[i].arguments[0], F_OK) == 0)
+	{
+		exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"is a directory", 126));
+	}
 	return (1);
 }
 
@@ -75,18 +79,14 @@ static int	exec_func(void)
 			return (0);
 		i++;
 	}
-	sig_ignore();
-	waitpid(g_shell.pid, &status, 0);
-	g_shell.exit_code = WEXITSTATUS(status);
 	ft_wait(status);
-	exit(clean_shell(NULL, g_shell.exit_code, true));
 	return (1);
 }
 
 static int	single_builtin(void)
 {
-	if (arg_files_check(g_shell.command[0].arguments[0]) == 1)
-		return (arg_files_permission());
+	if (arg_files_permission(0) != 0)
+		return (0);
 	if (ft_strncmp(g_shell.command[0].arguments[0], "echo", 5) == 0)
 		return (0);
 	if (ft_strcmp(g_shell.command[0].arguments[0], "export") == 0 && \
@@ -108,9 +108,9 @@ int	ft_exeggutor(void)
 	int	status;
 
 	if (g_shell.cmd_len == 0)
-		return (true);
+		return (1);
 	if (g_shell.cmd_len == 1 && g_shell.command[0].path == NULL && \
-		g_shell.command[0].arguments && single_builtin())
+		!g_shell.command[0].invalid && g_shell.command[0].arguments && single_builtin())
 		return (1);
 	if (!ft_fork(&g_shell.pid))
 		return (0);

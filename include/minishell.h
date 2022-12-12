@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/12 16:09:13 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 17:15:04 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_files
 typedef struct s_command {
 	char				*path;
 	char				**arguments;
+	bool				invalid;
 	int					fd_in;
 	int					fd_out;
 }	t_command;
@@ -161,7 +162,7 @@ int		ft_pipe(int fds[2]);
 int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
 int		arg_files_check(char *arg);
-int		arg_files_permission(void);
+int		arg_files_permission(int i);
 void	ft_wait(int status);
 
 /* -----------------> Util Functions <--------------- */
