@@ -40,11 +40,11 @@ int	builtin_pwd(void)
 	if (env_pwd)
 	{
 		ft_putendl_fd(env_pwd->value, 1);
-		return (1);
+		return (0);
 	}
 	pwd = getenv("PWD");
 	if (!pwd)
-		return (0);
+		return (1);
 	ft_putendl_fd(pwd, 1);
-	return (1);
+	return (0);
 }

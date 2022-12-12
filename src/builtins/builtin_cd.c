@@ -90,7 +90,7 @@ int	builtin_cd(int argc, char **argv)
 	if (argc > 1)
 	{
 		if (!set_cd(argv[1]))
-			return (0);
+			return (1);
 	}
 	else if (argc == 1)
 	{
@@ -98,7 +98,7 @@ int	builtin_cd(int argc, char **argv)
 		if (!dir)
 			return (errors("Error", "HOME", "not set", 1));
 		if (!set_path(dir->value))
-			return (0);
+			return (1);
 	}
-	return (1);
+	return (0);
 }

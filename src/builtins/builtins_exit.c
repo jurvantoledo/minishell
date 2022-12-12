@@ -69,7 +69,7 @@ static int	exit_num_minus(char *argv)
 			i++;
 			num = ft_atoi(&argv[i]);
 			special_case(num);
-			return (1);
+			return (num);
 		}
 		i++;
 	}
@@ -81,7 +81,7 @@ int	builtin_exit(int argc, char **argv)
 	int	i;
 
 	if (exit_check_args(argc, argv) == 1)
-		return (0);
+		return (1);
 	i = 0;
 	while (argv[i])
 	{
@@ -91,10 +91,10 @@ int	builtin_exit(int argc, char **argv)
 				"numeric argument required", 255));
 		}
 		else if (exit_num_minus(argv[i]) == 1)
-			return (1);
+			return (0);
 		i++;
 	}
 	ft_putendl_fd("exit", 1);
 	exit(EXIT_SUCCESS);
-	return (1);
+	return (0);
 }

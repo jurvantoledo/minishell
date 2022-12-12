@@ -21,11 +21,11 @@ int	builtin_env(int argc, char **argv)
 		ft_putstr_fd(argv[1], 1);
 		ft_putendl_fd(" :No such file or directory", 1);
 		g_shell.exit_code = 127;
-		return (0);
+		return (127);
 	}
 	env = g_shell.env;
 	if (!env)
-		return (0);
+		return (1);
 	while (env)
 	{
 		if (env->key && env->value)
@@ -36,5 +36,5 @@ int	builtin_env(int argc, char **argv)
 		}
 		env = env->next;
 	}
-	return (1);
+	return (0);
 }

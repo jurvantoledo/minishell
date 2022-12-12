@@ -18,12 +18,12 @@ int	builtin_unset(int argc, char **args)
 
 	(void)argc;
 	if (!g_shell.env)
-		return (0);
+		return (1);
 	i = 1;
 	while (args[i])
 	{
 		remove_node(&g_shell.env, args[i]);
 		i++;
 	}
-	return (1);
+	return (0);
 }

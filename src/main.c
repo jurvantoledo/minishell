@@ -39,7 +39,6 @@ static int	ft_run_shell(char *input)
 		free(input);
 		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
-	printf("the exit_code in the main: %d\n", g_shell.exit_code);
 	add_history(input);
 	clean_shell(g_shell.lexer, 0, false);
 	free(input);

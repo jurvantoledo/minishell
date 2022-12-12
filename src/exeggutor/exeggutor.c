@@ -27,14 +27,15 @@ static int	ft_exec(int i)
 		dup2(g_shell.command[i].fd_out, STDOUT_FILENO);
 		close(g_shell.command[i].fd_out);
 	}
-	if (g_shell.command[i].path == NULL && arg_files_permission(i) == 0)
+	if (g_shell.command[i].path == NULL && !g_shell.command[i].invalid)
 		exit(exec_builtins(i));
 	execve(g_shell.command[i].path, g_shell.command[i].arguments, set_env());
 	if (access(g_shell.command[i].arguments[0], F_OK) == 0)
-	{
 		exit(errors("minishell", g_shell.command[i].arguments[0], \
 			"is a directory", 126));
-	}
+	if (access(g_shell.command[i].arguments[0], F_OK) == -1)
+		exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"Permission denied", 126));
 	return (1);
 }
 
@@ -85,8 +86,6 @@ static int	exec_func(void)
 
 static int	single_builtin(void)
 {
-	if (arg_files_permission(0) != 0)
-		return (0);
 	if (ft_strncmp(g_shell.command[0].arguments[0], "echo", 5) == 0)
 		return (0);
 	if (ft_strcmp(g_shell.command[0].arguments[0], "export") == 0 && \

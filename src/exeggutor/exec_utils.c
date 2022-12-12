@@ -19,10 +19,13 @@ void	ft_wait(int status)
 	sig_ignore();
 	waitpid(g_shell.pid, &status, 0);
 	g_shell.exit_code = WEXITSTATUS(status);
-	i = 0;
 	sig_handler_exec(status);
-	while (wait(&status) != -1)
-		(void)"hello c:";
+	i = 0;
+	while (i < g_shell.cmd_len)
+	{
+		wait(&status);
+		i++;
+	}
 	exit(clean_shell(NULL, g_shell.exit_code, true));
 }
 
