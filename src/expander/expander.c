@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 12:10:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/09 15:46:19 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/13 17:26:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,36 +73,42 @@ static char	*ft_get_dollar_val(char *input)
 	return (new_str);
 }
 
-static char	*ft_set_res(char *input, char *new_str, char *env_val)
-{
-	char	*res;
-
-	res = ft_replace(input, new_str, env_val);
-	return (res);
-}
-
-char	*expand_dollar(char *input)
+static char	*ft_set_res(char *input)
 {
 	int		i;
+	int		j;
 	char	*new_str;
 	char	*env_val;
-	char	*res;
+	char	*new_inp;
 
 	i = 0;
-	while (input[i])
+	while (input[i] && input[i] != '\'')
 	{
+		j = 0;
 		if (input[i] == '$')
 		{
 			new_str = ft_get_dollar_val(&input[i]);
+			printf("the new dollar string: %s\n", new_str);
 			env_val = ft_get_env_val(new_str);
 			if (env_val)
 			{
-				res = ft_set_res(input, new_str, env_val);
-				free(new_str);
-				input = res;
+				input = ft_replace(input, new_str, env_val);
+				if (!input)
+					return (NULL);
+				printf("die kut input na expanden: %s\n", input);
 			}
+			free(new_str);
 		}
 		i++;
 	}
 	return (input);
+}
+
+char	*expand_dollar(char *input)
+{
+	char	*lol;
+
+	lol = ft_set_res(input);
+	printf("lol: %s\n", lol);
+	return (lol);
 }

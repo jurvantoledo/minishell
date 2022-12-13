@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/12 17:26:10 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/13 17:12:28 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,41 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 
 static int	ft_run_shell(char *input)
 {
-	g_shell.lexer = ft_snorlexer(expand_dollar(input));
+	char	*expand_inp;
+
+	input = expand_dollar(input);
+	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)
 	{
 		clean_shell(g_shell.lexer, 0, false);
 		free(input);
 		return (1);
 	}
-	if (!ft_paraser(expand_dollar(input), g_shell.lexer) || !resolve_path() \
+	if (!ft_paraser(input, g_shell.lexer) || !resolve_path() \
 		|| !ft_exeggutor())
 	{
 		free(input);
 		exit(clean_shell(g_shell.lexer, EXIT_FAILURE, true));
 	}
-	add_history(input);
 	clean_shell(g_shell.lexer, 0, false);
 	free(input);
 	return (1);
+}
+
+char	*read_command_line(void)
+{
+	char	*input;
+
+	input = readline("[terminal cancer]: ");
+	if (!input)
+	{
+		ft_putendl_fd("exit", 1);
+		rl_clear_history();
+		exit(clean_shell(NULL, g_shell.exit_code, true));
+	}
+	if (input && *input)
+		add_history(input);
+	return (input);
 }
 
 int	main(int argc, char *argv[], char *envp[])
@@ -60,13 +78,10 @@ int	main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		init_signal();
-		input = readline("[terminal cancer]: ");
-		if (!input)
-		{
-			ft_putendl_fd("exit", 1);
-			exit(clean_shell(NULL, g_shell.exit_code, true));
-		}
+		input = read_command_line();
 		ft_run_shell(input);
+		printf("input in main: %s\n", input);
+		free(input);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/12 17:15:04 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/13 14:22:16 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int		ft_pipe(int fds[2]);
 int		ft_fork(pid_t *pid);
 int		set_shlvl(void);
 int		arg_files_check(char *arg);
-int		arg_files_permission(int i);
+void	ft_exec_error(int i);
 void	ft_wait(int status);
 
 /* -----------------> Util Functions <--------------- */
