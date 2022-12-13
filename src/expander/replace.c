@@ -17,9 +17,11 @@ static char	*ft_replace_part(char *before, char *oldsub, \
 {
 	int		i;
 	int		j;
+	int		k;
 
 	i = 0;
 	j = 0;
+	k = 0;
 	while (i < ft_strlen(before))
 	{
 		if (ft_strnstr(&before[i], oldsub, ft_strlen(oldsub)) == &before[i])
@@ -36,7 +38,13 @@ static char	*ft_replace_part(char *before, char *oldsub, \
 		}
 	}
 	after[j] = '\0';
-	return (after);
+	while (after[k])
+	{
+		if (after[k] != '$')
+			return (after);
+		k++;
+	}
+	return (NULL);
 }
 
 static int	ft_replace_loop(char *before, char *oldsub)

@@ -76,27 +76,21 @@ static char	*ft_get_dollar_val(char *input)
 static char	*ft_set_res(char *input)
 {
 	int		i;
-	int		j;
 	char	*new_str;
 	char	*env_val;
-	char	*new_inp;
 
 	i = 0;
 	while (input[i] && input[i] != '\'')
 	{
-		j = 0;
 		if (input[i] == '$')
 		{
 			new_str = ft_get_dollar_val(&input[i]);
 			printf("the new dollar string: %s\n", new_str);
 			env_val = ft_get_env_val(new_str);
-			if (env_val)
-			{
-				input = ft_replace(input, new_str, env_val);
-				if (!input)
-					return (NULL);
-				printf("die kut input na expanden: %s\n", input);
-			}
+			input = ft_replace(input, new_str, env_val);
+			if (!input)
+				return (NULL);
+			printf("INPUT AFTER FT_REPLACE: %s\n", input);
 			free(new_str);
 		}
 		i++;
@@ -109,6 +103,5 @@ char	*expand_dollar(char *input)
 	char	*lol;
 
 	lol = ft_set_res(input);
-	printf("lol: %s\n", lol);
 	return (lol);
 }

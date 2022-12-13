@@ -80,8 +80,8 @@ int	main(int argc, char *argv[], char *envp[])
 		init_signal();
 		input = read_command_line();
 		ft_run_shell(input);
-		printf("input in main: %s\n", input);
 		free(input);
+		system("leaks minishell");
 	}
 	return (0);
 }
