@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 12:10:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/13 17:26:25 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/14 13:09:40 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ static char	*ft_get_dollar_val(char *input)
 static char	*ft_set_res(char *input)
 {
 	int		i;
+	int		j;
 	char	*new_str;
 	char	*env_val;
 
@@ -85,12 +86,10 @@ static char	*ft_set_res(char *input)
 		if (input[i] == '$')
 		{
 			new_str = ft_get_dollar_val(&input[i]);
-			printf("the new dollar string: %s\n", new_str);
 			env_val = ft_get_env_val(new_str);
 			input = ft_replace(input, new_str, env_val);
 			if (!input)
 				return (NULL);
-			printf("INPUT AFTER FT_REPLACE: %s\n", input);
 			free(new_str);
 		}
 		i++;
@@ -103,5 +102,7 @@ char	*expand_dollar(char *input)
 	char	*lol;
 
 	lol = ft_set_res(input);
+	if (!lol)
+		return (NULL);
 	return (lol);
 }

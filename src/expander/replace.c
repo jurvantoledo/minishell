@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 15:40:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/13 17:07:32 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/14 13:09:26 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@ static char	*ft_replace_part(char *before, char *oldsub, \
 {
 	int		i;
 	int		j;
-	int		k;
 
 	i = 0;
 	j = 0;
-	k = 0;
 	while (i < ft_strlen(before))
 	{
 		if (ft_strnstr(&before[i], oldsub, ft_strlen(oldsub)) == &before[i])
@@ -38,13 +36,8 @@ static char	*ft_replace_part(char *before, char *oldsub, \
 		}
 	}
 	after[j] = '\0';
-	while (after[k])
-	{
-		if (after[k] != '$')
-			return (after);
-		k++;
-	}
-	return (NULL);
+	free(before);
+	return (after);
 }
 
 static int	ft_replace_loop(char *before, char *oldsub)
