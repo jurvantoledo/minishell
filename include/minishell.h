@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/13 14:22:16 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/14 16:29:33 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ int		strenv(char **res, t_env *env);
 
 // Update env list
 int		update_env(t_env *head, char *val, char *new_val);
-char	*check_new_env_var(char *str);
 
 // Free env
 int		remove_node(t_env **head, char *key);

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/05 15:36:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/14 16:28:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ int	strenv(char **res, t_env *env)
 	res[0] = env->key;
 	if (!res[0])
 	{
-		free(res);
+		ft_free_char(res);
 		return (0);
 	}
 	res[0] = ft_strjoin(res[0], "=");
 	if (!res[0])
 	{
-		free(res);
+		ft_free_char(res);
 		return (0);
 	}
 	if (env->value)
@@ -46,7 +46,7 @@ int	strenv(char **res, t_env *env)
 		res[0] = ft_strjoin(res[0], env->value);
 		if (!res[0])
 		{
-			free(res);
+			ft_free_char(res);
 			return (0);
 		}
 	}
@@ -61,8 +61,7 @@ int	add_env_var(t_env **head, char *var_str)
 	new = ft_calloc(sizeof(t_env), 1);
 	if (!new)
 		return (0);
-	new_str = check_new_env_var(var_str);
-	if (!add_str_env(new, new_str))
+	if (!add_str_env(new, var_str))
 		return (0);
 	if (*head == NULL)
 	{

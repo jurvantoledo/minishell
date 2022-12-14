@@ -32,7 +32,6 @@ SRCS =	src/main.c \
 		src/env/env.c \
 		src/env/free_env.c \
 		src/env/env_utils.c \
-		src/env/env_extra.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
 		src/lexer/quotes.c \
