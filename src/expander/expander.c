@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 12:10:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 13:18:09 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 17:11:37 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ static char	*ft_get_dollar_val(char *input)
 	while ((input[i] && !ft_isspace(input[i])) \
 		&& (input[i] != '\"' && input[i] != '=') && \
 		(input[i] != '<' && input[i] != '>') && \
-		(ft_strncmp(input, ">>", 2) != 0 && ft_strncmp(input, "<<", 2) != 0))
+		(ft_strncmp(input, ">>", 2) != 0 && ft_strncmp(input, "<<", 2) != 0) \
+		&& (input[i] != '\''))
 	{
 		new_str[i] = input[i];
 		i++;
@@ -93,7 +94,7 @@ static char	*ft_set_res(char *input)
 	char	*env_val;
 
 	i = 0;
-	while (input[i] && input[i] != '\'')
+	while (input[i])
 	{
 		g_shell.expanded_exit = false;
 		if (input[i] == '$')

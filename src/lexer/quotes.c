@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/28 13:39:33 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/02 15:50:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 16:42:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	handle_single_double_quotes(char *input)
 	int	i;
 	int	j;
 
-	i = 1;
+	i = 0;
 	j = 0;
 	while (input[i])
 	{

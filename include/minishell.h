@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 15:43:58 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 16:45:53 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,7 @@ void	ft_exec_error(int i);
 void	ft_wait(int status);
 
 /* -----------------> Util Functions <--------------- */
+void	print_list(t_lexer *head);
 int		special_chars(char c);
 void	ft_free_char(char **src);
 int		ft_iscapital(int c);
