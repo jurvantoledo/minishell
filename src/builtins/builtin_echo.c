@@ -6,21 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 10:41:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/12 17:39:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 12:32:47 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static bool	echo_exit(char *arg)
-{
-	if (ft_strncmp(arg, "$?", 3) == 0)
-	{
-		ft_putnbr_fd(g_shell.exit_code, 1);
-		return (true);
-	}
-	return (false);
-}
 
 static int	check_golfje(char *arg)
 {
@@ -59,8 +49,7 @@ static void	print_all(char **args, int i)
 {
 	while (args[i])
 	{
-		if (!echo_exit(args[i]) && !check_golfje(args[i]) \
-			&& !check_arg_env(args[i]))
+		if (!check_golfje(args[i]))
 		{
 			ft_putstr_fd(args[i], 1);
 			if (args[i + 1])

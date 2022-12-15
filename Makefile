@@ -51,7 +51,6 @@ SRCS =	src/main.c \
 		src/exeggutor/shlvl.c \
 		src/builtins/builtin_pwd.c \
 		src/builtins/builtin_echo.c \
-		src/builtins/builtin_echo_utils.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_unset.c \
 		src/builtins/builtin_export.c \

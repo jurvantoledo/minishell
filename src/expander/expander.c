@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 12:10:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/14 16:27:36 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 13:18:09 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ char	*ft_expanded_exit(char *input)
 		if (input[i] == '$' && input[i + 1] == '?')
 		{
 			exit_code = ft_itoa(g_shell.exit_code);
+			g_shell.expanded_exit = true;
+			if (!exit_code)
+			{
+				free(exit_code);
+				return (NULL);
+			}
 		}
 		i++;
 	}
@@ -33,15 +39,16 @@ char	*ft_expanded_exit(char *input)
 static char	*ft_get_env_val(char *input)
 {
 	t_env	*env;
-	char	*exit_code;
+	bool	exit_code;
 	int		i;
 
-	if (ft_expanded_exit(input) != NULL)
-		return (ft_expanded_exit(input));
 	i = 0;
+	exit_code = false;
 	while (input[i])
 	{
-		if (input[i] == '$')
+		if (input[i] == '$' && input[i + 1] == '?')
+			exit_code = true;
+		else if (input[i] == '$')
 		{
 			i++;
 			env = get_env(g_shell.env, &input[i]);
@@ -51,6 +58,8 @@ static char	*ft_get_env_val(char *input)
 		}
 		i++;
 	}
+	if (exit_code)
+		return (ft_expanded_exit(input));
 	return (input);
 }
 
@@ -70,6 +79,8 @@ static char	*ft_get_dollar_val(char *input)
 	{
 		new_str[i] = input[i];
 		i++;
+		if (input[i] == '$')
+			break ;
 	}
 	new_str[i] = '\0';
 	return (new_str);
@@ -78,21 +89,23 @@ static char	*ft_get_dollar_val(char *input)
 static char	*ft_set_res(char *input)
 {
 	int		i;
-	int		j;
-	char	*new_str;
+	char	*dollar_val;
 	char	*env_val;
 
 	i = 0;
 	while (input[i] && input[i] != '\'')
 	{
+		g_shell.expanded_exit = false;
 		if (input[i] == '$')
 		{
-			new_str = ft_get_dollar_val(&input[i]);
-			env_val = ft_get_env_val(new_str);
-			input = ft_replace(input, new_str, env_val);
+			dollar_val = ft_get_dollar_val(&input[i]);
+			env_val = ft_get_env_val(dollar_val);
+			input = ft_replace(input, dollar_val, env_val);
 			if (!input)
 				return (NULL);
-			free(new_str);
+			if (g_shell.expanded_exit)
+				free(env_val);
+			free(dollar_val);
 		}
 		i++;
 	}

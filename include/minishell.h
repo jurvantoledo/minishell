@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/14 16:29:33 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 13:20:26 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,25 +50,6 @@ typedef struct s_env {
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_infile {
-	char			*infile;
-	char			*heredick;
-	struct s_infile	*next;
-}	t_infile;
-
-typedef struct s_outfile
-{
-	char				*outfile;
-	char				*out_append;
-	struct s_outfile	*next;
-}	t_outfile;
-
-typedef struct s_files
-{
-	t_infile			*in;
-	t_outfile			*out;
-}	t_files;
-
 typedef struct s_command {
 	char				*path;
 	char				**arguments;
@@ -83,8 +64,6 @@ typedef struct s_lexer {
 	int					index;
 	bool				adjacent;
 	bool				expanded;
-	t_infile			*in;
-	t_outfile			*out;
 	struct s_lexer		*next;
 }	t_lexer;
 
@@ -92,6 +71,7 @@ typedef struct s_shell
 {
 	t_env		*env;
 	int			exit_code;
+	bool		expanded_exit;
 	int			fd_in;
 	int			fd_out;
 	int			pipe[2];
@@ -99,7 +79,6 @@ typedef struct s_shell
 	size_t		cmd_len;
 	pid_t		pid;
 	t_lexer		*lexer;
-	t_files		*files;
 	t_command	*command;
 }	t_shell;
 
@@ -179,7 +158,6 @@ int		print_old_pwd(void);
 
 // ECHO builtin
 int		builtin_echo(int argc, char **args);
-int		check_arg_env(char *arg);
 char	*get_env_arg(char *arg);
 
 // ENV builtin
