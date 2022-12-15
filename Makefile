@@ -39,6 +39,7 @@ SRCS =	src/main.c \
 		src/lexer/clear_lexer.c \
 		src/expander/expander.c \
 		src/expander/replace.c \
+		src/expander/check_expand.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \

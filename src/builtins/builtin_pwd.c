@@ -16,12 +16,10 @@ int	print_old_pwd(void)
 {
 	t_env	*pwd;
 	t_env	*new_pwd;
-	int		i;
 
 	pwd = get_env(g_shell.env, "OLDPWD");
 	if (!pwd)
 		return (0);
-	i = 0;
 	if (ft_strncmp(pwd->key, "OLDPWD", 7) == 0)
 	{
 		new_pwd = get_env(g_shell.env, "PWD");

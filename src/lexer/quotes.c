@@ -12,6 +12,22 @@
 
 #include "../../include/minishell.h"
 
+static bool	check_double_quotes(char *input)
+{
+	int	i;
+
+	i = 0;
+	while (input[i])
+	{
+		if (input[i] == '\'' && input[i] == '\"')
+			return (false);
+		else if (input[i] == '\"')
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
 static int	handle_single_double_quotes(char *input)
 {
 	int	i;
@@ -21,7 +37,7 @@ static int	handle_single_double_quotes(char *input)
 	j = 0;
 	while (input[i])
 	{
-		if (input[i] == '\'')
+		if (input[i] == '\'' && !check_double_quotes(&input[i]))
 		{
 			j = i;
 			break ;

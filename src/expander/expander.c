@@ -92,10 +92,13 @@ static char	*ft_set_res(char *input)
 	int		i;
 	char	*dollar_val;
 	char	*env_val;
+	bool	expand;
 
 	i = 0;
-	while (input[i])
+	expand = true;
+	while (input[i] && expand)
 	{
+		expand = check_expander(&input[i]);
 		g_shell.expanded_exit = false;
 		if (input[i] == '$')
 		{

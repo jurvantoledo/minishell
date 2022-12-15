@@ -118,6 +118,7 @@ int		ft_symbol_len(char *input);
 int		search_end_quote(char *input);
 char	*ft_is_adjacent(char *input, t_lexer *lexer);
 bool	clear_token_list(t_lexer **head);
+bool	check_expander(char *input);
 
 /* -----------------> Parser Functions <--------------- */
 int		ft_paraser(char *input, t_lexer *lexer);
