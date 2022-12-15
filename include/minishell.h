@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 13:20:26 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:43:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,6 @@ void	ft_wait(int status);
 
 /* -----------------> Util Functions <--------------- */
 int		special_chars(char c);
-void	print_list(t_lexer *head);
 void	ft_free_char(char **src);
 int		ft_iscapital(int c);
 
@@ -158,7 +157,6 @@ int		print_old_pwd(void);
 
 // ECHO builtin
 int		builtin_echo(int argc, char **args);
-char	*get_env_arg(char *arg);
 
 // ENV builtin
 int		builtin_env(int argc, char **argv);
@@ -170,7 +168,6 @@ int		builtin_unset(int argc, char **args);
 int		builtin_export(int argc, char **args);
 int		check_val_quotes(char *val);
 int		args_identifier(char *args);
-char	*check_env_key(char *str);
 
 // EXIT builtin
 int		builtin_exit(int argc, char **argv);

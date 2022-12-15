@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 15:40:24 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/14 13:09:26 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:50:36 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	*ft_replace_part(char *before, char *oldsub, \
 						char *newsub, char *after)
 {
-	int		i;
+	size_t	i;
 	int		j;
 
 	i = 0;

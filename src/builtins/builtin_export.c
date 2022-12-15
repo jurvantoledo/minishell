@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/14 16:22:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:41:34 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static	int	handle_no_val(char *str)
 	env = ft_calloc(1, sizeof(t_env));
 	if (!env)
 		return (0);
-	env->key = check_env_key(str);
+	env->key = ft_strdup(str);
 	if (!env->key)
 	{
 		free(env);
@@ -106,7 +106,6 @@ int	builtin_export(int argc, char **args)
 	while (args[i + 1])
 	{
 		i++;
-		printf("the args in export: %s\n", args[i]);
 		if (!args_identifier(args[i]))
 			return (0);
 		if (ft_strchr(args[i], '=') == NULL)

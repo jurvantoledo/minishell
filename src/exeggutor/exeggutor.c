@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/17 18:19:59 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 15:30:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:51:41 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static int	exec_func(void)
 	int	i;
 	int	status;
 
+	status = 0;
 	i = 0;
 	while ((size_t)i < g_shell.cmd_len)
 	{

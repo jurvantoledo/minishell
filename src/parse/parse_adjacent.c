@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/02 15:38:17 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/09 12:03:30 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:51:16 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ char	*ft_add_adjacent(char *input, t_lexer *lexer)
 char	*ft_is_adjacent(char *input, t_lexer *lexer)
 {
 	char	*new;
-	char	*new2;
 
 	if (lexer->adjacent)
 		return (ft_add_adjacent(input, lexer));

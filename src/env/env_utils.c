@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/25 12:14:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/14 16:28:11 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:50:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	strenv(char **res, t_env *env)
 
 int	add_env_var(t_env **head, char *var_str)
 {
-	char	*new_str;
 	t_env	*new;
 
 	new = ft_calloc(sizeof(t_env), 1);

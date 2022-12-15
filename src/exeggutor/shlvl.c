@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 10:13:37 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/05 15:34:24 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:52:06 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static bool	init_shlvl(void)
 {
 	char	*convert;
-	t_env	*sh;
 
 	convert = ft_itoa(1);
 	if (!convert)

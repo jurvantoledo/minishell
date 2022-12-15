@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:38:46 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 15:31:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:49:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	clean_shell(t_lexer *lexer, int exit, bool exit_prog)
 
 static int	ft_run_shell(char *input)
 {
-	char	*expand_inp;
-
 	input = expand_dollar(input);
 	g_shell.lexer = ft_snorlexer(input);
 	if (!g_shell.lexer)

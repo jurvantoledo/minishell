@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:49:02 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 12:27:48 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:58:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static int	check_digit(char *c)
 	while (c[i])
 	{
 		if (ft_isdigit(c[i]))
-		{
 			return (1);
-		}
 		i++;
 	}
 	return (0);

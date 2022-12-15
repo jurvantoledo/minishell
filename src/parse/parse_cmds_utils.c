@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/07 11:44:00 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 15:56:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:51:01 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ bool	maybe_expand_adjacent(char *str)
 {
 	int		i;
 	t_env	*env;
-	char	**loc;
-	char	*path;
 
 	i = 0;
 	while (str[i])

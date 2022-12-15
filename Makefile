@@ -60,7 +60,6 @@ SRCS =	src/main.c \
 		src/builtins/builtin_cd_utils.c \
 		src/builtins/errors.c \
 		src/builtins/exec.c \
-		src/builtins/expand_dollar.c \
 		src/signals/signals.c \
 		include/gnl/get_next_line_utils.c \
 		include/gnl/get_next_line.c
@@ -84,7 +83,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exeggutor
-	@$(CC) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif
