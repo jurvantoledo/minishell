@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 12:06:07 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/13 15:46:02 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	add_to_list(t_lexer **head, int length, int pos, t_token_type type)
 	return (1);
 }
 
-void	set_snorlexer(t_lexer **head, char *input, int len, int i)
+static void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 {
 	t_token_type	type;
 
@@ -69,33 +69,41 @@ void	set_snorlexer(t_lexer **head, char *input, int len, int i)
 		return ;
 }
 
-t_lexer	*ft_snorlexer(char *input)
+t_lexer	*ft_gluttony(t_lexer *head, char *input)
 {
-	t_lexer				*head;
-	int					i;
-	int					len;
-	int					end_quote;
+	int	i;
+	int	len;
 
-	head = NULL;
 	i = 0;
 	len = 0;
 	while (input[i])
 	{
 		while (input[i] && ft_isspace(input[i]))
 			i++;
-		len = check_input(input, i);
 		if (input[i] == '\"' || input[i] == '\'')
 		{
-			end_quote = search_end_quote(&input[i]);
-			len = check_quotes(&input[i], end_quote);
 			i++;
+			len = check_quotes(search_end_quote(&input[i]));
 		}
+		else if (special_chars(input[i]) == 0)
+			len = ft_lexer_wrlength(&input[i]);
+		else
+			len = ft_symbol_len(&input[i]);
+		if (len == 0)
+			continue ;
 		set_snorlexer(&head, input, len, i);
 		i += len;
 		len = 0;
-		if (input[i] == '\"' || input[i] == '\'')
-			i++;
 	}
+	return (head);
+}
+
+t_lexer	*ft_snorlexer(char *input)
+{
+	t_lexer	*head;
+
+	head = NULL;
+	head = ft_gluttony(head, input);
 	post_process(input, head);
 	print_list(head);
 	return (head);

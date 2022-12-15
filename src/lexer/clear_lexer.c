@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   run.c                                              :+:    :+:            */
+/*   clear_lexer.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/06 14:08:57 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/03 17:49:09 by jvan-tol      ########   odam.nl         */
+/*   Created: 2022/12/07 11:05:22 by jvan-tol      #+#    #+#                 */
+/*   Updated: 2022/12/07 11:56:58 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-int	run_builtins(void)
+bool	clear_token_list(t_lexer **head)
 {
-	if (builtin_pwd() == 0)
-		return (0);
-	return (1);
+	t_lexer	*next;
+	t_lexer	*thead;
+
+	thead = *head;
+	while (thead)
+	{
+		next = thead->next;
+		free(thead);
+		thead = next;
+	}
+	*head = NULL;
+	return (false);
 }

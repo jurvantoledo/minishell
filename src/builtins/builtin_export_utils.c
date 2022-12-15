@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/09 15:20:36 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 14:10:03 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 15:57:38 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	check_val_quotes(char *val)
 
 int	args_identifier(char *args)
 {
-	int	i;
-
 	if (ft_strcmp(args, "\"") == 0)
 	{
 		errors("minishell: ", args, " not a valid identifier", 1);
@@ -50,6 +48,7 @@ char	*check_env_key(char *str)
 	int		i;
 
 	i = 0;
+	key = NULL;
 	if (ft_strncmp(str, "$", 1) == 0)
 	{
 		while (str[i])

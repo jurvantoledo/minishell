@@ -6,13 +6,13 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/18 16:51:53 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/17 12:51:56 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/12 17:14:51 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static int	check_builtin(char *command)
+int	check_builtin(char *command)
 {
 	if (ft_strncmp(command, "echo", ft_strlen(command)) == 0 || \
 		ft_strncmp(command, "pwd", ft_strlen(command)) == 0 || \
@@ -25,16 +25,6 @@ static int	check_builtin(char *command)
 	return (0);
 }
 
-char	**find_path(char *cmd)
-{
-	char	**paths;
-
-	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
-	if (!paths)
-		return (NULL);
-	return (paths);
-}
-
 char	*parse_path(char *cmd)
 {
 	int		i;
@@ -42,9 +32,11 @@ char	*parse_path(char *cmd)
 	char	*temp;
 	char	*path;
 
-	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
-	if (!paths)
+	if (ft_strchr("./", cmd[0]) && access(cmd, F_OK & X_OK) != -1)
+		return (ft_strdup(cmd));
+	if (!get_env(g_shell.env, "PATH"))
 		return (NULL);
+	paths = ft_split(get_env(g_shell.env, "PATH")->value, ':');
 	path = NULL;
 	i = 0;
 	while (paths && paths[i])
@@ -64,15 +56,19 @@ char	*parse_path(char *cmd)
 
 int	resolve_path(void)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < g_shell.cmd_len)
 	{
-		if (!check_builtin(g_shell.command[i].arguments[0]))
+		if (g_shell.command[i].arguments && \
+			!check_builtin(g_shell.command[i].arguments[0]) && \
+			g_shell.command[i].arguments[0][0])
 		{
 			g_shell.command[i].path = \
 								parse_path(g_shell.command[i].arguments[0]);
+			if (!g_shell.command[i].path)
+				g_shell.command[i].invalid = true;
 		}
 		i++;
 	}

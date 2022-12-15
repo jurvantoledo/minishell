@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/03/14 15:41:43 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/03/14 15:41:45 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 12:21:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 // *lst = t om lst op 0 te zetten.
 
-void ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	t_list *t;
+	t_list	*t;
 
 	while (*lst != NULL)
 	{

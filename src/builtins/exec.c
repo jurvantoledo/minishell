@@ -6,33 +6,11 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/21 12:03:14 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 14:37:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/15 15:31:04 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
-static int	invalid_cmd(int argc, char *argv)
-{
-	if (ft_strncmp(argv, "exit", 5) != 0 && ft_strncmp(argv, "unset", 6) != 0 \
-		&& ft_strncmp(argv, "export", 7) != 0 && \
-		ft_strcmp(argv, "env") != 0 && ft_strncmp(argv, "echo", 5) != 0 && \
-		ft_strncmp(argv, "pwd", 4) != 0 && ft_strncmp(argv, "cd", 3) != 0 && \
-		ft_strncmp(argv, "./minishell", 12) != 0)
-	{
-		return (1);
-	}
-	return (0);
-}
-
-static int	print_err(int i)
-{
-	if (invalid_cmd(ft_arraylen(g_shell.command[i].arguments), \
-					g_shell.command[i].arguments[0]) == 1)
-		return (errors("minishell", g_shell.command[i].arguments[0], \
-				"Command not found", 127));
-	return (0);
-}
 
 int	exec_builtins(int i)
 {
@@ -58,8 +36,6 @@ int	exec_builtins(int i)
 					g_shell.command[i].arguments));
 	if (ft_strncmp(g_shell.command[i].arguments[0], "./minishell", 12) == 0)
 		return (set_shlvl());
-	if (expander(g_shell.command[i].arguments[0]) == 1)
-		return (0);
 	return (errors("minishell", g_shell.command[i].arguments[0], \
-				"Command not found", 127));
+			"Command not found", 127));
 }

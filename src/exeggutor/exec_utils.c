@@ -6,26 +6,27 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/03 11:55:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 14:24:20 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/13 14:22:00 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void	ft_wait(void)
+void	ft_wait(int status)
 {
-	int	i;
-	int	status;
+	size_t	i;
 
+	sig_ignore();
+	waitpid(g_shell.pid, &status, 0);
+	g_shell.exit_code = WEXITSTATUS(status);
+	sig_handler_exec(status);
 	i = 0;
 	while (i < g_shell.cmd_len)
 	{
 		wait(&status);
 		i++;
 	}
-	if (WIFEXITED(status))
-		g_shell.exit_code = WEXITSTATUS(status);
-	sig_handler_exec(status);
+	exit(clean_shell(NULL, g_shell.exit_code, true));
 }
 
 int	ft_pipe(int fds[2])
@@ -53,20 +54,15 @@ int	arg_files_check(char *arg)
 	return (0);
 }
 
-int	arg_files_permission(void)
+void	ft_exec_error(int i)
 {
-	if ((access(g_shell.command[0].arguments[0], F_OK) == -1 && \
-		arg_files_check(g_shell.command[0].arguments[0]) == 1) || \
-		ft_strncmp(g_shell.command[0].arguments[0], "./", 3) == 0)
-	{
-		return (errors("minishell", g_shell.command[0].arguments[0], \
-			"Permission denied", 126));
-	}
-	else if (access(g_shell.command[0].arguments[0], F_OK) == 0 && \
-		arg_files_check(g_shell.command[0].arguments[0]) == 1)
-	{
-		return (errors("minishell", g_shell.command[0].arguments[0], \
+	if (access(g_shell.command[i].arguments[0], F_OK) == 0)
+		exit(errors("minishell", g_shell.command[i].arguments[0], \
 			"is a directory", 126));
-	}
-	return (0);
+	if (access(g_shell.command[i].arguments[0], F_OK) == -1 && \
+		arg_files_check(g_shell.command[i].arguments[0]) == 1)
+		exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"Permission denied", 126));
+	exit(errors("minishell", g_shell.command[i].arguments[0], \
+			"Command not found", 127));
 }

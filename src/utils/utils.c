@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/15 14:39:15 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 13:32:45 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/08 11:47:54 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ int	special_chars(char c)
 	int	j;
 
 	j = 0;
-	while (SPECIAL_CHAR[j])
+	while (SPECIAL_CHAR[j] || c == '\"' || c == '\'')
 	{
-		if (c == SPECIAL_CHAR[j])
+		if (c == SPECIAL_CHAR[j] || c == '\"' || c == '\'')
 			return (1);
 		j++;
 	}

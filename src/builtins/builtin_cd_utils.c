@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/07 15:29:56 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/16 10:08:05 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/02 16:00:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	cd_home_path(t_env *dir, char *path)
 	return (1);
 }
 
-int	set_old_cd(char *path)
+int	set_old_cd(void)
 {
 	t_env	*dir;
 

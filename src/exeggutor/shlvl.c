@@ -6,11 +6,25 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/10 10:13:37 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/10 12:14:43 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/05 15:34:24 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+
+static bool	init_shlvl(void)
+{
+	char	*convert;
+	t_env	*sh;
+
+	convert = ft_itoa(1);
+	if (!convert)
+	{
+		free(convert);
+		return (false);
+	}
+	return (true);
+}
 
 int	set_shlvl(void)
 {
@@ -20,13 +34,18 @@ int	set_shlvl(void)
 
 	sh = get_env(g_shell.env, "SHLVL");
 	if (!sh)
-	{
-		sheesh = ft_itoa(1);
-		return (0);
-	}
+		return (init_shlvl());
 	shlvl = ft_atoi(sh->value) + 1;
 	sheesh = ft_itoa(shlvl);
-	if (!update_env(g_shell.env, sh->key, sheesh))
+	if (!sheesh)
+	{
+		free(sheesh);
 		return (0);
+	}
+	if (!update_env(g_shell.env, sh->key, sheesh))
+	{
+		free(sheesh);
+		return (0);
+	}
 	return (1);
 }

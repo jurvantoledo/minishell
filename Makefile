@@ -16,7 +16,7 @@ LIBFT		= include/libft
 
 #===============================================================================: Compile variables
 CC			= gcc
-# CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code 
+CFLAGS		= -Wall -Werror -Wextra -Wunreachable-code
 MAKEFLAGS	= --no-print-directory
 VALG		= valgrind -s --leak-check=full
 RM			= rm -rf
@@ -32,22 +32,25 @@ SRCS =	src/main.c \
 		src/env/env.c \
 		src/env/free_env.c \
 		src/env/env_utils.c \
-		src/env/env_extra.c \
 		src/lexer/lexer.c \
 		src/lexer/check.c \
+		src/lexer/quotes.c \
 		src/lexer/post_process.c \
+		src/lexer/clear_lexer.c \
+		src/expander/expander.c \
+		src/expander/replace.c \
 		src/parse/parse.c \
 		src/parse/parse_files.c \
 		src/parse/parse_cmds.c \
+		src/parse/parse_cmds_utils.c \
+		src/parse/parse_adjacent.c \
 		src/parse/parse_path.c \
-		src/expander/expander.c \
+		src/parse/free_cmds.c \
 		src/exeggutor/exec_utils.c \
 		src/exeggutor/exeggutor.c \
 		src/exeggutor/shlvl.c \
-		src/builtins/run.c \
 		src/builtins/builtin_pwd.c \
 		src/builtins/builtin_echo.c \
-		src/builtins/builtin_echo_utils.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_unset.c \
 		src/builtins/builtin_export.c \
@@ -57,6 +60,7 @@ SRCS =	src/main.c \
 		src/builtins/builtin_cd_utils.c \
 		src/builtins/errors.c \
 		src/builtins/exec.c \
+		src/builtins/expand_dollar.c \
 		src/signals/signals.c \
 		include/gnl/get_next_line_utils.c \
 		include/gnl/get_next_line.c
@@ -74,11 +78,11 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs
 	@$(MKDIR) objs/parse
 	@$(MKDIR) objs/lexer
+	@$(MKDIR) objs/expander
 	@$(MKDIR) objs/env
 	@$(MKDIR) objs/builtins
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
-	@$(MKDIR) objs/expander
 	@$(MKDIR) objs/exeggutor
 	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)

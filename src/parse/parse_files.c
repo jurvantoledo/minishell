@@ -6,46 +6,53 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/24 16:13:51 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/11/28 09:51:45 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	parse_in(t_lexer *lexer, char *input)
+static void	parse_in(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
-	if (g_shell.fd_in != STDIN_FILENO)
-		close(g_shell.fd_in);
+	if (cmd->fd_in != STDIN_FILENO || cmd->fd_in < 0)
+	{
+		close(cmd->fd_in);
+		cmd->fd_in = STDIN_FILENO;
+	}
 	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (!tmp)
+		return ;
 	if (access(tmp, R_OK) == 0)
-		g_shell.fd_in = open(tmp, O_RDONLY);
+		cmd->fd_in = open(tmp, O_RDONLY);
 	else
-		exit(errors("minishell", tmp, "no such file or directory", 1));
+		errors("minishell", tmp, "no such file or directory", 1);
 	free(tmp);
 }
 
-static void	parse_out(t_lexer *lexer, char *input)
+static void	parse_out(t_lexer *lexer, char *input, t_command *cmd)
 {
 	char	*tmp;
 
-	if (g_shell.fd_out != STDOUT_FILENO)
-		close(g_shell.fd_out);
-	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
-	if (ft_strncmp(tmp, ">", 2) == 0)
+	if (cmd->fd_out < 0 || cmd->fd_in < 0)
+		return ;
+	if (cmd->fd_out != STDOUT_FILENO)
 	{
-		free(tmp);
-		tmp = NULL;
+		close(cmd->fd_out);
+		cmd->fd_out = STDOUT_FILENO;
 	}
-	if (lexer->type == OUTFILE)
+	tmp = ft_substr(input, lexer->next->index, lexer->next->length);
+	if (!tmp)
+		return ;
+	if (lexer->type == OUTFILE && ft_strncmp(tmp, ">", 2) != 0)
 	{
-		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
+		cmd->fd_out = open(tmp, O_RDWR | O_CREAT | O_TRUNC, \
 						0644);
 	}
-	if (lexer->type == OUTFILE_APPEND)
+	if (lexer->type == OUTFILE_APPEND && ft_strncmp(tmp, ">>", 3) != 0)
 	{
-		g_shell.fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
+		cmd->fd_out = open(tmp, O_RDWR | O_CREAT | O_APPEND, \
 						0644);
 	}
 	free(tmp);
@@ -60,13 +67,16 @@ static void	ft_heredick(int *pipe, char *heredoc)
 		ft_putstr_fd("> ", 1);
 		tmp = get_next_line(STDIN_FILENO);
 		if (!tmp || ft_strncmp(tmp, heredoc, ft_strlen(heredoc)) == 0)
+		{
+			free(tmp);
 			break ;
+		}
 		ft_putstr_fd(tmp, pipe[1]);
 		free(tmp);
 	}
 }
 
-static void	parse_heredoc(char *input, t_lexer *lexer)
+static void	parse_heredoc(char *input, t_lexer *lexer, t_command *cmd)
 {
 	char	*heredoc;
 	int		pipe[2];
@@ -77,9 +87,9 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 		free(heredoc);
 		return ;
 	}
-	if (g_shell.fd_in != STDIN_FILENO)
+	if (cmd->fd_in != STDIN_FILENO)
 		close(g_shell.fd_in);
-	g_shell.fd_in = pipe[0];
+	cmd->fd_in = pipe[0];
 	ft_heredick(pipe, heredoc);
 	close(pipe[1]);
 	free(heredoc);
@@ -87,17 +97,22 @@ static void	parse_heredoc(char *input, t_lexer *lexer)
 
 int	parse_files(char *input, t_lexer *lexer)
 {
-	while (lexer->next)
+	size_t	cmd_index;
+
+	cmd_index = 0;
+	while (lexer->next && g_shell.cmd_len)
 	{
 		if (lexer->type == HERE_DOC && lexer->next->type == HERE_DOC)
-			parse_heredoc(input, lexer);
+			parse_heredoc(input, lexer, &g_shell.command[cmd_index]);
 		if (lexer->type == INFILE && lexer->next->type == INFILE)
-			parse_in(lexer, input);
+			parse_in(lexer, input, &g_shell.command[cmd_index]);
 		if ((lexer->type == OUTFILE && lexer->next->type == OUTFILE) \
 			|| (lexer->type == OUTFILE_APPEND && \
 			lexer->next->type == OUTFILE_APPEND))
-			parse_out(lexer, input);
+			parse_out(lexer, input, &g_shell.command[cmd_index]);
 		lexer = lexer->next;
+		if (lexer && lexer->type == PIPE && g_shell.cmd_len > cmd_index)
+			cmd_index++;
 	}
 	return (1);
 }
