@@ -84,7 +84,7 @@ objs/%.o: src/%.c
 	@$(MKDIR) objs/signals
 	@$(MKDIR) objs/utils
 	@$(MKDIR) objs/exeggutor
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) -o $@ -c $< $(HEADERS)
 ifeq ($(DB),1)
 	@printf "$(GREEN)\r🔨Compiling: $(MAGENTA)$(notdir $<)$(GREEN)\r\e[35C[OK]\n$(RESET)"
 endif

@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/10 15:50:11 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/08 12:37:11 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 12:22:17 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ void	find_adjacent(const char *input, t_lexer *lexer)
 {
 	if (!ft_strchr("|<> \t", input[lexer->index + lexer->length]) \
 		&& input[lexer->index + lexer->length] && \
-		(lexer->next->type != OUTFILE && lexer->next->type != INFILE))
+		(lexer->next->type != OUTFILE && lexer->next->type != INFILE) && \
+		(lexer->next->type != OUTFILE_APPEND && lexer->next->type != HERE_DOC)
+		&& lexer->next->type != PIPE)
 		lexer->adjacent = true;
 }
 
