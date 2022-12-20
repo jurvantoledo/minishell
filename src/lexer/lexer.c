@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 16:47:29 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 09:40:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ t_lexer	*ft_snorlexer(char *input)
 	head = NULL;
 	head = ft_gluttony(head, input);
 	post_process(input, head);
-	print_list(head);
 	return (head);
 }
 

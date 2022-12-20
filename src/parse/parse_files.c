@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/30 16:54:30 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/11/28 09:51:45 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 09:39:44 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static void	parse_heredoc(char *input, t_lexer *lexer, t_command *cmd)
 		return ;
 	}
 	if (cmd->fd_in != STDIN_FILENO)
-		close(g_shell.fd_in);
+		close(cmd->fd_in);
 	cmd->fd_in = pipe[0];
 	ft_heredick(pipe, heredoc);
 	close(pipe[1]);

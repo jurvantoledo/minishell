@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 16:45:53 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 09:39:14 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,6 @@ typedef struct s_shell
 	t_env		*env;
 	int			exit_code;
 	bool		expanded_exit;
-	int			fd_in;
-	int			fd_out;
-	int			pipe[2];
-	char		**envp;
 	size_t		cmd_len;
 	pid_t		pid;
 	t_lexer		*lexer;
