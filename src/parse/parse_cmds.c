@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 14:15:23 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/20 14:24:41 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 14:40:19 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ char	**parse_args(char *input, t_lexer *lexer, int arg_len)
 		str = ft_is_adjacent(input, lexer);
 		if (!str)
 			return (NULL);
-		if (lexer->adjacent && lexer->next)
+		if (lexer->adjacent)
 			lexer = lexer->next;
 		args[i] = str;
 		i++;
-		if (lexer->next)
-			lexer = lexer->next;
+		lexer = lexer->next;
 	}
 	args[i] = 0;
 	return (args);

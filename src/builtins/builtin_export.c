@@ -6,50 +6,24 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 15:41:34 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 14:34:59 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	check_env_val(char *arg, int fd)
-{
-	t_env	*dir;
-	int		i;
-
-	i = 0;
-	if (ft_strncmp(arg, "$", 1) == 0)
-	{
-		while (arg[i])
-		{
-			if (arg[i] == '$')
-			{
-				i++;
-				dir = get_env(g_shell.env, &arg[i]);
-				if (!dir)
-					return ;
-				ft_putstr_fd(dir->value, fd);
-				return ;
-			}
-			i++;
-		}
-	}
-	else
-		ft_putstr_fd(arg, fd);
-}
-
 static void	print_env_value(char *value)
 {
-	if (!check_val_quotes(value))
+	if (check_val_quotes(value) == 0)
 	{
 		ft_putstr_fd("=\"", 1);
-		check_env_val(value, 1);
+		ft_putstr_fd(value, 1);
 		ft_putchar_fd('"', 1);
 	}
 	else
 	{
 		ft_putstr_fd("=", 1);
-		check_env_val(value, 1);
+		ft_putstr_fd(value, 1);
 	}
 }
 
