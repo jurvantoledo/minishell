@@ -6,13 +6,40 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/28 13:39:33 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 16:42:11 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 16:29:11 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static bool	check_double_quotes(char *input)
+bool	ft_idk(char *input, char *str)
+{
+	int		i;
+
+	i = 0;
+	while (input[i])
+	{
+		if ((input[i] == '\'' && input[i + 1] == '<') \
+			|| (input[i] == '\"' && input[i + 1] == '<'))
+			return (false);
+		if ((input[i] == '\'' && input[i + 1] == '>') \
+			|| (input[i] == '\"' && input[i + 1] == '>'))
+			return (false);
+		if ((input[i] == '\'' && input[i + 1] == '|') \
+			|| (input[i] == '\"' && input[i + 1] == '|'))
+			return (false);
+		if ((input[i] == '\'' && ft_strncmp(str, ">>", 3) == 0) \
+			|| (input[i] == '\"' && ft_strncmp(str, ">>", 3) == 0))
+			return (false);
+		if ((input[i] == '\'' && ft_strncmp(str, "<<", 3) == 0) \
+			|| (input[i] == '\"' && ft_strncmp(str, "<<", 3) == 0))
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	check_double_quotes(char *input)
 {
 	int	i;
 

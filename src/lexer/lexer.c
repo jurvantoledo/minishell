@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/16 16:03:19 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/20 14:26:54 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 16:18:10 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 int	set_type(t_token_type *type, char *input, int pos, int len)
 {
 	char	*str;
+	bool	expand;
 
 	str = ft_substr(input, pos, len);
 	if (!str)
 		return (0);
-	if (ft_strncmp(str, "<<", 3) == 0)
+	expand = ft_idk(input, str);
+	if (ft_strncmp(str, "<<", 3) == 0 && expand)
 		*type = HERE_DOC;
-	else if (ft_strncmp(str, ">>", 3) == 0)
+	else if (ft_strncmp(str, ">>", 3) == 0 && expand)
 		*type = OUTFILE_APPEND;
-	else if (input[pos] == '|')
+	else if (input[pos] == '|' && expand)
 		*type = PIPE;
-	else if (input[pos] == '<')
+	else if (input[pos] == '<' && expand)
 		*type = INFILE;
-	else if (input[pos] == '>')
+	else if (input[pos] == '>' && expand)
 		*type = OUTFILE;
 	else
 		*type = COMMAND;
@@ -105,6 +107,7 @@ t_lexer	*ft_snorlexer(char *input)
 	head = NULL;
 	head = ft_gluttony(head, input);
 	post_process(input, head);
+	print_list(head);
 	return (head);
 }
 

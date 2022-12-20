@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/09/06 14:39:42 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/20 09:39:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/20 16:18:03 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ int		search_end_quote(char *input);
 char	*ft_is_adjacent(char *input, t_lexer *lexer);
 bool	clear_token_list(t_lexer **head);
 bool	check_expander(char *input);
+bool	check_double_quotes(char *input);
+bool	ft_idk(char *input, char *str);
 
 /* -----------------> Parser Functions <--------------- */
 int		ft_paraser(char *input, t_lexer *lexer);
