@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/27 17:49:02 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 15:58:14 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/21 16:37:18 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static int	exit_check_args(int argc, char **argv)
 	}
 	if (argc > 2 && check_digit(argv[1]) != 0)
 	{
+		ft_putendl_fd("exit", 1);
 		ft_putendl_fd("exit: too many arguments", 1);
 		return (1);
 	}
@@ -92,6 +93,7 @@ int	builtin_exit(int argc, char **argv)
 	{
 		if (ft_strncmp(argv[i], "exit", 5) == 0 && check_digit(argv[1]) == 0)
 		{
+			ft_putendl_fd("exit", 1);
 			exit(errors("minishell", argv[i], \
 				"numeric argument required", 255));
 		}

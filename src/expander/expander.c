@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/12/09 12:10:26 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/15 17:11:37 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/21 16:21:50 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ char	*ft_expanded_exit(char *input)
 
 static char	*ft_get_env_val(char *input)
 {
-	t_env	*env;
 	bool	exit_code;
 	int		i;
 
@@ -51,10 +50,7 @@ static char	*ft_get_env_val(char *input)
 		else if (input[i] == '$')
 		{
 			i++;
-			env = get_env(g_shell.env, &input[i]);
-			if (!env)
-				return (input);
-			return (env->value);
+			return (get_env_dollar(&input[i]));
 		}
 		i++;
 	}

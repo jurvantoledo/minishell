@@ -6,7 +6,7 @@
 /*   By: jvan-tol <jvan-tol@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/26 14:14:09 by jvan-tol      #+#    #+#                 */
-/*   Updated: 2022/12/20 14:34:59 by jvan-tol      ########   odam.nl         */
+/*   Updated: 2022/12/21 16:25:25 by jvan-tol      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	builtin_export(int argc, char **args)
 	{
 		i++;
 		if (!args_identifier(args[i]))
-			return (0);
+			return (1);
 		if (ft_strchr(args[i], '=') == NULL)
 		{
 			if (!handle_no_val(args[i]))
